@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Badges & chips</title>
+        <link rel="stylesheet" href="_card.css">
+        <style>
+        .row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+        .label {
+            font-size: 10px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--fg-4);
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .chip {
+            font-family: var(--font-sans);
+            font-size: 12px;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid var(--border-2);
+            color: var(--fg-2);
+            background: #fff;
+        }
+        .chip.brand {
+            background: #f7fbf0;
+            border-color: #80b941;
+            color: #4f7a22;
+        }
+        .chip.dark {
+            background: #16263d;
+            border-color: #16263d;
+            color: #fff;
+        }
+        .iso {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            padding: 4px 8px;
+            border: 1px solid var(--border-2);
+            border-radius: 2px;
+            color: var(--fg-2);
+            background: #fff;
+            letter-spacing: 0.02em;
+        }
+        .status {
+            display: inline-flex;
+            gap: 6px;
+            align-items: center;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 999px;
+        }
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+        }
+        .s-info {
+            background: #eaf1f8;
+            color: #1f4e79;
+        }
+        .s-info .dot {
+            background: #1f4e79;
+        }
+        .s-ok {
+            background: #e6f1e6;
+            color: #2f7a2f;
+        }
+        .s-ok .dot {
+            background: #2f7a2f;
+        }
+        .s-warn {
+            background: #fbf3da;
+            color: #b8860b;
+        }
+        .s-warn .dot {
+            background: #b8860b;
+        }
+        .s-err {
+            background: #f4dcdc;
+            color: #9b2c2c;
+        }
+        .s-err .dot {
+            background: #9b2c2c;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="card">
+            <div class="label">Capability tags</div>
+            <div class="row">
+                <span class="chip brand">Records Management</span>
+                <span class="chip">Application Development</span>
+                <span class="chip">Data Analytics</span>
+                <span class="chip">Cybersecurity</span>
+                <span class="chip dark">Cleared personnel</span>
+            </div>
+            <div class="label">Certifications &amp; codes</div>
+            <div class="row">
+                <span class="iso">ISO 9001:2015</span>
+                <span class="iso">ISO/IEC 20000-1:2018</span>
+                <span class="iso">ISO/IEC 27001:2022</span>
+                <span class="iso">NAICS 541511</span>
+                <span class="iso">CAGE 7HWD9</span>
+            </div>
+            <div class="label" style="margin-top:14px">Status</div>
+            <div class="row">
+                <span class="status s-info"
+                    ><span class="dot"></span>In review</span
+                >
+                <span class="status s-ok"
+                    ><span class="dot"></span>Compliant</span
+                >
+                <span class="status s-warn"
+                    ><span class="dot"></span>Action required</span
+                >
+                <span class="status s-err"
+                    ><span class="dot"></span>Out of scope</span
+                >
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,39 @@
+/* Shared card chrome for design system preview cards (700px wide). */
+@import url("../colors_and_type.css");
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg-page);
+    color: var(--fg-2);
+    font-family: var(--font-sans);
+}
+.card {
+    width: 700px;
+    padding: 24px 28px;
+    background: var(--bg-page);
+    box-sizing: border-box;
+}
+.row {
+    display: flex;
+    gap: 16px;
+    align-items: stretch;
+}
+.col {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.label-tiny {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--fg-4);
+}
+.token {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--fg-3);
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Shadows</title>
+        <link rel="stylesheet" href="_card.css">
+        <style>
+        body {
+            background: #f9fafb;
+        }
+        .card {
+            background: transparent;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        .tile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 0;
+        }
+        .box {
+            width: 100%;
+            height: 60px;
+            background: #fff;
+            border-radius: 4px;
+        }
+        .s1 {
+            box-shadow:
+                0 1px 2px rgba(11, 18, 32, 0.06),
+                0 1px 1px rgba(11, 18, 32, 0.04);
+        }
+        .s2 {
+            box-shadow:
+                0 2px 4px rgba(11, 18, 32, 0.06),
+                0 4px 12px rgba(11, 18, 32, 0.06);
+        }
+        .s3 {
+            box-shadow:
+                0 4px 12px rgba(11, 18, 32, 0.08),
+                0 12px 32px rgba(11, 18, 32, 0.08);
+        }
+        .si {
+            box-shadow: inset 0 0 0 1px rgba(11, 18, 32, 0.06);
+        }
+        .lab {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--fg-1);
+        }
+        .tok {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--fg-3);
+            text-align: center;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="card">
+            <div class="grid">
+                <div class="tile">
+                    <div class="box s1"></div>
+                    <div class="lab">--shadow-1</div>
+                    <div class="tok">subtle / hover</div>
+                </div>
+                <div class="tile">
+                    <div class="box s2"></div>
+                    <div class="lab">--shadow-2</div>
+                    <div class="tok">cards on scroll</div>
+                </div>
+                <div class="tile">
+                    <div class="box s3"></div>
+                    <div class="lab">--shadow-3</div>
+                    <div class="tok">modals only</div>
+                </div>
+                <div class="tile">
+                    <div class="box si"></div>
+                    <div class="lab">--shadow-inset</div>
+                    <div class="tok">inputs / stat panels</div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

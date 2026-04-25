@@ -1,0 +1,255 @@
+/* =========================================================================
+   IVYHILL TECHNOLOGIES — Colors & Type Foundation
+   Federal IT services aesthetic: restrained, conservative, capability-forward.
+   ========================================================================= */
+
+/* ---------- Fonts ---------- */
+@font-face {
+    font-family: "Inter";
+    src: url("./fonts/Inter-VariableFont.ttf") format("truetype-variations");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ---------- Color tokens (raw) ---------- */
+:root {
+    /* Brand */
+    --ivy-green-500: #80b941; /* primary brand green, sampled from logo */
+    --ivy-green-600: #6ba033; /* hover / pressed */
+    --ivy-green-700: #4f7a22; /* on dark backgrounds; high-contrast */
+    --ivy-green-400: #9bc966; /* lighter accents */
+    --ivy-green-100: #eef6e2; /* tinted surfaces */
+    --ivy-green-50: #f7fbf0; /* subtle wash */
+
+    /* Ink — the workhorse neutral. Cool, near-black; federal-document feel. */
+    --ink-1000: #0b1220; /* near-black, deep navy ink — display */
+    --ink-900: #111827; /* primary text */
+    --ink-800: #1f2937;
+    --ink-700: #374151;
+    --ink-600: #4b5563; /* secondary text */
+    --ink-500: #6b7280; /* tertiary, captions */
+    --ink-400: #9ca3af;
+    --ink-300: #d1d5db; /* borders */
+    --ink-200: #e5e7eb; /* dividers */
+    --ink-100: #f3f4f6; /* subtle surface */
+    --ink-50: #f9fafb; /* page wash */
+    --white: #ffffff;
+
+    /* Steel — secondary navy used for solemn/authoritative panels. */
+    --steel-900: #0e1a2b;
+    --steel-800: #16263d;
+    --steel-700: #1f3556;
+
+    /* Semantic — conservative, not playful */
+    --status-info: #1f4e79; /* gov-blue */
+    --status-success: #2f7a2f; /* compliance green (NOT the brand green) */
+    --status-warning: #b8860b; /* dark goldenrod */
+    --status-danger: #9b2c2c; /* burgundy red, not crimson */
+
+    /* Surfaces */
+    --bg-page: var(--white);
+    --bg-subtle: var(--ink-50);
+    --bg-muted: var(--ink-100);
+    --bg-inverse: var(--ink-1000);
+    --bg-brand-soft: var(--ivy-green-50);
+
+    /* Foregrounds (semantic) */
+    --fg-1: var(--ink-1000); /* display, h1 */
+    --fg-2: var(--ink-900); /* body */
+    --fg-3: var(--ink-600); /* secondary */
+    --fg-4: var(--ink-500); /* tertiary, captions, eyebrow */
+    --fg-on-brand: var(--white); /* text on green */
+    --fg-on-dark: var(--white);
+    --fg-link: var(--ivy-green-700);
+
+    /* Borders */
+    --border-1: var(--ink-200); /* default */
+    --border-2: var(--ink-300); /* stronger */
+    --border-strong: var(--ink-700);
+    --border-brand: var(--ivy-green-500);
+    --rule: var(--ink-900); /* hairline rule used in editorial sections */
+
+    /* Type stacks */
+    --font-sans:
+        "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, sans-serif;
+    --font-display:
+        "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        sans-serif;
+    --font-mono:
+        ui-monospace, "SF Mono", "JetBrains Mono", "Roboto Mono", Menlo,
+        Consolas, monospace;
+
+    /* Type sizes — federal-document scale, not landing-page balloon scale */
+    --fs-display: clamp(40px, 5vw, 64px);
+    --fs-h1: clamp(32px, 3.4vw, 44px);
+    --fs-h2: clamp(24px, 2.4vw, 32px);
+    --fs-h3: 20px;
+    --fs-h4: 17px;
+    --fs-body: 16px;
+    --fs-small: 14px;
+    --fs-caption: 12px;
+    --fs-eyebrow: 12px; /* uppercase, tracked */
+
+    /* Line heights */
+    --lh-display: 1.05;
+    --lh-heading: 1.15;
+    --lh-body: 1.55;
+    --lh-tight: 1.3;
+
+    /* Weights */
+    --fw-regular: 400;
+    --fw-medium: 500;
+    --fw-semibold: 600;
+    --fw-bold: 700;
+
+    /* Letter spacing */
+    --ls-display: -0.02em;
+    --ls-heading: -0.01em;
+    --ls-eyebrow: 0.14em; /* tracked uppercase */
+    --ls-tight: -0.005em;
+
+    /* Spacing scale (8pt base, with 4pt half-step) */
+    --sp-1: 4px;
+    --sp-2: 8px;
+    --sp-3: 12px;
+    --sp-4: 16px;
+    --sp-5: 24px;
+    --sp-6: 32px;
+    --sp-7: 48px;
+    --sp-8: 64px;
+    --sp-9: 96px;
+    --sp-10: 128px;
+
+    /* Radii — conservative. Federal feel. Capsule used only for pills/CTAs. */
+    --r-none: 0;
+    --r-sm: 2px;
+    --r-md: 4px; /* default for cards, inputs */
+    --r-lg: 6px;
+    --r-pill: 999px;
+
+    /* Shadows — restrained; almost flat. */
+    --shadow-1:
+        0 1px 2px rgba(11, 18, 32, 0.06), 0 1px 1px rgba(11, 18, 32, 0.04);
+    --shadow-2:
+        0 2px 4px rgba(11, 18, 32, 0.06), 0 4px 12px rgba(11, 18, 32, 0.06);
+    --shadow-3:
+        0 4px 12px rgba(11, 18, 32, 0.08), 0 12px 32px rgba(11, 18, 32, 0.08);
+    --shadow-inset: inset 0 0 0 1px rgba(11, 18, 32, 0.06);
+    --focus-ring: 0 0 0 3px rgba(128, 185, 65, 0.35);
+
+    /* Layout */
+    --container-max: 1280px;
+    --container-narrow: 880px;
+    --gutter: 24px;
+
+    /* Motion — subtle, brisk, professional. No bounces. */
+    --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+    --ease-entry: cubic-bezier(0, 0, 0.2, 1);
+    --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+    --dur-fast: 120ms;
+    --dur-base: 180ms;
+    --dur-slow: 280ms;
+}
+
+/* ---------- Semantic typography classes ---------- */
+.h-display,
+h1.display {
+    font-family: var(--font-display);
+    font-size: var(--fs-display);
+    font-weight: var(--fw-bold);
+    line-height: var(--lh-display);
+    letter-spacing: var(--ls-display);
+    color: var(--fg-1);
+}
+h1,
+.h1 {
+    font-family: var(--font-display);
+    font-size: var(--fs-h1);
+    font-weight: var(--fw-bold);
+    line-height: var(--lh-heading);
+    letter-spacing: var(--ls-heading);
+    color: var(--fg-1);
+}
+h2,
+.h2 {
+    font-family: var(--font-display);
+    font-size: var(--fs-h2);
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-heading);
+    letter-spacing: var(--ls-heading);
+    color: var(--fg-1);
+}
+h3,
+.h3 {
+    font-size: var(--fs-h3);
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-tight);
+    color: var(--fg-1);
+}
+h4,
+.h4 {
+    font-size: var(--fs-h4);
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-tight);
+    color: var(--fg-1);
+}
+p,
+.body {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--fg-2);
+}
+.small,
+small {
+    font-size: var(--fs-small);
+    line-height: var(--lh-body);
+    color: var(--fg-3);
+}
+.caption {
+    font-size: var(--fs-caption);
+    color: var(--fg-4);
+    line-height: 1.4;
+}
+.eyebrow {
+    font-size: var(--fs-eyebrow);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-eyebrow);
+    text-transform: uppercase;
+    color: var(--fg-3);
+}
+.mono {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0;
+}
+a {
+    color: var(--fg-link);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+}
+a:hover {
+    color: var(--ivy-green-600);
+}
+hr.rule {
+    border: 0;
+    border-top: 1px solid var(--rule);
+    margin: var(--sp-5) 0;
+}
+
+/* Defaults */
+html,
+body {
+    font-family: var(--font-sans);
+    font-size: var(--fs-body);
+    color: var(--fg-2);
+    background: var(--bg-page);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+* {
+    box-sizing: border-box;
+}

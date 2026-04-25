@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Logos</title>
+        <link rel="stylesheet" href="_card.css">
+        <style>
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .tile {
+            border: 1px solid var(--border-1);
+            border-radius: 4px;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 110px;
+        }
+        .tile.dark {
+            background: #0e1a2b;
+            border-color: #0e1a2b;
+        }
+        .tile img.h {
+            height: 36px;
+        }
+        .lab {
+            font-size: 11px;
+            color: var(--fg-4);
+            margin-top: 6px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="card">
+            <div class="row">
+                <div>
+                    <div class="tile">
+                        <img
+                            class="h"
+                            src="../assets/logo-horizontal-2c.png"
+                            alt="logo"
+                        >
+                    </div>
+                    <div class="lab">Horizontal · 2-color · on light</div>
+                </div>
+                <div>
+                    <div class="tile dark">
+                        <img
+                            class="h"
+                            src="../assets/logo-horizontal-2c.png"
+                            alt="logo"
+                            style="filter: brightness(0) invert(1)"
+                        >
+                    </div>
+                    <div class="lab">Horizontal · knockout · on steel</div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

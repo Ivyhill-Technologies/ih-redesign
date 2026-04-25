@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Radii</title>
+        <link rel="stylesheet" href="_card.css">
+        <style>
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 14px;
+        }
+        .tile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .box {
+            width: 100%;
+            height: 70px;
+            background: var(--ink-100);
+            border: 1px solid var(--border-2);
+        }
+        .lab {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--fg-1);
+        }
+        .tok {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--fg-3);
+        }
+        </style>
+    </head>
+    <body>
+        <div class="card">
+            <div class="grid">
+                <div class="tile">
+                    <div class="box" style="border-radius:0"></div>
+                    <div class="lab">--r-none</div>
+                    <div class="tok">0px</div>
+                </div>
+                <div class="tile">
+                    <div class="box" style="border-radius:2px"></div>
+                    <div class="lab">--r-sm</div>
+                    <div class="tok">2px</div>
+                </div>
+                <div class="tile">
+                    <div class="box" style="border-radius:4px"></div>
+                    <div class="lab">--r-md (default)</div>
+                    <div class="tok">4px</div>
+                </div>
+                <div class="tile">
+                    <div class="box" style="border-radius:6px"></div>
+                    <div class="lab">--r-lg</div>
+                    <div class="tok">6px</div>
+                </div>
+                <div class="tile">
+                    <div class="box" style="border-radius:999px"></div>
+                    <div class="lab">--r-pill</div>
+                    <div class="tok">999px</div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
