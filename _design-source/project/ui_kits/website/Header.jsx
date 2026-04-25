@@ -49,6 +49,11 @@ function Header({ onCTA }) {
             slug: "queue-management",
             blurb: "Visitor and case-flow systems for high-volume agency and commercial service points.",
         },
+        {
+            name: "Contact",
+            slug: "contact",
+            blurb: "Contact us for inquiries and support.",
+        }
     ];
 
     return (
@@ -99,7 +104,6 @@ function Header({ onCTA }) {
                             style={{ position: "relative" }}
                         >
                             <a
-                                href="#capabilities"
                                 style={{
                                     fontSize: 14,
                                     fontWeight: 500,

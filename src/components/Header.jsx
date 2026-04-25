@@ -17,6 +17,9 @@ const NAV = [
     { label: "About", to: "/#about" },
 ];
 
+const NAV_LINK_BASE =
+    "text-sm font-medium no-underline pb-0.5 border-b-2 inline-flex items-center gap-1.5 whitespace-nowrap relative";
+
 export function Header({ onCTA }) {
     const [scrolled, setScrolled] = useState(false);
     const [capsOpen, setCapsOpen] = useState(false);
@@ -43,67 +46,31 @@ export function Header({ onCTA }) {
     };
 
     return (
-        <header style={{ position: "sticky", top: 0, zIndex: 30 }}>
+        <header className="sticky top-0 z-30">
             <div
-                style={{
-                    background: scrolled ? "rgba(255,255,255,0.92)" : "#fff",
-                    backdropFilter: scrolled ? "blur(8px)" : "none",
-                    WebkitBackdropFilter: scrolled ? "blur(8px)" : "none",
-                    borderBottom: "1px solid var(--border-1)",
-                    transition:
-                        "background var(--dur-fast) var(--ease-standard)",
-                }}
+                className={`border-b border-line-1 transition-colors duration-150 ease-out ${
+                    scrolled ? "bg-white/90 backdrop-blur" : "bg-white"
+                }`}
             >
-                <div
-                    className="container"
-                    style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 36,
-                        padding: "18px 24px",
-                    }}
-                >
+                <div className="container flex items-center gap-9 px-6 py-[18px]">
                     <Link
                         to="/"
-                        style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: 10,
-                            textDecoration: "none",
-                        }}
+                        className="flex items-center gap-2.5 no-underline"
                     >
                         <img
                             src="/assets/logo-horizontal-2c.png"
                             alt="Ivyhill Technologies"
-                            style={{ height: 30, display: "block" }}
+                            className="h-[30px] block"
                         />
                     </Link>
-                    <nav
-                        style={{
-                            display: "flex",
-                            gap: 28,
-                            position: "relative",
-                        }}
-                    >
+                    <nav className="flex gap-7 relative">
                         <a
                             href="/#capabilities"
                             onMouseEnter={openCaps}
                             onMouseLeave={closeCaps}
                             aria-haspopup="true"
                             aria-expanded={capsOpen}
-                            style={{
-                                fontSize: 14,
-                                fontWeight: 500,
-                                color: "var(--fg-2)",
-                                textDecoration: "none",
-                                paddingBottom: 2,
-                                borderBottom: "2px solid transparent",
-                                display: "inline-flex",
-                                alignItems: "center",
-                                gap: 6,
-                                whiteSpace: "nowrap",
-                                position: "relative",
-                            }}
+                            className={`${NAV_LINK_BASE} text-fg-2 border-transparent`}
                         >
                             Capabilities
                             <svg
@@ -116,12 +83,9 @@ export function Header({ onCTA }) {
                                 strokeWidth="2.25"
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
-                                style={{
-                                    transform: capsOpen
-                                        ? "rotate(180deg)"
-                                        : "none",
-                                    transition: "transform 160ms ease",
-                                }}
+                                className={`transition-transform duration-150 ease-in-out ${
+                                    capsOpen ? "rotate-180" : ""
+                                }`}
                             >
                                 <polyline points="6 9 12 15 18 9" />
                             </svg>
@@ -133,33 +97,25 @@ export function Header({ onCTA }) {
                                     key={label}
                                     to={to}
                                     end={isContracts}
-                                    style={({ isActive }) => ({
-                                        fontSize: 14,
-                                        fontWeight: 500,
-                                        color:
-                                            isActive && isContracts
-                                                ? "var(--fg-1)"
-                                                : "var(--fg-2)",
-                                        textDecoration: "none",
-                                        paddingBottom: 2,
-                                        borderBottom:
-                                            isActive && isContracts
-                                                ? "2px solid var(--ivy-green-500)"
-                                                : "2px solid transparent",
-                                        whiteSpace: "nowrap",
-                                    })}
+                                    className={({ isActive }) => {
+                                        const active = isActive && isContracts;
+                                        return `${NAV_LINK_BASE} ${
+                                            active
+                                                ? "text-fg-1 border-ivy-green-500"
+                                                : "text-fg-2 border-transparent"
+                                        }`;
+                                    }}
                                 >
                                     {label}
                                 </NavLink>
                             );
                         })}
                     </nav>
-                    <span style={{ flex: 1 }} />
+                    <span className="flex-1" />
                     <button
                         type="button"
-                        className="btn btn-primary"
+                        className="btn btn-primary whitespace-nowrap"
                         onClick={onCTA}
-                        style={{ whiteSpace: "nowrap" }}
                     >
                         Capability statement <Icon.Arrow size={14} />
                     </button>
@@ -170,67 +126,18 @@ export function Header({ onCTA }) {
                         role="menu"
                         onMouseEnter={openCaps}
                         onMouseLeave={closeCaps}
-                        style={{
-                            position: "absolute",
-                            top: "100%",
-                            left: 0,
-                            right: 0,
-                            background: "#fff",
-                            borderBottom: "1px solid var(--border-1)",
-                            boxShadow: "var(--shadow-2)",
-                            animation: "capsFade 140ms ease-out",
-                        }}
+                        className="absolute top-full left-0 right-0 bg-white border-b border-line-1 shadow-[var(--shadow-2)] animate-[capsFade_140ms_ease-out]"
                     >
-                        <div
-                            className="container"
-                            style={{ padding: "20px 24px 22px" }}
-                        >
-                            <div
-                                className="eyebrow"
-                                style={{
-                                    marginBottom: 14,
-                                    color: "var(--fg-4)",
-                                }}
-                            >
+                        <div className="container pt-5 px-6 pb-[22px]">
+                            <div className="eyebrow mb-[14px] text-fg-4">
                                 Capabilities
                             </div>
-                            <div
-                                style={{
-                                    display: "grid",
-                                    gridTemplateColumns: "repeat(6,1fr)",
-                                    gap: "1px",
-                                    background: "var(--border-1)",
-                                    border: "1px solid var(--border-1)",
-                                }}
-                            >
+                            <div className="grid grid-cols-6 gap-px bg-line-1 border border-line-1">
                                 {SERVICES.map((s) => (
                                     <a
                                         key={s.slug}
                                         href={`/services/${s.slug}`}
-                                        style={{
-                                            background: "#fff",
-                                            padding: "16px 18px",
-                                            textDecoration: "none",
-                                            color: "var(--fg-1)",
-                                            fontSize: 14,
-                                            fontWeight: 500,
-                                            borderTop: "2px solid transparent",
-                                            transition:
-                                                "border-color 120ms, background 120ms",
-                                            whiteSpace: "nowrap",
-                                        }}
-                                        onMouseEnter={(e) => {
-                                            e.currentTarget.style.borderTopColor =
-                                                "var(--ivy-green-500)";
-                                            e.currentTarget.style.background =
-                                                "var(--bg-subtle)";
-                                        }}
-                                        onMouseLeave={(e) => {
-                                            e.currentTarget.style.borderTopColor =
-                                                "transparent";
-                                            e.currentTarget.style.background =
-                                                "#fff";
-                                        }}
+                                        className="bg-white py-4 px-[18px] no-underline text-fg-1 text-sm font-medium border-t-2 border-transparent whitespace-nowrap transition-[border-color,background] duration-100 hover:border-ivy-green-500 hover:bg-surface-subtle"
                                     >
                                         {s.name}
                                     </a>

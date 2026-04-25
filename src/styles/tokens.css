@@ -147,108 +147,110 @@
     --dur-slow: 280ms;
 }
 
-/* Base typography classes */
-.h-display,
-h1.display {
-    font-family: var(--font-display);
-    font-size: var(--fs-display);
-    font-weight: var(--fw-bold);
-    line-height: var(--lh-display);
-    letter-spacing: var(--ls-display);
-    color: var(--fg-1);
-}
-h1,
-.h1 {
-    font-family: var(--font-display);
-    font-size: var(--fs-h1);
-    font-weight: var(--fw-bold);
-    line-height: var(--lh-heading);
-    letter-spacing: var(--ls-heading);
-    color: var(--fg-1);
-    margin: 0;
-}
-h2,
-.h2 {
-    font-family: var(--font-display);
-    font-size: var(--fs-h2);
-    font-weight: var(--fw-semibold);
-    line-height: var(--lh-heading);
-    letter-spacing: var(--ls-heading);
-    color: var(--fg-1);
-    margin: 0;
-}
-h3,
-.h3 {
-    font-size: var(--fs-h3);
-    font-weight: var(--fw-semibold);
-    line-height: var(--lh-tight);
-    color: var(--fg-1);
-    margin: 0;
-}
-h4,
-.h4 {
-    font-size: var(--fs-h4);
-    font-weight: var(--fw-semibold);
-    line-height: var(--lh-tight);
-    color: var(--fg-1);
-    margin: 0;
-}
-p,
-.body {
-    font-size: var(--fs-body);
-    line-height: var(--lh-body);
-    color: var(--fg-2);
-    margin: 0;
-}
-.small,
-small {
-    font-size: var(--fs-small);
-    line-height: var(--lh-body);
-    color: var(--fg-3);
-}
-.caption {
-    font-size: var(--fs-caption);
-    color: var(--fg-4);
-    line-height: 1.4;
-}
-.eyebrow {
-    font-size: var(--fs-eyebrow);
-    font-weight: var(--fw-semibold);
-    letter-spacing: var(--ls-eyebrow);
-    text-transform: uppercase;
-    color: var(--fg-3);
-}
-.mono {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    letter-spacing: 0;
-}
-a {
-    color: var(--fg-link);
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 3px;
-}
-a:hover {
-    color: var(--ivy-green-600);
-}
-hr.rule {
-    border: 0;
-    border-top: 1px solid var(--rule);
-    margin: var(--sp-5) 0;
-}
+/* Base typography — in @layer base so Tailwind utilities can override */
+@layer base {
+    .h-display,
+    h1.display {
+        font-family: var(--font-display);
+        font-size: var(--fs-display);
+        font-weight: var(--fw-bold);
+        line-height: var(--lh-display);
+        letter-spacing: var(--ls-display);
+        color: var(--fg-1);
+    }
+    h1,
+    .h1 {
+        font-family: var(--font-display);
+        font-size: var(--fs-h1);
+        font-weight: var(--fw-bold);
+        line-height: var(--lh-heading);
+        letter-spacing: var(--ls-heading);
+        color: var(--fg-1);
+        margin: 0;
+    }
+    h2,
+    .h2 {
+        font-family: var(--font-display);
+        font-size: var(--fs-h2);
+        font-weight: var(--fw-semibold);
+        line-height: var(--lh-heading);
+        letter-spacing: var(--ls-heading);
+        color: var(--fg-1);
+        margin: 0;
+    }
+    h3,
+    .h3 {
+        font-size: var(--fs-h3);
+        font-weight: var(--fw-semibold);
+        line-height: var(--lh-tight);
+        color: var(--fg-1);
+        margin: 0;
+    }
+    h4,
+    .h4 {
+        font-size: var(--fs-h4);
+        font-weight: var(--fw-semibold);
+        line-height: var(--lh-tight);
+        color: var(--fg-1);
+        margin: 0;
+    }
+    p,
+    .body {
+        font-size: var(--fs-body);
+        line-height: var(--lh-body);
+        color: var(--fg-2);
+        margin: 0;
+    }
+    .small,
+    small {
+        font-size: var(--fs-small);
+        line-height: var(--lh-body);
+        color: var(--fg-3);
+    }
+    .caption {
+        font-size: var(--fs-caption);
+        color: var(--fg-4);
+        line-height: 1.4;
+    }
+    .eyebrow {
+        font-size: var(--fs-eyebrow);
+        font-weight: var(--fw-semibold);
+        letter-spacing: var(--ls-eyebrow);
+        text-transform: uppercase;
+        color: var(--fg-3);
+    }
+    .mono {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        letter-spacing: 0;
+    }
+    a {
+        color: var(--fg-link);
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 3px;
+    }
+    a:hover {
+        color: var(--ivy-green-600);
+    }
+    hr.rule {
+        border: 0;
+        border-top: 1px solid var(--rule);
+        margin: var(--sp-5) 0;
+    }
 
-html,
-body {
-    font-family: var(--font-sans);
-    font-size: var(--fs-body);
-    color: var(--fg-2);
-    background: var(--bg-page);
-    margin: 0;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-}
-* {
-    box-sizing: border-box;
+    html,
+    body {
+        font-family: var(--font-sans);
+        font-size: var(--fs-body);
+        color: var(--fg-2);
+        background: var(--bg-page);
+        margin: 0;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+    }
+    * {
+        box-sizing: border-box;
+    }
 }

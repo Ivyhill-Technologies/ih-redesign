@@ -1,9 +1,60 @@
+@import "tailwindcss";
 @import "./tokens.css";
 
-.container {
-    max-width: var(--container-max);
-    margin: 0 auto;
-    padding: 0 var(--gutter);
+@theme {
+    /* Brand */
+    --color-ivy-green-50: var(--ivy-green-50);
+    --color-ivy-green-100: var(--ivy-green-100);
+    --color-ivy-green-400: var(--ivy-green-400);
+    --color-ivy-green-500: var(--ivy-green-500);
+    --color-ivy-green-600: var(--ivy-green-600);
+    --color-ivy-green-700: var(--ivy-green-700);
+
+    /* Ink palette */
+    --color-ink-50: var(--ink-50);
+    --color-ink-100: var(--ink-100);
+    --color-ink-200: var(--ink-200);
+    --color-ink-300: var(--ink-300);
+    --color-ink-400: var(--ink-400);
+    --color-ink-500: var(--ink-500);
+    --color-ink-600: var(--ink-600);
+    --color-ink-700: var(--ink-700);
+    --color-ink-800: var(--ink-800);
+    --color-ink-900: var(--ink-900);
+    --color-ink-1000: var(--ink-1000);
+
+    /* Steel */
+    --color-steel-700: var(--steel-700);
+    --color-steel-800: var(--steel-800);
+    --color-steel-900: var(--steel-900);
+
+    /* Foregrounds (text colors) */
+    --color-fg-1: var(--fg-1);
+    --color-fg-2: var(--fg-2);
+    --color-fg-3: var(--fg-3);
+    --color-fg-4: var(--fg-4);
+    --color-fg-link: var(--fg-link);
+
+    /* Surfaces (backgrounds) */
+    --color-surface-page: var(--bg-page);
+    --color-surface-subtle: var(--bg-subtle);
+    --color-surface-muted: var(--bg-muted);
+    --color-surface-inverse: var(--bg-inverse);
+    --color-surface-brand-soft: var(--bg-brand-soft);
+
+    /* Lines (borders) */
+    --color-line-1: var(--border-1);
+    --color-line-2: var(--border-2);
+    --color-line-strong: var(--border-strong);
+    --color-line-brand: var(--border-brand);
+}
+
+@layer components {
+    .container {
+        max-width: var(--container-max);
+        margin: 0 auto;
+        padding: 0 var(--gutter);
+    }
 }
 
 .btn {

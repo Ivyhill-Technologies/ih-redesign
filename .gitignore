@@ -45,3 +45,9 @@ coverage/
 *.tsbuildinfo
 .cache/
 .parcel-cache/
+
+# Playwright MCP scratch artifacts (browser snapshots, console logs)
+.playwright-mcp/
+
+# Local screenshots saved at repo root (debug / comparison shots)
+/*.png
