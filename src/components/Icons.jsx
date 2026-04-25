@@ -1,8 +1,8 @@
-const SvgWrap = ({ children, size = 22, ...rest }) => (
+const SvgWrap = ({ children, size = 22, className = "", ...rest }) => (
     <svg
         aria-hidden="true"
         focusable="false"
-        className="svg-icon"
+        className={`svg-icon${className ? ` ${className}` : ""}`}
         viewBox="0 0 24 24"
         width={size}
         height={size}

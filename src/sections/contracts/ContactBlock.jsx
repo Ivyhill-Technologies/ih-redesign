@@ -1,54 +1,57 @@
 import { Icon } from "../../components/Icons.jsx";
 
+function ContactCard({ eyebrow, name, role, email, phone }) {
+    return (
+        <div className="border border-line-1 rounded-[4px] py-6 px-7">
+            <div className="text-[11px] font-semibold tracking-[0.14em] uppercase text-fg-4 mb-3.5">
+                {eyebrow}
+            </div>
+            <div className="text-[16px] font-semibold text-fg-1 mb-1">
+                {name}
+            </div>
+            <div className="text-[13px] text-fg-3 mb-[18px]">{role}</div>
+            <div className="flex flex-col gap-2.5 text-[13px] text-fg-2">
+                <div className="flex gap-2.5 items-center">
+                    <Icon.Mail
+                        size={14}
+                        className="text-ivy-green-700 shrink-0"
+                    />
+                    {email}
+                </div>
+                <div className="flex gap-2.5 items-center">
+                    <Icon.Phone
+                        size={14}
+                        className="text-ivy-green-700 shrink-0"
+                    />
+                    {phone}
+                </div>
+            </div>
+        </div>
+    );
+}
+
 export function ContactBlock({ onCTA }) {
     return (
-        <section id="contact" style={{ background: "#fff" }}>
-            <div className="container" style={{ padding: "96px 24px" }}>
-                <div
-                    style={{
-                        borderTop: "1px solid var(--ink-900)",
-                        paddingTop: 24,
-                        marginBottom: 48,
-                    }}
-                >
-                    <div className="eyebrow" style={{ color: "var(--fg-2)" }}>
+        <section id="contact" className="bg-white">
+            <div className="container py-24 px-6">
+                <div className="border-t border-ink-900 pt-6 mb-12">
+                    <div className="eyebrow text-fg-2">
                         Contracting points of contact
                     </div>
                 </div>
-                <div
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "1.2fr 1fr 1fr",
-                        gap: 48,
-                        alignItems: "start",
-                    }}
-                >
+                <div className="grid grid-cols-[1.2fr_1fr_1fr] gap-12 items-start">
                     <div>
-                        <h2 style={{ margin: "0 0 16px" }}>
+                        <h2 className="m-0 mb-4">
                             Reach our contracting team.
                         </h2>
-                        <p
-                            style={{
-                                fontSize: 16,
-                                lineHeight: 1.6,
-                                color: "var(--fg-3)",
-                                margin: "0 0 24px",
-                                maxWidth: 480,
-                            }}
-                        >
+                        <p className="text-[16px] leading-[1.6] text-fg-3 m-0 mb-6 max-w-[480px]">
                             Contracting officers, COTRs, and small-business
                             specialists may contact Ivyhill directly for
                             capability statements, past-performance
                             documentation, and ordering procedures on any of our
                             active vehicles.
                         </p>
-                        <div
-                            style={{
-                                display: "flex",
-                                gap: 12,
-                                flexWrap: "wrap",
-                            }}
-                        >
+                        <div className="flex gap-3 flex-wrap">
                             <button
                                 type="button"
                                 className="btn btn-primary"
@@ -63,156 +66,20 @@ export function ContactBlock({ onCTA }) {
                             </button>
                         </div>
                     </div>
-                    <div
-                        style={{
-                            border: "1px solid var(--border-1)",
-                            borderRadius: "var(--r-md)",
-                            padding: "24px 28px",
-                        }}
-                    >
-                        <div
-                            style={{
-                                fontSize: 11,
-                                fontWeight: 600,
-                                letterSpacing: "0.14em",
-                                textTransform: "uppercase",
-                                color: "var(--fg-4)",
-                                marginBottom: 14,
-                            }}
-                        >
-                            Contracts &amp; pricing
-                        </div>
-                        <div
-                            style={{
-                                fontSize: 16,
-                                fontWeight: 600,
-                                color: "var(--fg-1)",
-                                marginBottom: 4,
-                            }}
-                        >
-                            Olusola "Sola" Adesiyan
-                        </div>
-                        <div
-                            style={{
-                                fontSize: 13,
-                                color: "var(--fg-3)",
-                                marginBottom: 18,
-                            }}
-                        >
-                            President &amp; CEO
-                        </div>
-                        <div
-                            style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: 10,
-                                fontSize: 13,
-                                color: "var(--fg-2)",
-                            }}
-                        >
-                            <div
-                                style={{
-                                    display: "flex",
-                                    gap: 10,
-                                    alignItems: "center",
-                                }}
-                            >
-                                <Icon.Mail
-                                    size={14}
-                                    style={{ color: "var(--ivy-green-700)" }}
-                                />
-                                contracts@ivyhilltech.com
-                            </div>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    gap: 10,
-                                    alignItems: "center",
-                                }}
-                            >
-                                <Icon.Phone
-                                    size={14}
-                                    style={{ color: "var(--ivy-green-700)" }}
-                                />
-                                +1 (301) 477-1080 ext. 102
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        style={{
-                            border: "1px solid var(--border-1)",
-                            borderRadius: "var(--r-md)",
-                            padding: "24px 28px",
-                        }}
-                    >
-                        <div
-                            style={{
-                                fontSize: 11,
-                                fontWeight: 600,
-                                letterSpacing: "0.14em",
-                                textTransform: "uppercase",
-                                color: "var(--fg-4)",
-                                marginBottom: 14,
-                            }}
-                        >
-                            Small-business liaison
-                        </div>
-                        <div
-                            style={{
-                                fontSize: 16,
-                                fontWeight: 600,
-                                color: "var(--fg-1)",
-                                marginBottom: 4,
-                            }}
-                        >
-                            Marcus Chen
-                        </div>
-                        <div
-                            style={{
-                                fontSize: 13,
-                                color: "var(--fg-3)",
-                                marginBottom: 18,
-                            }}
-                        >
-                            Director, Capture &amp; Proposals
-                        </div>
-                        <div
-                            style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: 10,
-                                fontSize: 13,
-                                color: "var(--fg-2)",
-                            }}
-                        >
-                            <div
-                                style={{
-                                    display: "flex",
-                                    gap: 10,
-                                    alignItems: "center",
-                                }}
-                            >
-                                <Icon.Mail
-                                    size={14}
-                                    style={{ color: "var(--ivy-green-700)" }}
-                                />
-                                sb-liaison@ivyhilltech.com
-                            </div>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    gap: 10,
-                                    alignItems: "center",
-                                }}
-                            >
-                                <Icon.Phone
-                                    size={14}
-                                    style={{ color: "var(--ivy-green-700)" }}
-                                />
-                                +1 (301) 477-1080 ext. 118
-                            </div>
-                        </div>
-                    </div>
+                    <ContactCard
+                        eyebrow="Contracts & pricing"
+                        name='Olusola "Sola" Adesiyan'
+                        role="President & CEO"
+                        email="contracts@ivyhilltech.com"
+                        phone="+1 (301) 477-1080 ext. 102"
+                    />
+                    <ContactCard
+                        eyebrow="Small-business liaison"
+                        name="Marcus Chen"
+                        role="Director, Capture & Proposals"
+                        email="sb-liaison@ivyhilltech.com"
+                        phone="+1 (301) 477-1080 ext. 118"
+                    />
                 </div>
             </div>
         </section>

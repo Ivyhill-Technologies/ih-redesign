@@ -27,78 +27,27 @@ const CERTS = [
 
 export function CertsStrip() {
     return (
-        <section
-            style={{
-                background: "var(--bg-subtle)",
-                borderTop: "1px solid var(--border-1)",
-                borderBottom: "1px solid var(--border-1)",
-            }}
-        >
-            <div className="container" style={{ padding: "48px 24px" }}>
-                <div
-                    style={{
-                        display: "flex",
-                        alignItems: "baseline",
-                        gap: 24,
-                        marginBottom: 24,
-                        flexWrap: "wrap",
-                    }}
-                >
+        <section className="bg-surface-subtle border-t border-b border-line-1">
+            <div className="container py-12 px-6">
+                <div className="flex items-baseline gap-6 mb-6 flex-wrap">
                     <div className="eyebrow">Compliance posture</div>
-                    <div style={{ fontSize: 13, color: "var(--fg-3)" }}>
+                    <div className="text-[13px] text-fg-3">
                         Independent third-party certified · audited annually
                     </div>
                 </div>
-                <div
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "repeat(4, 1fr)",
-                        gap: "1px",
-                        background: "var(--border-1)",
-                        border: "1px solid var(--border-1)",
-                    }}
-                >
+                <div className="grid grid-cols-4 gap-px bg-line-1 border border-line-1">
                     {CERTS.map((c) => (
                         <div
                             key={c.id}
-                            style={{
-                                background: "#fff",
-                                padding: "24px 24px 22px",
-                            }}
+                            className="bg-white pt-6 px-6 pb-[22px]"
                         >
-                            <div
-                                style={{
-                                    fontSize: 18,
-                                    fontWeight: 700,
-                                    color: "var(--fg-1)",
-                                    fontFamily: "var(--font-mono)",
-                                    fontVariantNumeric: "tabular-nums",
-                                    letterSpacing: "-0.01em",
-                                    marginBottom: 6,
-                                }}
-                            >
+                            <div className="text-[18px] font-bold text-fg-1 font-mono tabular-nums tracking-[-0.01em] mb-1.5">
                                 {c.label}
                             </div>
-                            <div
-                                style={{
-                                    fontSize: 13,
-                                    color: "var(--fg-3)",
-                                    marginBottom: 14,
-                                }}
-                            >
+                            <div className="text-[13px] text-fg-3 mb-3.5">
                                 {c.sub}
                             </div>
-                            <div
-                                style={{
-                                    fontFamily: "var(--font-mono)",
-                                    fontSize: 11,
-                                    color: "var(--fg-4)",
-                                    letterSpacing: "0.04em",
-                                    paddingTop: 12,
-                                    borderTop: "1px solid var(--border-1)",
-                                    fontVariantNumeric: "tabular-nums",
-                                }}
-                            >
+                            <div className="font-mono text-[11px] text-fg-4 tracking-[0.04em] pt-3 border-t border-line-1 tabular-nums">
                                 Cert no. {c.no}
                             </div>
                         </div>

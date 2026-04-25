@@ -101,23 +101,6 @@
 .btn-ghost:hover {
     background: var(--bg-muted);
 }
-.btn-accent {
-    background: var(--ivy-green-700);
-    color: #fff;
-}
-.btn-accent:hover {
-    background: #3f6019;
-}
-.btn-accent:active {
-    background: #2f4a11;
-}
-.btn-dark {
-    background: var(--steel-900);
-    color: #fff;
-}
-.btn-dark:hover {
-    background: var(--steel-700);
-}
 .btn:focus-visible {
     outline: none;
     box-shadow: var(--focus-ring);
@@ -134,14 +117,8 @@
     vertical-align: -2px;
 }
 
-.rule-top {
-    border-top: 1px solid var(--ink-900);
-}
 .section {
     padding: 96px 0;
-}
-.section-tight {
-    padding: 64px 0;
 }
 
 .hairline-grid {

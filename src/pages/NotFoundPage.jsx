@@ -5,27 +5,23 @@ export function NotFoundPage() {
     return (
         <SiteShell>
             <section className="section">
-                <div className="container" style={{ maxWidth: 720 }}>
-                    <div className="eyebrow" style={{ marginBottom: 16 }}>
-                        Error 404
-                    </div>
-                    <h1 style={{ marginBottom: 16 }}>Page not found.</h1>
-                    <p style={{ marginBottom: 24, color: "var(--fg-3)" }}>
+                <div className="container max-w-[720px]">
+                    <div className="eyebrow mb-4">Error 404</div>
+                    <h1 className="mb-4">Page not found.</h1>
+                    <p className="mb-6 text-fg-3">
                         The page you requested is not available. Return to the
                         homepage or browse our contract vehicles.
                     </p>
-                    <div style={{ display: "flex", gap: 12 }}>
+                    <div className="flex gap-3">
                         <Link
                             to="/"
-                            className="btn btn-primary"
-                            style={{ textDecoration: "none" }}
+                            className="btn btn-primary no-underline"
                         >
                             Back to home
                         </Link>
                         <Link
                             to="/contracts"
-                            className="btn btn-secondary"
-                            style={{ textDecoration: "none" }}
+                            className="btn btn-secondary no-underline"
                         >
                             View contract vehicles
                         </Link>

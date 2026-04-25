@@ -13,58 +13,22 @@ export function CyberCallout() {
     return (
         <section className="section" id="cyber">
             <div className="container">
-                <div
-                    style={{
-                        paddingTop: 24,
-                        borderTop: "1px solid var(--ink-900)",
-                        marginBottom: 36,
-                    }}
-                >
+                <div className="pt-6 border-t border-ink-900 mb-9">
                     <span className="eyebrow">Horizontal capability</span>
                 </div>
-                <div
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "1fr 1.2fr",
-                        gap: 80,
-                        alignItems: "start",
-                    }}
-                >
+                <div className="grid grid-cols-[1fr_1.2fr] gap-20 items-start">
                     <div>
-                        <h2
-                            style={{
-                                margin: "0 0 20px",
-                                fontSize: "clamp(28px, 3vw, 40px)",
-                                fontWeight: 700,
-                                lineHeight: 1.1,
-                                letterSpacing: "-0.02em",
-                                color: "var(--fg-1)",
-                                textWrap: "balance",
-                            }}
-                        >
+                        <h2 className="m-0 mb-5 font-bold leading-[1.1] tracking-[-0.02em] text-fg-1 text-balance text-[clamp(28px,3vw,40px)]">
                             Cybersecurity is not a service line. It runs across
                             all of them.
                         </h2>
-                        <p
-                            style={{
-                                margin: "0 0 24px",
-                                fontSize: 17,
-                                lineHeight: 1.6,
-                                color: "var(--fg-3)",
-                            }}
-                        >
+                        <p className="m-0 mb-6 text-[17px] leading-[1.6] text-fg-3">
                             Every Ivyhill engagement inherits an
                             active-protection posture. The practice areas above
                             are delivered against the same security backbone —
                             not bolted on, not a separate quote.
                         </p>
-                        <div
-                            style={{
-                                display: "flex",
-                                gap: 12,
-                                flexWrap: "wrap",
-                            }}
-                        >
+                        <div className="flex gap-3 flex-wrap">
                             <button type="button" className="btn btn-secondary">
                                 Security overview
                             </button>
@@ -74,39 +38,13 @@ export function CyberCallout() {
                             </button>
                         </div>
                     </div>
-                    <ul
-                        style={{
-                            margin: 0,
-                            padding: 0,
-                            listStyle: "none",
-                            display: "grid",
-                            gridTemplateColumns: "1fr 1fr",
-                            gap: "1px",
-                            background: "var(--border-1)",
-                            border: "1px solid var(--border-1)",
-                        }}
-                    >
+                    <ul className="m-0 p-0 list-none grid grid-cols-2 gap-px bg-line-1 border border-line-1">
                         {FEATURES.map((f) => (
                             <li
                                 key={f}
-                                style={{
-                                    background: "#fff",
-                                    padding: "20px 22px",
-                                    display: "flex",
-                                    alignItems: "flex-start",
-                                    gap: 12,
-                                    fontSize: 14,
-                                    color: "var(--fg-2)",
-                                    lineHeight: 1.5,
-                                }}
+                                className="bg-white py-5 px-[22px] flex items-start gap-3 text-[14px] text-fg-2 leading-[1.5]"
                             >
-                                <span
-                                    style={{
-                                        color: "var(--ivy-green-600)",
-                                        flexShrink: 0,
-                                        marginTop: 2,
-                                    }}
-                                >
+                                <span className="text-ivy-green-600 shrink-0 mt-0.5">
                                     <Icon.Check size={16} />
                                 </span>
                                 <span>{f}</span>

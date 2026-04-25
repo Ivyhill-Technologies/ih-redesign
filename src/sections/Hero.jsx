@@ -11,78 +11,21 @@ const STATS = [
 
 export function Hero({ onCTA }) {
     return (
-        <section
-            style={{
-                position: "relative",
-                overflow: "hidden",
-                background: "#fff",
-            }}
-        >
-            <div
-                style={{
-                    position: "absolute",
-                    inset: 0,
-                    pointerEvents: "none",
-                }}
-                className="hairline-grid"
-            />
-            <div
-                className="container"
-                style={{ position: "relative", padding: "120px 24px 96px" }}
-            >
-                <div
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "7fr 5fr",
-                        gap: 64,
-                        alignItems: "start",
-                    }}
-                >
+        <section className="relative overflow-hidden bg-white">
+            <div className="hairline-grid absolute inset-0 pointer-events-none" />
+            <div className="container relative px-6 pt-[120px] pb-24">
+                <div className="grid grid-cols-[7fr_5fr] gap-16 items-start">
                     <div>
-                        <div
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                gap: 10,
-                                marginBottom: 24,
-                            }}
-                        >
-                            <span
-                                style={{
-                                    display: "inline-block",
-                                    width: 24,
-                                    height: 1,
-                                    background: "var(--ink-900)",
-                                }}
-                            />
+                        <div className="flex items-center gap-2.5 mb-6">
+                            <span className="inline-block w-6 h-px bg-ink-900" />
                             <span className="eyebrow">
                                 Enterprise Information Management
                             </span>
                         </div>
-                        <h1
-                            className="display"
-                            style={{
-                                fontFamily: "var(--font-display)",
-                                fontSize: "clamp(40px, 5.2vw, 68px)",
-                                fontWeight: 700,
-                                lineHeight: 1.04,
-                                letterSpacing: "-0.025em",
-                                color: "var(--fg-1)",
-                                margin: "0 0 28px",
-                                textWrap: "balance",
-                            }}
-                        >
+                        <h1 className="display font-bold leading-[1.04] tracking-[-0.025em] text-fg-1 m-0 mb-7 text-balance text-[clamp(40px,5.2vw,68px)]">
                             Mission-grade IT for the federal enterprise.
                         </h1>
-                        <p
-                            style={{
-                                fontSize: 18,
-                                lineHeight: 1.55,
-                                color: "var(--fg-3)",
-                                maxWidth: 620,
-                                margin: "0 0 36px",
-                            }}
-                        >
+                        <p className="text-[18px] leading-[1.55] text-fg-3 max-w-[620px] m-0 mb-9">
                             Ivyhill partners with U.S. federal, state, and local
                             agencies — and commercial clients — to develop
                             applications, manage records, secure infrastructure,
@@ -90,14 +33,7 @@ export function Hero({ onCTA }) {
                             ISO-certified, contract-vehicle-ready, cleared
                             personnel.
                         </p>
-                        <div
-                            style={{
-                                display: "flex",
-                                gap: 12,
-                                flexWrap: "wrap",
-                                alignItems: "center",
-                            }}
-                        >
+                        <div className="flex gap-3 flex-wrap items-center">
                             <button
                                 type="button"
                                 className="btn btn-primary"
@@ -108,68 +44,31 @@ export function Hero({ onCTA }) {
                             </button>
                             <a
                                 href="#past-performance"
-                                className="btn btn-secondary"
-                                style={{ textDecoration: "none" }}
+                                className="btn btn-secondary no-underline"
                             >
                                 View past performance
                             </a>
                             <a
                                 href="#naics"
-                                className="btn btn-ghost"
-                                style={{ textDecoration: "none" }}
+                                className="btn btn-ghost no-underline"
                             >
                                 NAICS codes{" "}
                                 <Icon.Arrow
                                     size={14}
-                                    style={{ transform: "rotate(90deg)" }}
+                                    className="rotate-90"
                                 />
                             </a>
                         </div>
                     </div>
-                    <aside
-                        style={{
-                            border: "1px solid var(--border-1)",
-                            borderRadius: "var(--r-md)",
-                            padding: "24px 26px",
-                            background: "#fff",
-                            boxShadow: "var(--shadow-1)",
-                        }}
-                    >
-                        <div className="eyebrow" style={{ marginBottom: 14 }}>
-                            At a glance
-                        </div>
-                        <dl
-                            style={{
-                                margin: 0,
-                                display: "grid",
-                                gridTemplateColumns: "1fr 1fr",
-                                rowGap: 18,
-                                columnGap: 24,
-                            }}
-                        >
+                    <aside className="border border-line-1 rounded-[4px] py-6 px-[26px] bg-white shadow-[var(--shadow-1)]">
+                        <div className="eyebrow mb-3.5">At a glance</div>
+                        <dl className="m-0 grid grid-cols-2 gap-y-[18px] gap-x-6">
                             {STATS.map(([k, v]) => (
                                 <div key={k}>
-                                    <dt
-                                        style={{
-                                            fontSize: 11,
-                                            letterSpacing: "0.12em",
-                                            textTransform: "uppercase",
-                                            color: "var(--fg-4)",
-                                            fontWeight: 600,
-                                            marginBottom: 4,
-                                        }}
-                                    >
+                                    <dt className="text-[11px] tracking-[0.12em] uppercase text-fg-4 font-semibold mb-1">
                                         {k}
                                     </dt>
-                                    <dd
-                                        style={{
-                                            margin: 0,
-                                            fontSize: 18,
-                                            fontWeight: 600,
-                                            color: "var(--fg-1)",
-                                            fontVariantNumeric: "tabular-nums",
-                                        }}
-                                    >
+                                    <dd className="m-0 text-[18px] font-semibold text-fg-1 tabular-nums">
                                         {v}
                                     </dd>
                                 </div>

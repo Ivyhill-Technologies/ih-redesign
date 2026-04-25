@@ -7,50 +7,18 @@ const STATS = [
 
 export function StatsBand() {
     return (
-        <section
-            style={{
-                background:
-                    "linear-gradient(180deg, var(--steel-900), #0B1220)",
-                color: "#fff",
-            }}
-        >
-            <div className="container" style={{ padding: "72px 24px" }}>
-                <div
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "repeat(4, 1fr)",
-                        gap: 48,
-                    }}
-                >
+        <section className="text-white bg-gradient-to-b from-steel-900 to-ink-1000">
+            <div className="container py-[72px] px-6">
+                <div className="grid grid-cols-4 gap-12">
                     {STATS.map((s) => (
                         <div
                             key={s.l}
-                            style={{
-                                borderTop: "1px solid rgba(255,255,255,0.18)",
-                                paddingTop: 20,
-                            }}
+                            className="border-t border-white/[0.18] pt-5"
                         >
-                            <div
-                                style={{
-                                    fontFamily: "var(--font-display)",
-                                    fontSize: "clamp(36px, 4vw, 56px)",
-                                    fontWeight: 700,
-                                    lineHeight: 1,
-                                    letterSpacing: "-0.02em",
-                                    color: "#fff",
-                                    marginBottom: 12,
-                                    fontVariantNumeric: "tabular-nums",
-                                }}
-                            >
+                            <div className="font-bold leading-none tracking-[-0.02em] text-white mb-3 tabular-nums text-[clamp(36px,4vw,56px)]">
                                 {s.n}
                             </div>
-                            <div
-                                style={{
-                                    fontSize: 14,
-                                    color: "rgba(255,255,255,0.72)",
-                                    lineHeight: 1.5,
-                                }}
-                            >
+                            <div className="text-[14px] text-white/[0.72] leading-[1.5]">
                                 {s.l}
                             </div>
                         </div>

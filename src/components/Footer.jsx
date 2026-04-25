@@ -40,97 +40,43 @@ const COLS = [
 
 export function Footer() {
     return (
-        <footer
-            style={{
-                background: "var(--ink-1000)",
-                color: "rgba(255,255,255,0.72)",
-            }}
-        >
-            <div className="container" style={{ padding: "72px 24px 32px" }}>
-                <div
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "1.3fr 1fr 1fr 1fr",
-                        gap: 48,
-                        marginBottom: 56,
-                    }}
-                >
+        <footer className="bg-ink-1000 text-white/[0.72]">
+            <div className="container pt-[72px] pb-8 px-6">
+                <div className="grid grid-cols-[1.3fr_1fr_1fr_1fr] gap-12 mb-14">
                     <div>
                         <img
                             src="/assets/logo-horizontal-2c.png"
                             alt="Ivyhill"
-                            style={{
-                                height: 32,
-                                filter: "brightness(0) invert(1)",
-                                marginBottom: 20,
-                                display: "block",
-                            }}
+                            className="h-8 block mb-5 brightness-0 invert"
                         />
-                        <p
-                            style={{
-                                margin: "0 0 20px",
-                                fontSize: 13,
-                                lineHeight: 1.6,
-                                color: "rgba(255,255,255,0.6)",
-                                maxWidth: 320,
-                            }}
-                        >
+                        <p className="m-0 mb-5 text-[13px] leading-[1.6] text-white/60 max-w-[320px]">
                             Enterprise Information Management for U.S. federal,
                             state, and local agencies, and commercial clients.
                             Founded 2015.
                         </p>
-                        <ul
-                            style={{
-                                listStyle: "none",
-                                padding: 0,
-                                margin: 0,
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: 10,
-                                fontSize: 13,
-                            }}
-                        >
-                            <li
-                                style={{
-                                    display: "flex",
-                                    gap: 10,
-                                    alignItems: "flex-start",
-                                }}
-                            >
+                        <ul className="list-none p-0 m-0 flex flex-col gap-2.5 text-[13px]">
+                            <li className="flex gap-2.5 items-start">
                                 <Icon.Pin
                                     size={14}
-                                    style={{
-                                        marginTop: 2,
-                                        color: "var(--ivy-green-400)",
-                                    }}
+                                    className="mt-0.5 text-ivy-green-400 shrink-0"
                                 />
-                                4301 Garden City Dr., Suite 410
-                                <br />
-                                Hyattsville, MD 20785
+                                <span>
+                                    4301 Garden City Dr., Suite 410
+                                    <br />
+                                    Hyattsville, MD 20785
+                                </span>
                             </li>
-                            <li
-                                style={{
-                                    display: "flex",
-                                    gap: 10,
-                                    alignItems: "center",
-                                }}
-                            >
+                            <li className="flex gap-2.5 items-center">
                                 <Icon.Phone
                                     size={14}
-                                    style={{ color: "var(--ivy-green-400)" }}
+                                    className="text-ivy-green-400 shrink-0"
                                 />
                                 +1 (301) 477-1080
                             </li>
-                            <li
-                                style={{
-                                    display: "flex",
-                                    gap: 10,
-                                    alignItems: "center",
-                                }}
-                            >
+                            <li className="flex gap-2.5 items-center">
                                 <Icon.Mail
                                     size={14}
-                                    style={{ color: "var(--ivy-green-400)" }}
+                                    className="text-ivy-green-400 shrink-0"
                                 />
                                 info@ivyhilltech.com
                             </li>
@@ -138,37 +84,15 @@ export function Footer() {
                     </div>
                     {COLS.map((col) => (
                         <div key={col.h}>
-                            <div
-                                style={{
-                                    fontSize: 11,
-                                    letterSpacing: "0.14em",
-                                    textTransform: "uppercase",
-                                    fontWeight: 600,
-                                    color: "rgba(255,255,255,0.5)",
-                                    marginBottom: 18,
-                                }}
-                            >
+                            <div className="text-[11px] tracking-[0.14em] uppercase font-semibold text-white/50 mb-[18px]">
                                 {col.h}
                             </div>
-                            <ul
-                                style={{
-                                    listStyle: "none",
-                                    padding: 0,
-                                    margin: 0,
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    gap: 10,
-                                }}
-                            >
+                            <ul className="list-none p-0 m-0 flex flex-col gap-2.5">
                                 {col.items.map((i) => (
                                     <li key={i.label}>
                                         <a
                                             href={i.href}
-                                            style={{
-                                                color: "rgba(255,255,255,0.78)",
-                                                textDecoration: "none",
-                                                fontSize: 13,
-                                            }}
+                                            className="text-white/[0.78] no-underline text-[13px]"
                                         >
                                             {i.label}
                                         </a>
@@ -178,20 +102,7 @@ export function Footer() {
                         </div>
                     ))}
                 </div>
-                <div
-                    style={{
-                        paddingTop: 24,
-                        borderTop: "1px solid rgba(255,255,255,0.12)",
-                        display: "flex",
-                        gap: 24,
-                        flexWrap: "wrap",
-                        alignItems: "center",
-                        fontSize: 11,
-                        fontFamily: "var(--font-mono)",
-                        letterSpacing: "0.04em",
-                        color: "rgba(255,255,255,0.5)",
-                    }}
-                >
+                <div className="pt-6 border-t border-white/[0.12] flex gap-6 flex-wrap items-center text-[11px] font-mono tracking-[0.04em] text-white/50">
                     <span>© 2025 Ivyhill Technologies, LLC</span>
                     <span>·</span>
                     <span>CAGE 7HWD9</span>
@@ -199,7 +110,7 @@ export function Footer() {
                     <span>UEI LSVSGHNE2ZW5</span>
                     <span>·</span>
                     <span>NAICS 541511 / 541512 / 518210 / 561410</span>
-                    <span style={{ flex: 1 }} />
+                    <span className="flex-1" />
                     <span>ISO 9001 · 20000-1 · 27001</span>
                     <span>·</span>
                     <span>MBE / DBE / SBE</span>

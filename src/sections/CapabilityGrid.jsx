@@ -60,19 +60,14 @@ function CapabilityCard({ item }) {
     const tagNodes = item.tags.flatMap((t, i) => [
         ...(i > 0
             ? [
-                  <span key={`sep-${t}`} style={{ color: "var(--border-2)" }}>
+                  <span key={`sep-${t}`} className="text-line-2">
                       ·
                   </span>,
               ]
             : []),
         <span
             key={t}
-            style={{
-                fontSize: 11,
-                color: "var(--fg-4)",
-                fontFamily: "var(--font-mono)",
-                letterSpacing: "0.02em",
-            }}
+            className="text-[11px] text-fg-4 font-mono tracking-[0.02em]"
         >
             {t}
         </span>,
@@ -82,51 +77,19 @@ function CapabilityCard({ item }) {
             href={href}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
-            style={{
-                background: "#fff",
-                padding: "32px 28px",
-                display: "flex",
-                flexDirection: "column",
-                gap: 14,
-                borderTop: hover
-                    ? "2px solid var(--ivy-green-500)"
-                    : "2px solid transparent",
-                cursor: "pointer",
-                minHeight: 240,
-                textDecoration: "none",
-                color: "inherit",
-                transition: "border-color var(--dur-fast) var(--ease-standard)",
-            }}
+            className={`bg-white py-8 px-7 flex flex-col gap-3.5 cursor-pointer min-h-[240px] no-underline text-inherit border-t-2 transition-colors duration-150 ${
+                hover ? "border-ivy-green-500" : "border-transparent"
+            }`}
         >
             <I size={28} />
-            <h3
-                style={{
-                    margin: 0,
-                    fontSize: 18,
-                    fontWeight: 600,
-                    color: "var(--fg-1)",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 8,
-                }}
-            >
+            <h3 className="m-0 text-[18px] font-semibold text-fg-1 flex items-center gap-2">
                 {item.title}
                 {item.slug && <Icon.Arrow size={14} />}
             </h3>
-            <p
-                style={{
-                    margin: 0,
-                    fontSize: 14,
-                    lineHeight: 1.55,
-                    color: "var(--fg-3)",
-                    flex: 1,
-                }}
-            >
+            <p className="m-0 text-[14px] leading-[1.55] text-fg-3 flex-1">
                 {item.body}
             </p>
-            <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-                {tagNodes}
-            </div>
+            <div className="flex gap-1.5 flex-wrap">{tagNodes}</div>
         </a>
     );
 }
@@ -135,64 +98,21 @@ export function CapabilityGrid() {
     return (
         <section className="section" id="capabilities">
             <div className="container">
-                <div
-                    style={{
-                        display: "flex",
-                        alignItems: "baseline",
-                        gap: 24,
-                        marginBottom: 48,
-                        paddingTop: 24,
-                        borderTop: "1px solid var(--ink-900)",
-                    }}
-                >
-                    <span className="eyebrow" style={{ paddingTop: 14 }}>
-                        What we do
-                    </span>
+                <div className="flex items-baseline gap-6 mb-12 pt-6 border-t border-ink-900">
+                    <span className="eyebrow pt-3.5">What we do</span>
                 </div>
-                <div
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "1fr 1fr",
-                        gap: 48,
-                        marginBottom: 32,
-                        alignItems: "start",
-                    }}
-                >
-                    <h2
-                        style={{
-                            margin: 0,
-                            fontSize: "clamp(28px, 3vw, 40px)",
-                            fontWeight: 700,
-                            lineHeight: 1.1,
-                            letterSpacing: "-0.02em",
-                            color: "var(--fg-1)",
-                            textWrap: "balance",
-                        }}
-                    >
+                <div className="grid grid-cols-2 gap-12 mb-8 items-start">
+                    <h2 className="m-0 font-bold leading-[1.1] tracking-[-0.02em] text-fg-1 text-balance text-[clamp(28px,3vw,40px)]">
                         Seven practice areas. One accountable team.
                     </h2>
                     <div>
-                        <p
-                            style={{
-                                margin: "0 0 14px",
-                                fontSize: 17,
-                                lineHeight: 1.6,
-                                color: "var(--fg-3)",
-                            }}
-                        >
+                        <p className="m-0 mb-3.5 text-[17px] leading-[1.6] text-fg-3">
                             Ivyhill keeps mission-critical systems running for
                             federal, state, and local government — and the same
                             teams, tooling, and standards run commercial
                             engagements without the procurement overhead.
                         </p>
-                        <p
-                            style={{
-                                margin: 0,
-                                fontSize: 15,
-                                lineHeight: 1.6,
-                                color: "var(--fg-4)",
-                            }}
-                        >
+                        <p className="m-0 text-[15px] leading-[1.6] text-fg-4">
                             Every engagement is staffed by Ivyhill personnel and
                             delivered against an agency contract vehicle, an
                             ISO-certified quality program, and a
@@ -200,65 +120,24 @@ export function CapabilityGrid() {
                         </p>
                     </div>
                 </div>
-                <div
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "repeat(3, 1fr)",
-                        gap: 1,
-                        background: "var(--border-1)",
-                        border: "1px solid var(--border-1)",
-                    }}
-                >
+                <div className="grid grid-cols-3 gap-px bg-line-1 border border-line-1">
                     {ITEMS.map((it) => (
                         <CapabilityCard key={it.title} item={it} />
                     ))}
-                    <div
-                        style={{
-                            background: "var(--steel-900)",
-                            color: "#fff",
-                            padding: "32px 28px",
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "space-between",
-                            minHeight: 240,
-                        }}
-                    >
+                    <div className="bg-steel-900 text-white py-8 px-7 flex flex-col justify-between min-h-[240px]">
                         <div>
                             <Icon.Shield size={28} />
-                            <h3
-                                style={{
-                                    margin: "18px 0 8px",
-                                    fontSize: 20,
-                                    fontWeight: 600,
-                                    color: "#fff",
-                                }}
-                            >
+                            <h3 className="mt-[18px] mb-2 text-[20px] font-semibold text-white">
                                 Cybersecurity, horizontal.
                             </h3>
-                            <p
-                                style={{
-                                    margin: 0,
-                                    fontSize: 14,
-                                    lineHeight: 1.55,
-                                    color: "rgba(255,255,255,0.72)",
-                                }}
-                            >
+                            <p className="m-0 text-[14px] leading-[1.55] text-white/[0.72]">
                                 A defense-in-depth posture runs across every
                                 practice area — ISO/IEC 27001 backed.
                             </p>
                         </div>
                         <a
                             href="#cyber"
-                            style={{
-                                color: "var(--ivy-green-400)",
-                                textDecoration: "none",
-                                fontSize: 13,
-                                fontWeight: 600,
-                                marginTop: 16,
-                                display: "inline-flex",
-                                alignItems: "center",
-                                gap: 6,
-                            }}
+                            className="text-ivy-green-400 no-underline text-[13px] font-semibold mt-4 inline-flex items-center gap-1.5"
                         >
                             Read the brief <Icon.Arrow size={14} />
                         </a>

@@ -22,61 +22,20 @@ export function NaicsCodes({ onCTA }) {
     return (
         <section
             id="naics"
-            className="section"
-            style={{
-                background: "var(--bg-subtle)",
-                borderTop: "1px solid var(--border-1)",
-                borderBottom: "1px solid var(--border-1)",
-            }}
+            className="section bg-surface-subtle border-t border-b border-line-1"
         >
             <div className="container">
-                <div
-                    style={{
-                        display: "flex",
-                        alignItems: "baseline",
-                        gap: 24,
-                        marginBottom: 36,
-                        paddingTop: 24,
-                        borderTop: "1px solid var(--ink-900)",
-                    }}
-                >
-                    <span
-                        className="eyebrow"
-                        style={{ paddingTop: 14, whiteSpace: "nowrap" }}
-                    >
+                <div className="flex items-baseline gap-6 mb-9 pt-6 border-t border-ink-900">
+                    <span className="eyebrow pt-3.5 whitespace-nowrap">
                         NAICS Codes
                     </span>
                 </div>
-                <div
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "1fr 1.4fr",
-                        gap: 80,
-                        alignItems: "start",
-                    }}
-                >
+                <div className="grid grid-cols-[1fr_1.4fr] gap-20 items-start">
                     <div>
-                        <h2
-                            style={{
-                                margin: "0 0 20px",
-                                fontSize: "clamp(28px, 3vw, 40px)",
-                                fontWeight: 700,
-                                lineHeight: 1.1,
-                                letterSpacing: "-0.02em",
-                                color: "var(--fg-1)",
-                                textWrap: "balance",
-                            }}
-                        >
+                        <h2 className="m-0 mb-5 font-bold leading-[1.1] tracking-[-0.02em] text-fg-1 text-balance text-[clamp(28px,3vw,40px)]">
                             Registered to do the work.
                         </h2>
-                        <p
-                            style={{
-                                margin: "0 0 28px",
-                                fontSize: 17,
-                                lineHeight: 1.6,
-                                color: "var(--fg-3)",
-                            }}
-                        >
+                        <p className="m-0 mb-7 text-[17px] leading-[1.6] text-fg-3">
                             Ivyhill is classified under the North American
                             Industry Classification System (NAICS) for the work
                             we deliver — IT services, management consulting, and
@@ -84,13 +43,7 @@ export function NaicsCodes({ onCTA }) {
                             contracting officers find us in procurement
                             databases.
                         </p>
-                        <div
-                            style={{
-                                display: "flex",
-                                gap: 12,
-                                flexWrap: "wrap",
-                            }}
-                        >
+                        <div className="flex gap-3 flex-wrap">
                             <button
                                 type="button"
                                 className="btn btn-primary"
@@ -100,75 +53,27 @@ export function NaicsCodes({ onCTA }) {
                             </button>
                         </div>
                     </div>
-                    <ul
-                        style={{
-                            listStyle: "none",
-                            margin: 0,
-                            padding: 0,
-                            display: "grid",
-                            gridTemplateColumns: "1fr 1fr",
-                            gap: "1px",
-                            background: "var(--border-1)",
-                            border: "1px solid var(--border-1)",
-                        }}
-                    >
+                    <ul className="list-none m-0 p-0 grid grid-cols-2 gap-px bg-line-1 border border-line-1">
                         {CODES.map((c) => (
                             <li
                                 key={c.code}
-                                style={{
-                                    background: "#fff",
-                                    padding: "16px 18px",
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    gap: 4,
-                                    borderLeft: c.primary
-                                        ? "2px solid var(--ivy-green-500)"
-                                        : "2px solid transparent",
-                                }}
+                                className={`bg-white py-4 px-[18px] flex flex-col gap-1 border-l-2 ${
+                                    c.primary
+                                        ? "border-ivy-green-500"
+                                        : "border-transparent"
+                                }`}
                             >
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        gap: 8,
-                                    }}
-                                >
-                                    <span
-                                        style={{
-                                            fontFamily: "var(--font-mono)",
-                                            fontSize: 14,
-                                            color: "var(--fg-1)",
-                                            fontWeight: 600,
-                                            letterSpacing: "0.02em",
-                                        }}
-                                    >
+                                <div className="flex items-center gap-2">
+                                    <span className="font-mono text-[14px] text-fg-1 font-semibold tracking-[0.02em]">
                                         {c.code}
                                     </span>
                                     {c.primary && (
-                                        <span
-                                            style={{
-                                                fontSize: 10,
-                                                fontWeight: 600,
-                                                letterSpacing: "0.1em",
-                                                textTransform: "uppercase",
-                                                color: "var(--ivy-green-700)",
-                                                background:
-                                                    "rgba(128,185,65,0.12)",
-                                                padding: "2px 6px",
-                                                borderRadius: 2,
-                                            }}
-                                        >
+                                        <span className="text-[10px] font-semibold tracking-[0.1em] uppercase text-ivy-green-700 bg-ivy-green-500/[0.12] py-0.5 px-1.5 rounded-sm">
                                             Primary
                                         </span>
                                     )}
                                 </div>
-                                <div
-                                    style={{
-                                        fontSize: 13,
-                                        color: "var(--fg-3)",
-                                        lineHeight: 1.4,
-                                    }}
-                                >
+                                <div className="text-[13px] text-fg-3 leading-[1.4]">
                                     {c.label}
                                 </div>
                             </li>

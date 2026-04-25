@@ -8,44 +8,14 @@ const ITEMS = [
 
 export function CodesStrip() {
     return (
-        <section
-            style={{
-                borderTop: "1px solid var(--border-1)",
-                borderBottom: "1px solid var(--border-1)",
-                background: "var(--bg-subtle)",
-            }}
-        >
-            <div
-                className="container"
-                style={{
-                    padding: "28px 24px",
-                    display: "grid",
-                    gridTemplateColumns: "repeat(5, 1fr)",
-                    gap: 24,
-                }}
-            >
+        <section className="border-t border-b border-line-1 bg-surface-subtle">
+            <div className="container px-6 py-7 grid grid-cols-5 gap-6">
                 {ITEMS.map((it) => (
                     <div key={it.label}>
-                        <div
-                            style={{
-                                fontSize: 10,
-                                letterSpacing: "0.12em",
-                                textTransform: "uppercase",
-                                color: "var(--fg-4)",
-                                fontWeight: 600,
-                                marginBottom: 6,
-                            }}
-                        >
+                        <div className="text-[10px] tracking-[0.12em] uppercase text-fg-4 font-semibold mb-1.5">
                             {it.label}
                         </div>
-                        <div
-                            style={{
-                                fontFamily: "var(--font-mono)",
-                                fontSize: 13,
-                                color: "var(--fg-1)",
-                                letterSpacing: "0.02em",
-                            }}
-                        >
+                        <div className="font-mono text-[13px] text-fg-1 tracking-[0.02em]">
                             {it.value}
                         </div>
                     </div>

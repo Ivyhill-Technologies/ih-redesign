@@ -48,109 +48,46 @@ const NAICS = [
 
 export function SetAsides() {
     return (
-        <section id="designations" style={{ background: "#fff" }}>
-            <div className="container" style={{ padding: "96px 24px" }}>
-                <div
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "1fr 1fr",
-                        gap: 64,
-                    }}
-                >
+        <section id="designations" className="bg-white">
+            <div className="container py-24 px-6">
+                <div className="grid grid-cols-2 gap-16">
                     <div>
-                        <div
-                            style={{
-                                borderTop: "1px solid var(--ink-900)",
-                                paddingTop: 20,
-                                marginBottom: 24,
-                            }}
-                        >
-                            <div
-                                className="eyebrow"
-                                style={{ color: "var(--fg-2)" }}
-                            >
+                        <div className="border-t border-ink-900 pt-5 mb-6">
+                            <div className="eyebrow text-fg-2">
                                 Designations
                             </div>
                         </div>
-                        <h2 style={{ margin: "0 0 24px" }}>
+                        <h2 className="m-0 mb-6">
                             Small-business set-aside eligibility
                         </h2>
-                        <p
-                            style={{
-                                fontSize: 15,
-                                lineHeight: 1.65,
-                                color: "var(--fg-3)",
-                                margin: "0 0 28px",
-                                maxWidth: 520,
-                            }}
-                        >
+                        <p className="text-[15px] leading-[1.65] text-fg-3 m-0 mb-7 max-w-[520px]">
                             Ivyhill qualifies for small-business set-aside
                             procurement under federal and Maryland-state
                             programs. Certifications below are current and
                             verifiable through the issuing authority.
                         </p>
-                        <div
-                            style={{
-                                border: "1px solid var(--border-1)",
-                                borderRadius: "var(--r-md)",
-                                overflow: "hidden",
-                            }}
-                        >
+                        <div className="border border-line-1 rounded-[4px] overflow-hidden">
                             {DESIGNATIONS.map((d, i) => (
                                 <div
                                     key={d.code}
-                                    style={{
-                                        display: "grid",
-                                        gridTemplateColumns: "72px 1fr auto",
-                                        gap: 16,
-                                        padding: "18px 20px",
-                                        borderBottom:
-                                            i === DESIGNATIONS.length - 1
-                                                ? "none"
-                                                : "1px solid var(--border-1)",
-                                        alignItems: "center",
-                                    }}
+                                    className={`grid grid-cols-[72px_1fr_auto] gap-4 py-[18px] px-5 items-center ${
+                                        i === DESIGNATIONS.length - 1
+                                            ? ""
+                                            : "border-b border-line-1"
+                                    }`}
                                 >
-                                    <div
-                                        style={{
-                                            fontFamily: "var(--font-mono)",
-                                            fontSize: 13,
-                                            fontWeight: 700,
-                                            color: "var(--ivy-green-700)",
-                                            letterSpacing: "0.04em",
-                                            fontVariantNumeric: "tabular-nums",
-                                        }}
-                                    >
+                                    <div className="font-mono text-[13px] font-bold text-ivy-green-700 tracking-[0.04em] tabular-nums">
                                         {d.code}
                                     </div>
                                     <div>
-                                        <div
-                                            style={{
-                                                fontSize: 14,
-                                                fontWeight: 600,
-                                                color: "var(--fg-1)",
-                                            }}
-                                        >
+                                        <div className="text-[14px] font-semibold text-fg-1">
                                             {d.label}
                                         </div>
-                                        <div
-                                            style={{
-                                                fontSize: 12,
-                                                color: "var(--fg-3)",
-                                                marginTop: 2,
-                                            }}
-                                        >
+                                        <div className="text-[12px] text-fg-3 mt-0.5">
                                             {d.issuer}
                                         </div>
                                     </div>
-                                    <div
-                                        style={{
-                                            fontFamily: "var(--font-mono)",
-                                            fontSize: 12,
-                                            color: "var(--fg-3)",
-                                            fontVariantNumeric: "tabular-nums",
-                                        }}
-                                    >
+                                    <div className="font-mono text-[12px] text-fg-3 tabular-nums">
                                         {d.term}
                                     </div>
                                 </div>
@@ -158,94 +95,45 @@ export function SetAsides() {
                         </div>
                     </div>
                     <div>
-                        <div
-                            style={{
-                                borderTop: "1px solid var(--ink-900)",
-                                paddingTop: 20,
-                                marginBottom: 24,
-                            }}
-                        >
-                            <div
-                                className="eyebrow"
-                                style={{ color: "var(--fg-2)" }}
-                            >
-                                NAICS codes
-                            </div>
+                        <div className="border-t border-ink-900 pt-5 mb-6">
+                            <div className="eyebrow text-fg-2">NAICS codes</div>
                         </div>
-                        <h2 style={{ margin: "0 0 24px" }}>
-                            Industry classifications
-                        </h2>
-                        <p
-                            style={{
-                                fontSize: 15,
-                                lineHeight: 1.65,
-                                color: "var(--fg-3)",
-                                margin: "0 0 28px",
-                                maxWidth: 520,
-                            }}
-                        >
+                        <h2 className="m-0 mb-6">Industry classifications</h2>
+                        <p className="text-[15px] leading-[1.65] text-fg-3 m-0 mb-7 max-w-[520px]">
                             Ivyhill is registered under the following North
                             American Industry Classification System codes.
                             Primary codes are highlighted; ordering activities
                             should reference the most relevant code on each task
                             order.
                         </p>
-                        <div
-                            style={{
-                                border: "1px solid var(--border-1)",
-                                borderRadius: "var(--r-md)",
-                                overflow: "hidden",
-                            }}
-                        >
+                        <div className="border border-line-1 rounded-[4px] overflow-hidden">
                             {NAICS.map((n, i) => (
                                 <div
                                     key={n.code}
-                                    style={{
-                                        display: "grid",
-                                        gridTemplateColumns: "88px 1fr auto",
-                                        gap: 16,
-                                        padding: "14px 20px",
-                                        borderBottom:
-                                            i === NAICS.length - 1
-                                                ? "none"
-                                                : "1px solid var(--border-1)",
-                                        alignItems: "center",
-                                        background: n.primary
-                                            ? "var(--ivy-green-50)"
-                                            : "#fff",
-                                    }}
+                                    className={`grid grid-cols-[88px_1fr_auto] gap-4 py-3.5 px-5 items-center ${
+                                        i === NAICS.length - 1
+                                            ? ""
+                                            : "border-b border-line-1"
+                                    } ${n.primary ? "bg-ivy-green-50" : "bg-white"}`}
                                 >
                                     <div
-                                        style={{
-                                            fontFamily: "var(--font-mono)",
-                                            fontSize: 13,
-                                            fontWeight: 600,
-                                            color: n.primary
-                                                ? "var(--ivy-green-700)"
-                                                : "var(--fg-1)",
-                                            fontVariantNumeric: "tabular-nums",
-                                        }}
+                                        className={`font-mono text-[13px] font-semibold tabular-nums ${
+                                            n.primary
+                                                ? "text-ivy-green-700"
+                                                : "text-fg-1"
+                                        }`}
                                     >
                                         {n.code}
                                     </div>
-                                    <div
-                                        style={{
-                                            fontSize: 14,
-                                            color: "var(--fg-2)",
-                                        }}
-                                    >
+                                    <div className="text-[14px] text-fg-2">
                                         {n.label}
                                     </div>
                                     <div
-                                        style={{
-                                            fontSize: 11,
-                                            fontWeight: 600,
-                                            letterSpacing: "0.1em",
-                                            textTransform: "uppercase",
-                                            color: n.primary
-                                                ? "var(--ivy-green-700)"
-                                                : "var(--fg-4)",
-                                        }}
+                                        className={`text-[11px] font-semibold tracking-[0.1em] uppercase ${
+                                            n.primary
+                                                ? "text-ivy-green-700"
+                                                : "text-fg-4"
+                                        }`}
                                     >
                                         {n.primary ? "Primary" : ""}
                                     </div>
