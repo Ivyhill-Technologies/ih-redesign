@@ -51,3 +51,6 @@ coverage/
 
 # Local screenshots saved at repo root (debug / comparison shots)
 /*.png
+
+# Playwright screenshots
+screenshots/
