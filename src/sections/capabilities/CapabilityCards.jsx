@@ -11,7 +11,9 @@ export function CapabilityCards({ eyebrow = "What we deliver", title, lede, card
                     </h2>
                     {lede && <p className="m-0 text-[17px] leading-[1.6] text-fg-3">{lede}</p>}
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-line-1 border border-line-1">
+                <div
+                    className={`grid grid-cols-1 ${cards.length === 4 ? "md:grid-cols-2" : "md:grid-cols-3"} gap-px bg-line-1 border border-line-1`}
+                >
                     {cards.map((card) => {
                         const I = card.icon;
                         return (
