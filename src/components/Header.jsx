@@ -46,6 +46,7 @@ const RAIL_POINTS = ["ISO-certified processes", "SBA 8(a)", "MDOT MBE/DBE/SBE", 
 
 const NAV = [
     { label: "Past performance", to: "/#past-performance" },
+    { label: "Contracts", to: "/contracts" },
     { label: "About", to: "/about" },
 ];
 
