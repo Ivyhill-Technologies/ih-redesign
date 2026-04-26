@@ -63,6 +63,31 @@ const OUTCOMES = [
     "Surface program-wide records analytics — trends, schedule-review status, and key indicators.",
 ];
 
+const CONVERSION_TECHS = [
+    {
+        abbr: "OCR",
+        name: "Optical Character Recognition",
+        body: "Machine-printed text extraction from scanned documents — the baseline for converting clean, printed records into searchable digital content.",
+    },
+    {
+        abbr: "ICR",
+        name: "Intelligent Character Recognition",
+        body: "Hand-printed character recognition for forms and field-completed records — trained models that handle the constrained handwriting agencies actually receive.",
+    },
+    {
+        abbr: "IWR",
+        name: "Intelligent Word Recognition",
+        body: "Whole-word and cursive recognition for documents that fall outside OCR/ICR — used selectively where the source material requires it.",
+    },
+];
+
+const CONVERSION_OUTCOMES = [
+    "NARA-compliant digitization of permanent records — identified, managed, protected, and prepared for transfer to the National Archives.",
+    "Searchable, retrievable digital records — eliminating the time and overhead of physical retrieval, search, and refiling.",
+    "Strategy and model selection — Ivyhill helps define the conversion approach and the right recognition model for the source material.",
+    "Data extraction into decision support — valuable elements pulled from converted records and routed into downstream analytics.",
+];
+
 const APP_COLUMNS = [
     {
         eyebrow: "Modernization",
@@ -106,6 +131,56 @@ export function RecordsManagementPage() {
                         lede="From schedule management through inventories, file plans, periodic review, Capstone tracking, and site visits — Ivyhill's records modules are designed to be adopted together and governed centrally."
                         cards={MODULES}
                     />
+                    <section className="section bg-ink-1000 text-white">
+                        <div className="container px-6">
+                            <div className="flex items-baseline gap-6 mb-12 pt-6 border-t border-ivy-green-500">
+                                <span className="eyebrow pt-3.5 text-ivy-green-400">
+                                    Featured capability
+                                </span>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12 items-start">
+                                <h2 className="m-0 font-bold leading-[1.1] tracking-[-0.02em] text-white text-balance text-[clamp(28px,3vw,40px)]">
+                                    Document Conversion — turning physical records into searchable digital assets.
+                                </h2>
+                                <p className="m-0 text-[17px] leading-[1.6] text-ink-300">
+                                    Document conversion is one of the most resource-intensive parts of any records program. Ivyhill's specialists run the scanning, recognition, and quality workflow end-to-end — leveraging AI to ensure a smooth paper-to-digital transition and to extract the data elements that matter for downstream decision support.
+                                </p>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-ink-800 border border-ink-800 mb-12">
+                                {CONVERSION_TECHS.map((t) => (
+                                    <div key={t.abbr} className="bg-ink-900 p-8 flex flex-col gap-3">
+                                        <div className="flex items-baseline gap-3">
+                                            <span className="text-[28px] font-bold tracking-[-0.02em] text-ivy-green-400">
+                                                {t.abbr}
+                                            </span>
+                                            <span className="text-[12px] font-mono uppercase tracking-[0.08em] text-ink-400">
+                                                {t.name}
+                                            </span>
+                                        </div>
+                                        <p className="m-0 text-[14px] leading-[1.6] text-ink-300">{t.body}</p>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-12 items-start">
+                                <h3 className="m-0 text-[20px] font-semibold !text-white">
+                                    What you get from an Ivyhill conversion engagement.
+                                </h3>
+                                <ul className="list-none m-0 p-0 grid grid-cols-1 md:grid-cols-2 gap-5">
+                                    {CONVERSION_OUTCOMES.map((o) => (
+                                        <li
+                                            key={o}
+                                            className="flex items-start gap-3 text-[14px] leading-[1.55] text-ink-200"
+                                        >
+                                            <span className="mt-1 text-ivy-green-400 shrink-0">
+                                                <Icon.Check size={14} />
+                                            </span>
+                                            <span>{o}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
                     <CapabilityAISpotlight
                         eyebrow="Data-driven applications"
                         title="Modernization and intelligent process automation across the records program."
