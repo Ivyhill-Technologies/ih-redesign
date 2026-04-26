@@ -116,6 +116,7 @@ export function Header() {
                         <LogoMark size={44} className="block" />
                     </Link>
                     <nav className="flex gap-7 items-center">
+                        {/* biome-ignore lint/a11y/noStaticElementInteractions: hover wrapper for dropdown; button child carries aria */}
                         <div ref={wrapRef} className="relative" onMouseEnter={openCaps} onMouseLeave={closeCaps}>
                             <button
                                 type="button"

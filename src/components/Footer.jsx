@@ -120,7 +120,10 @@ export function Footer() {
                     <span className="hidden sm:inline text-white/25">·</span>
                     <span>Hyattsville, Maryland</span>
                     <span className="sm:flex-1" />
-                    <a href="#top" className="inline-flex items-center gap-1.5 text-white/55 no-underline hover:text-white transition-colors">
+                    <a
+                        href="#top"
+                        className="inline-flex items-center gap-1.5 text-white/55 no-underline hover:text-white transition-colors"
+                    >
                         Back to top
                         <Icon.Arrow size={11} className="-rotate-90" />
                     </a>

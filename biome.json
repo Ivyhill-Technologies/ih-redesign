@@ -6,7 +6,7 @@
         "useIgnoreFile": true
     },
     "files": {
-        "includes": ["**", "!!**/dist", "!!**/_design-source", "!!**/.claude"]
+        "includes": ["src/**"]
     },
     "formatter": {
         "enabled": true,

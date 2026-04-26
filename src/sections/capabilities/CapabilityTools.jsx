@@ -32,8 +32,8 @@ function GroupedToolsTabs({ groups, lede, aside, practiceItems, frameworks }) {
             {lede && (
                 <div className="flex flex-col gap-4 text-[16px] leading-[1.6] text-fg-3">
                     {Array.isArray(lede) ? (
-                        lede.map((p, i) => (
-                            <p key={i} className="m-0">
+                        lede.map((p) => (
+                            <p key={p} className="m-0">
                                 {p}
                             </p>
                         ))
@@ -48,8 +48,8 @@ function GroupedToolsTabs({ groups, lede, aside, practiceItems, frameworks }) {
                         What this means in practice
                     </div>
                     <ul className="m-0 p-0 list-none flex flex-col gap-2">
-                        {practiceItems.map((it, i) => (
-                            <li key={i} className="flex gap-3 text-[14px] leading-[1.5] text-fg-2">
+                        {practiceItems.map((it) => (
+                            <li key={it} className="flex gap-3 text-[14px] leading-[1.5] text-fg-2">
                                 <span aria-hidden="true" className="mt-[7px] h-px w-4 shrink-0 bg-ivy-green-500" />
                                 <span>{it}</span>
                             </li>
@@ -91,8 +91,8 @@ function GroupedToolsTabs({ groups, lede, aside, practiceItems, frameworks }) {
                                 </div>
                             )}
                             <ul className="m-0 p-0 list-none space-y-3">
-                                {aside.items.map((it, i) => (
-                                    <li key={i} className="flex flex-col gap-0.5">
+                                {aside.items.map((it) => (
+                                    <li key={it.label} className="flex flex-col gap-0.5">
                                         <span className="text-[11px] font-mono uppercase tracking-[0.06em] text-ivy-green-700">
                                             {it.label}
                                         </span>
