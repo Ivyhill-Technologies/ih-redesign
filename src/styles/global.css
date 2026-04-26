@@ -47,6 +47,12 @@
     --color-line-2: var(--border-2);
     --color-line-strong: var(--border-strong);
     --color-line-brand: var(--border-brand);
+
+    /* Status */
+    --color-status-info: var(--status-info);
+    --color-status-success: var(--status-success);
+    --color-status-warning: var(--status-warning);
+    --color-status-danger: var(--status-danger);
 }
 
 @layer components {

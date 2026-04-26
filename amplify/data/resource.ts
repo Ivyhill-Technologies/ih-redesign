@@ -3,15 +3,21 @@ import { type ClientSchema, a, defineData } from '@aws-amplify/backend';
 /*== STEP 1 ===============================================================
 The section below creates a Todo database table with a "content" field. Try
 adding a new "isDone" field as a boolean. The authorization rule below
-specifies that any unauthenticated user can "create", "read", "update", 
+specifies that any unauthenticated user can "create", "read", "update",
 and "delete" any "Todo" records.
 =========================================================================*/
 const schema = a.schema({
-  Todo: a
+  ContactSubmission: a
     .model({
-      content: a.string(),
+        firstName: a.string().required(),
+        lastName: a.string().required(),
+        email: a.email().required(),
+        subject: a.string().required(),
+        message: a.string().required(),
     })
-    .authorization((allow) => [allow.guest()]),
+    .authorization((allow) => [
+        allow.guest().to(['create']),
+    ]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
@@ -28,7 +34,7 @@ Go to your frontend source code. From your client-side code, generate a
 Data client to make CRUDL requests to your table. (THIS SNIPPET WILL ONLY
 WORK IN THE FRONTEND CODE FILE.)
 
-Using JavaScript or Next.js React Server Components, Middleware, Server 
+Using JavaScript or Next.js React Server Components, Middleware, Server
 Actions or Pages Router? Review how to generate Data clients for those use
 cases: https://docs.amplify.aws/gen2/build-a-backend/data/connect-to-API/
 =========================================================================*/

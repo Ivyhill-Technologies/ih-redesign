@@ -12,6 +12,7 @@
         "check": "biome check ."
     },
     "dependencies": {
+        "@tanstack/react-form": "^1.29.1",
         "aws-amplify": "^6.16.4",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",

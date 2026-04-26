@@ -1,5 +1,9 @@
+import { useForm } from "@tanstack/react-form";
+import { generateClient } from "aws-amplify/data";
 import { useState } from "react";
 import { Icon } from "../../components/Icons.jsx";
+
+const client = generateClient();
 
 const INITIAL = {
     firstName: "",
@@ -11,47 +15,70 @@ const INITIAL = {
 };
 
 const FIELD_BASE =
-    "w-full rounded-[4px] border border-line-2 bg-white px-3.5 py-2.5 text-[15px] text-fg-1 placeholder:text-fg-4 transition-colors focus:outline-none focus:border-ivy-green-500 focus:ring-2 focus:ring-ivy-green-500/20 disabled:bg-surface-subtle disabled:text-fg-3";
+    "w-full rounded-[4px] border bg-white px-3.5 py-2.5 text-[15px] text-fg-1 placeholder:text-fg-4 transition-colors focus:outline-none focus:ring-2 disabled:bg-surface-subtle disabled:text-fg-3";
 
-const LABEL =
-    "block text-[12px] font-semibold tracking-[0.04em] uppercase text-fg-2 mb-1.5";
+const FIELD_OK = "border-line-2 focus:border-ivy-green-500 focus:ring-ivy-green-500/20";
+const FIELD_ERR = "border-status-danger focus:border-status-danger focus:ring-status-danger/20";
+
+const LABEL = "block text-[12px] font-semibold tracking-[0.04em] uppercase text-fg-2 mb-1.5";
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const MESSAGE_MIN = 10;
+
+const required =
+    (label) =>
+    ({ value }) =>
+        !value.trim() ? `${label} is required.` : undefined;
+
+const validateEmail = ({ value }) => {
+    if (!value.trim()) return "Email is required.";
+    if (!EMAIL_RE.test(value.trim())) return "Enter a valid email address.";
+    return undefined;
+};
+
+const validateMessage = ({ value }) => {
+    if (!value.trim()) return "Message is required.";
+    if (value.trim().length < MESSAGE_MIN) return `Please add a few more details (${MESSAGE_MIN}+ characters).`;
+    return undefined;
+};
 
 export function ContactForm() {
-    const [values, setValues] = useState(INITIAL);
     const [status, setStatus] = useState("idle");
-    const [error, setError] = useState(null);
+    const [submitError, setSubmitError] = useState(null);
 
-    const onChange = (e) => {
-        const { name, value } = e.target;
-        setValues((v) => ({ ...v, [name]: value }));
-    };
+    const form = useForm({
+        defaultValues: INITIAL,
+        onSubmit: async ({ value, formApi }) => {
+            if (value.website) return;
 
-    const onSubmit = async (e) => {
-        e.preventDefault();
-        if (values.website) return;
-
-        setStatus("submitting");
-        setError(null);
-
-        try {
-            // TODO: wire up Amplify Data submission here.
-            await new Promise((resolve) => setTimeout(resolve, 600));
-            console.info("[contact] submission payload (stub)", {
-                firstName: values.firstName,
-                lastName: values.lastName,
-                email: values.email,
-                subject: values.subject,
-                message: values.message,
-            });
-            setStatus("success");
-            setValues(INITIAL);
-        } catch (err) {
-            setStatus("error");
-            setError(err?.message ?? "Something went wrong. Please try again.");
-        }
-    };
+            try {
+                const { errors: apiErrors } = await client.models.ContactSubmission.create({
+                    firstName: value.firstName.trim(),
+                    lastName: value.lastName.trim(),
+                    email: value.email.trim(),
+                    subject: value.subject.trim(),
+                    message: value.message.trim(),
+                });
+                if (apiErrors?.length) throw new Error(apiErrors[0].message);
+                setStatus("success");
+                setSubmitError(null);
+                formApi.reset();
+            } catch (err) {
+                setStatus("error");
+                setSubmitError(err?.message ?? "Something went wrong. Please try again.");
+            }
+        },
+    });
 
     const submitting = status === "submitting";
+
+    const fieldClass = (field, extra = "") => {
+        const showErr = field.state.meta.isTouched && field.state.meta.errors.length > 0;
+        return `${FIELD_BASE} ${showErr ? FIELD_ERR : FIELD_OK}${extra ? ` ${extra}` : ""}`;
+    };
+
+    const errorId = (name) => `${name}-error`;
+    const showError = (field) => field.state.meta.isTouched && field.state.meta.errors.length > 0;
 
     return (
         <section className="section">
@@ -88,126 +115,205 @@ export function ContactForm() {
                                 </div>
                             </div>
                         ) : (
-                            <form onSubmit={onSubmit} noValidate={false} className="flex flex-col gap-5">
+                            <form
+                                onSubmit={(e) => {
+                                    e.preventDefault();
+                                    form.handleSubmit();
+                                }}
+                                noValidate
+                                className="flex flex-col gap-5"
+                            >
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                                    <div>
-                                        <label htmlFor="firstName" className={LABEL}>
-                                            First name <span className="text-ivy-green-700">*</span>
-                                        </label>
-                                        <input
-                                            id="firstName"
-                                            name="firstName"
-                                            type="text"
-                                            autoComplete="given-name"
-                                            required
-                                            disabled={submitting}
-                                            value={values.firstName}
-                                            onChange={onChange}
-                                            className={FIELD_BASE}
-                                        />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="lastName" className={LABEL}>
-                                            Last name <span className="text-ivy-green-700">*</span>
-                                        </label>
-                                        <input
-                                            id="lastName"
-                                            name="lastName"
-                                            type="text"
-                                            autoComplete="family-name"
-                                            required
-                                            disabled={submitting}
-                                            value={values.lastName}
-                                            onChange={onChange}
-                                            className={FIELD_BASE}
-                                        />
-                                    </div>
+                                    <form.Field name="firstName" validators={{ onChange: required("First name") }}>
+                                        {(field) => (
+                                            <div>
+                                                <label htmlFor="firstName" className={LABEL}>
+                                                    First name <span className="text-ivy-green-700">*</span>
+                                                </label>
+                                                <input
+                                                    id="firstName"
+                                                    name="firstName"
+                                                    type="text"
+                                                    autoComplete="given-name"
+                                                    required
+                                                    disabled={submitting}
+                                                    value={field.state.value}
+                                                    onChange={(e) => field.handleChange(e.target.value)}
+                                                    onBlur={field.handleBlur}
+                                                    aria-invalid={showError(field)}
+                                                    aria-describedby={showError(field) ? errorId("firstName") : undefined}
+                                                    className={fieldClass(field)}
+                                                />
+                                                {showError(field) && (
+                                                    <p
+                                                        id={errorId("firstName")}
+                                                        className="mt-1.5 text-[13px] text-status-danger"
+                                                    >
+                                                        {field.state.meta.errors[0]}
+                                                    </p>
+                                                )}
+                                            </div>
+                                        )}
+                                    </form.Field>
+
+                                    <form.Field name="lastName" validators={{ onChange: required("Last name") }}>
+                                        {(field) => (
+                                            <div>
+                                                <label htmlFor="lastName" className={LABEL}>
+                                                    Last name <span className="text-ivy-green-700">*</span>
+                                                </label>
+                                                <input
+                                                    id="lastName"
+                                                    name="lastName"
+                                                    type="text"
+                                                    autoComplete="family-name"
+                                                    required
+                                                    disabled={submitting}
+                                                    value={field.state.value}
+                                                    onChange={(e) => field.handleChange(e.target.value)}
+                                                    onBlur={field.handleBlur}
+                                                    aria-invalid={showError(field)}
+                                                    aria-describedby={showError(field) ? errorId("lastName") : undefined}
+                                                    className={fieldClass(field)}
+                                                />
+                                                {showError(field) && (
+                                                    <p id={errorId("lastName")} className="mt-1.5 text-[13px] text-status-danger">
+                                                        {field.state.meta.errors[0]}
+                                                    </p>
+                                                )}
+                                            </div>
+                                        )}
+                                    </form.Field>
                                 </div>
 
-                                <div>
-                                    <label htmlFor="email" className={LABEL}>
-                                        Email <span className="text-ivy-green-700">*</span>
-                                    </label>
-                                    <input
-                                        id="email"
-                                        name="email"
-                                        type="email"
-                                        autoComplete="email"
-                                        required
-                                        disabled={submitting}
-                                        value={values.email}
-                                        onChange={onChange}
-                                        placeholder="you@agency.gov"
-                                        className={FIELD_BASE}
-                                    />
-                                </div>
+                                <form.Field name="email" validators={{ onChange: validateEmail }}>
+                                    {(field) => (
+                                        <div>
+                                            <label htmlFor="email" className={LABEL}>
+                                                Email <span className="text-ivy-green-700">*</span>
+                                            </label>
+                                            <input
+                                                id="email"
+                                                name="email"
+                                                type="email"
+                                                autoComplete="email"
+                                                required
+                                                disabled={submitting}
+                                                value={field.state.value}
+                                                onChange={(e) => field.handleChange(e.target.value)}
+                                                onBlur={field.handleBlur}
+                                                placeholder="you@agency.gov"
+                                                aria-invalid={showError(field)}
+                                                aria-describedby={showError(field) ? errorId("email") : undefined}
+                                                className={fieldClass(field)}
+                                            />
+                                            {showError(field) && (
+                                                <p id={errorId("email")} className="mt-1.5 text-[13px] text-status-danger">
+                                                    {field.state.meta.errors[0]}
+                                                </p>
+                                            )}
+                                        </div>
+                                    )}
+                                </form.Field>
 
-                                <div>
-                                    <label htmlFor="subject" className={LABEL}>
-                                        Subject <span className="text-ivy-green-700">*</span>
-                                    </label>
-                                    <input
-                                        id="subject"
-                                        name="subject"
-                                        type="text"
-                                        required
-                                        disabled={submitting}
-                                        value={values.subject}
-                                        onChange={onChange}
-                                        placeholder="What can we help with?"
-                                        className={FIELD_BASE}
-                                    />
-                                </div>
+                                <form.Field name="subject" validators={{ onChange: required("Subject") }}>
+                                    {(field) => (
+                                        <div>
+                                            <label htmlFor="subject" className={LABEL}>
+                                                Subject <span className="text-ivy-green-700">*</span>
+                                            </label>
+                                            <input
+                                                id="subject"
+                                                name="subject"
+                                                type="text"
+                                                required
+                                                disabled={submitting}
+                                                value={field.state.value}
+                                                onChange={(e) => field.handleChange(e.target.value)}
+                                                onBlur={field.handleBlur}
+                                                placeholder="What can we help with?"
+                                                aria-invalid={showError(field)}
+                                                aria-describedby={showError(field) ? errorId("subject") : undefined}
+                                                className={fieldClass(field)}
+                                            />
+                                            {showError(field) && (
+                                                <p id={errorId("subject")} className="mt-1.5 text-[13px] text-status-danger">
+                                                    {field.state.meta.errors[0]}
+                                                </p>
+                                            )}
+                                        </div>
+                                    )}
+                                </form.Field>
 
-                                <div>
-                                    <label htmlFor="message" className={LABEL}>
-                                        Message <span className="text-ivy-green-700">*</span>
-                                    </label>
-                                    <textarea
-                                        id="message"
-                                        name="message"
-                                        rows={6}
-                                        required
-                                        disabled={submitting}
-                                        value={values.message}
-                                        onChange={onChange}
-                                        placeholder="A few sentences about your program, requirement, or RFI."
-                                        className={`${FIELD_BASE} resize-y min-h-[140px]`}
-                                    />
-                                </div>
+                                <form.Field name="message" validators={{ onChange: validateMessage }}>
+                                    {(field) => (
+                                        <div>
+                                            <label htmlFor="message" className={LABEL}>
+                                                Message <span className="text-ivy-green-700">*</span>
+                                            </label>
+                                            <textarea
+                                                id="message"
+                                                name="message"
+                                                rows={6}
+                                                required
+                                                disabled={submitting}
+                                                value={field.state.value}
+                                                onChange={(e) => field.handleChange(e.target.value)}
+                                                onBlur={field.handleBlur}
+                                                placeholder="A few sentences about your program, requirement, or RFI."
+                                                aria-invalid={showError(field)}
+                                                aria-describedby={showError(field) ? errorId("message") : undefined}
+                                                className={fieldClass(field, "resize-y min-h-[140px]")}
+                                            />
+                                            {showError(field) && (
+                                                <p id={errorId("message")} className="mt-1.5 text-[13px] text-status-danger">
+                                                    {field.state.meta.errors[0]}
+                                                </p>
+                                            )}
+                                        </div>
+                                    )}
+                                </form.Field>
 
                                 {/* Honeypot — hidden from users, bots fill it. */}
-                                <div aria-hidden="true" className="hidden">
-                                    <label htmlFor="website">Website</label>
-                                    <input
-                                        id="website"
-                                        name="website"
-                                        type="text"
-                                        tabIndex={-1}
-                                        autoComplete="off"
-                                        value={values.website}
-                                        onChange={onChange}
-                                    />
-                                </div>
+                                <form.Field name="website">
+                                    {(field) => (
+                                        <div aria-hidden="true" className="hidden">
+                                            <label htmlFor="website">Website</label>
+                                            <input
+                                                id="website"
+                                                name="website"
+                                                type="text"
+                                                tabIndex={-1}
+                                                autoComplete="off"
+                                                value={field.state.value}
+                                                onChange={(e) => field.handleChange(e.target.value)}
+                                            />
+                                        </div>
+                                    )}
+                                </form.Field>
 
                                 {status === "error" && (
                                     <div
                                         role="alert"
                                         className="rounded-[4px] border border-line-1 bg-surface-subtle px-4 py-3 text-[14px] text-fg-2"
                                     >
-                                        {error}
+                                        {submitError}
                                     </div>
                                 )}
 
-                                <div className="flex items-center gap-4 pt-2">
-                                    <button type="submit" disabled={submitting} className="btn btn-primary">
-                                        {submitting ? "Sending…" : "Send message"}
-                                        {!submitting && <Icon.Arrow size={14} />}
-                                    </button>
-                                    <span className="text-[13px] text-fg-3">
-                                        We typically reply within one business day.
-                                    </span>
-                                </div>
+                                <form.Subscribe selector={(s) => [s.isSubmitting, s.canSubmit]}>
+                                    {([isSubmitting]) => (
+                                        <div className="flex items-center gap-4 pt-2">
+                                            <button type="submit" disabled={isSubmitting} className="btn btn-primary">
+                                                {isSubmitting ? "Sending…" : "Send message"}
+                                                {!isSubmitting && <Icon.Arrow size={14} />}
+                                            </button>
+                                            <span className="text-[13px] text-fg-3">
+                                                We typically reply within one business day.
+                                            </span>
+                                        </div>
+                                    )}
+                                </form.Subscribe>
                             </form>
                         )}
                     </div>
@@ -230,10 +336,7 @@ export function ContactForm() {
                                     <span className="mt-0.5 text-ivy-green-700 shrink-0">
                                         <Icon.Phone size={16} />
                                     </span>
-                                    <a
-                                        href="tel:+13014771080"
-                                        className="text-fg-2 no-underline hover:text-ivy-green-700"
-                                    >
+                                    <a href="tel:+13014771080" className="text-fg-2 no-underline hover:text-ivy-green-700">
                                         +1 (301) 477-1080
                                     </a>
                                 </li>
@@ -254,8 +357,8 @@ export function ContactForm() {
                         <div className="border border-line-1 rounded-[4px] bg-ivy-green-50 p-7">
                             <div className="eyebrow text-ivy-green-700 mb-3">Contracting</div>
                             <p className="m-0 mb-4 text-[14px] leading-[1.6] text-fg-2">
-                                Building a requirement or RFI? Pull our current capability statement and we'll route you to
-                                the right contract vehicle.
+                                Building a requirement or RFI? Pull our current capability statement and we'll route you to the
+                                right contract vehicle.
                             </p>
                             <a
                                 href="/documents/Ivyhill-Capability-Statement-2026.pdf"
