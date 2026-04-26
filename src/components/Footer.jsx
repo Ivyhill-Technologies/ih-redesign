@@ -81,17 +81,7 @@ export function Footer() {
                     ))}
                 </div>
                 <div className="pt-6 border-t border-white/[0.12] flex gap-6 flex-wrap items-center text-[11px] font-mono tracking-[0.04em] text-white/50">
-                    <span>© 2025 Ivyhill Technologies, LLC</span>
-                    <span>·</span>
-                    <span>CAGE 7HWD9</span>
-                    <span>·</span>
-                    <span>UEI LSVSGHNE2ZW5</span>
-                    <span>·</span>
-                    <span>NAICS 541511 / 541512 / 518210 / 561410</span>
-                    <span className="flex-1" />
-                    <span>ISO 9001 · 20000-1 · 27001</span>
-                    <span>·</span>
-                    <span>MBE / DBE / SBE</span>
+                    <span>© {new Date().getFullYear()} Ivyhill Technologies, LLC</span>
                 </div>
             </div>
         </footer>
