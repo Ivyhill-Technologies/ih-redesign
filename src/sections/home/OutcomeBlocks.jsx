@@ -1,4 +1,4 @@
-import { Icon } from "../components/Icons.jsx";
+import { Icon } from "../../components/Icons.jsx";
 
 const BLOCKS = [
     {
