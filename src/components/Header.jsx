@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import * as NavigationMenu from "@radix-ui/react-navigation-menu";
+import { useEffect, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { Icon } from "./Icons.jsx";
 import { LogoMark } from "./Logo.jsx";
 
@@ -56,51 +57,12 @@ const NAV_LINK_BASE =
 
 export function Header() {
     const [scrolled, setScrolled] = useState(false);
-    const [capsOpen, setCapsOpen] = useState(false);
-    const closeTimer = useRef(null);
-    const wrapRef = useRef(null);
-    const location = useLocation();
 
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 8);
         window.addEventListener("scroll", onScroll);
         return () => window.removeEventListener("scroll", onScroll);
     }, []);
-
-    // biome-ignore lint/correctness/useExhaustiveDependencies: pathname must trigger close on navigation
-    useEffect(() => {
-        setCapsOpen(false);
-    }, [location.pathname]);
-
-    useEffect(() => {
-        if (!capsOpen) return;
-        const onDocClick = (e) => {
-            if (wrapRef.current && !wrapRef.current.contains(e.target)) {
-                setCapsOpen(false);
-            }
-        };
-        const onKey = (e) => {
-            if (e.key === "Escape") setCapsOpen(false);
-        };
-        document.addEventListener("mousedown", onDocClick);
-        document.addEventListener("keydown", onKey);
-        return () => {
-            document.removeEventListener("mousedown", onDocClick);
-            document.removeEventListener("keydown", onKey);
-        };
-    }, [capsOpen]);
-
-    const openCaps = () => {
-        if (closeTimer.current) clearTimeout(closeTimer.current);
-        setCapsOpen(true);
-    };
-    const closeCaps = () => {
-        closeTimer.current = setTimeout(() => setCapsOpen(false), 140);
-    };
-    const toggleCaps = () => {
-        if (closeTimer.current) clearTimeout(closeTimer.current);
-        setCapsOpen((v) => !v);
-    };
 
     return (
         <header className="sticky top-0 z-30">
@@ -117,62 +79,54 @@ export function Header() {
                     >
                         <LogoMark size={44} className="block" />
                     </Link>
-                    <nav className="flex gap-7 items-center">
-                        {/* biome-ignore lint/a11y/noStaticElementInteractions: hover wrapper for dropdown; button child carries aria */}
-                        <div ref={wrapRef} className="relative" onMouseEnter={openCaps} onMouseLeave={closeCaps}>
-                            <button
-                                type="button"
-                                onClick={toggleCaps}
-                                aria-haspopup="true"
-                                aria-expanded={capsOpen}
-                                className={`${NAV_LINK_BASE} text-fg-2 border-transparent bg-transparent cursor-pointer p-0`}
-                            >
-                                Capabilities
-                                <svg
-                                    aria-hidden="true"
-                                    width="10"
-                                    height="10"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2.25"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    className={`transition-transform duration-150 ease-in-out ${capsOpen ? "rotate-180" : ""}`}
+                    <NavigationMenu.Root delayDuration={0} className="flex gap-7 items-center">
+                        <NavigationMenu.List className="flex gap-7 items-center m-0 p-0 list-none">
+                            <NavigationMenu.Item className="relative">
+                                <NavigationMenu.Trigger
+                                    className={`${NAV_LINK_BASE} text-fg-2 border-transparent bg-transparent cursor-pointer p-0 group`}
                                 >
-                                    <polyline points="6 9 12 15 18 9" />
-                                </svg>
-                            </button>
+                                    Capabilities
+                                    <svg
+                                        aria-hidden="true"
+                                        width="10"
+                                        height="10"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2.25"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        className="transition-transform duration-150 ease-in-out group-data-[state=open]:rotate-180"
+                                    >
+                                        <polyline points="6 9 12 15 18 9" />
+                                    </svg>
+                                </NavigationMenu.Trigger>
 
-                            {capsOpen && (
-                                <div
-                                    role="menu"
-                                    className="absolute top-[calc(100%+14px)] left-0 w-[760px] bg-white border border-line-1 rounded-lg shadow-[var(--shadow-3)] overflow-hidden flex animate-[capsFade_140ms_ease-out] z-40"
-                                >
+                                <NavigationMenu.Content className="absolute top-[calc(100%+14px)] left-0 w-[760px] bg-white border border-line-1 rounded-lg shadow-[var(--shadow-3)] overflow-hidden flex animate-[capsFade_140ms_ease-out] z-40">
                                     <div className="flex-1 p-3">
                                         <div className="grid grid-cols-2 gap-1">
                                             {SERVICES.map((s) => {
                                                 const Ico = s.icon;
                                                 return (
-                                                    <a
-                                                        key={s.slug}
-                                                        href={`/capabilities/${s.slug}`}
-                                                        role="menuitem"
-                                                        className="group relative flex items-start gap-3 rounded-md py-3 pl-4 pr-3 no-underline text-fg-1 transition-colors duration-100 hover:bg-surface-subtle"
-                                                    >
-                                                        <span className="absolute left-0 top-2 bottom-2 w-[2px] rounded-r bg-ivy-green-500 opacity-0 group-hover:opacity-100 transition-opacity duration-100" />
-                                                        <span className="mt-[2px] flex items-center justify-center w-8 h-8 rounded-md bg-ivy-green-50 text-ivy-green-700 group-hover:bg-ivy-green-100 transition-colors duration-100 shrink-0">
-                                                            <Ico size={18} />
-                                                        </span>
-                                                        <span className="flex flex-col min-w-0">
-                                                            <span className="text-[14px] font-semibold leading-tight">
-                                                                {s.name}
+                                                    <NavigationMenu.Link key={s.slug} asChild>
+                                                        <a
+                                                            href={`/capabilities/${s.slug}`}
+                                                            className="group relative flex items-start gap-3 rounded-md py-3 pl-4 pr-3 no-underline text-fg-1 transition-colors duration-100 hover:bg-surface-subtle"
+                                                        >
+                                                            <span className="absolute left-0 top-2 bottom-2 w-[2px] rounded-r bg-ivy-green-500 opacity-0 group-hover:opacity-100 transition-opacity duration-100" />
+                                                            <span className="mt-[2px] flex items-center justify-center w-8 h-8 rounded-md bg-ivy-green-50 text-ivy-green-700 group-hover:bg-ivy-green-100 transition-colors duration-100 shrink-0">
+                                                                <Ico size={18} />
                                                             </span>
-                                                            <span className="text-[12.5px] text-fg-3 leading-snug mt-1">
-                                                                {s.desc}
+                                                            <span className="flex flex-col min-w-0">
+                                                                <span className="text-[14px] font-semibold leading-tight">
+                                                                    {s.name}
+                                                                </span>
+                                                                <span className="text-[12.5px] text-fg-3 leading-snug mt-1">
+                                                                    {s.desc}
+                                                                </span>
                                                             </span>
-                                                        </span>
-                                                    </a>
+                                                        </a>
+                                                    </NavigationMenu.Link>
                                                 );
                                             })}
                                         </div>
@@ -202,27 +156,33 @@ export function Header() {
                                                 ))}
                                             </ul>
                                             <div className="mt-auto">
-                                                <a
-                                                    href="/documents/Ivyhill-Capability-Statement-2026.pdf"
-                                                    target="_blank"
-                                                    rel="noopener"
-                                                    onClick={() => setCapsOpen(false)}
-                                                    className="btn bg-ivy-green-500 text-ink-1000 hover:bg-ivy-green-400 border-transparent w-full justify-center no-underline"
-                                                >
-                                                    Capability statement <Icon.Arrow size={13} />
-                                                </a>
+                                                <NavigationMenu.Link asChild>
+                                                    <a
+                                                        href="/documents/Ivyhill-Capability-Statement-2026.pdf"
+                                                        target="_blank"
+                                                        rel="noopener"
+                                                        className="btn bg-ivy-green-500 text-ink-1000 hover:bg-ivy-green-400 border-transparent w-full justify-center no-underline"
+                                                    >
+                                                        Capability statement <Icon.Arrow size={13} />
+                                                    </a>
+                                                </NavigationMenu.Link>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            )}
-                        </div>
-                        {NAV.map(({ label, to }) => (
-                            <NavLink key={label} to={to} className={`${NAV_LINK_BASE} text-fg-2 border-transparent`}>
-                                {label}
-                            </NavLink>
-                        ))}
-                    </nav>
+                                </NavigationMenu.Content>
+                            </NavigationMenu.Item>
+
+                            {NAV.map(({ label, to }) => (
+                                <NavigationMenu.Item key={label}>
+                                    <NavigationMenu.Link asChild>
+                                        <NavLink to={to} className={`${NAV_LINK_BASE} text-fg-2 border-transparent`}>
+                                            {label}
+                                        </NavLink>
+                                    </NavigationMenu.Link>
+                                </NavigationMenu.Item>
+                            ))}
+                        </NavigationMenu.List>
+                    </NavigationMenu.Root>
                     <span className="flex-1" />
                     <a
                         href="/documents/Ivyhill-Capability-Statement-2026.pdf"

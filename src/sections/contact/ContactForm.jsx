@@ -136,7 +136,13 @@ export function ContactForm() {
                                 className="flex flex-col gap-5"
                             >
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                                    <form.Field name="firstName" validators={{ onChange: required("First name", NAME_MAX) }}>
+                                    <form.Field
+                                        name="firstName"
+                                        validators={{
+                                            onChange: required("First name", NAME_MAX),
+                                            onBlur: required("First name", NAME_MAX),
+                                        }}
+                                    >
                                         {(field) => (
                                             <div>
                                                 <label htmlFor="firstName" className={LABEL}>
@@ -169,7 +175,13 @@ export function ContactForm() {
                                         )}
                                     </form.Field>
 
-                                    <form.Field name="lastName" validators={{ onChange: required("Last name", NAME_MAX) }}>
+                                    <form.Field
+                                        name="lastName"
+                                        validators={{
+                                            onChange: required("Last name", NAME_MAX),
+                                            onBlur: required("Last name", NAME_MAX),
+                                        }}
+                                    >
                                         {(field) => (
                                             <div>
                                                 <label htmlFor="lastName" className={LABEL}>
@@ -200,7 +212,7 @@ export function ContactForm() {
                                     </form.Field>
                                 </div>
 
-                                <form.Field name="email" validators={{ onChange: validateEmail }}>
+                                <form.Field name="email" validators={{ onChange: validateEmail, onBlur: validateEmail }}>
                                     {(field) => (
                                         <div>
                                             <label htmlFor="email" className={LABEL}>
@@ -231,7 +243,13 @@ export function ContactForm() {
                                     )}
                                 </form.Field>
 
-                                <form.Field name="subject" validators={{ onChange: required("Subject", SUBJECT_MAX) }}>
+                                <form.Field
+                                    name="subject"
+                                    validators={{
+                                        onChange: required("Subject", SUBJECT_MAX),
+                                        onBlur: required("Subject", SUBJECT_MAX),
+                                    }}
+                                >
                                     {(field) => (
                                         <div>
                                             <label htmlFor="subject" className={LABEL}>
@@ -261,7 +279,7 @@ export function ContactForm() {
                                     )}
                                 </form.Field>
 
-                                <form.Field name="message" validators={{ onChange: validateMessage }}>
+                                <form.Field name="message" validators={{ onChange: validateMessage, onBlur: validateMessage }}>
                                     {(field) => (
                                         <div>
                                             <label htmlFor="message" className={LABEL}>
