@@ -56,7 +56,7 @@ const ITEMS = [
 function CapabilityCard({ item }) {
     const [hover, setHover] = useState(false);
     const I = item.icon;
-    const href = item.slug ? `/services/${item.slug}` : "#";
+    const href = item.slug ? `/capabilities/${item.slug}` : "#";
     const tagNodes = item.tags.flatMap((t, i) => [
         ...(i > 0
             ? [
