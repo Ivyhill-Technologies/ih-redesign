@@ -23,22 +23,34 @@ const FIELD_ERR = "border-status-danger focus:border-status-danger focus:ring-st
 const LABEL = "block text-[12px] font-semibold tracking-[0.04em] uppercase text-fg-2 mb-1.5";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const NAME_MAX = 100;
+const EMAIL_MAX = 254;
+const SUBJECT_MAX = 200;
 const MESSAGE_MIN = 10;
+const MESSAGE_MAX = 5000;
 
 const required =
-    (label) =>
-    ({ value }) =>
-        !value.trim() ? `${label} is required.` : undefined;
+    (label, max) =>
+    ({ value }) => {
+        const v = value.trim();
+        if (!v) return `${label} is required.`;
+        if (max && v.length > max) return `${label} must be ${max} characters or fewer.`;
+        return undefined;
+    };
 
 const validateEmail = ({ value }) => {
-    if (!value.trim()) return "Email is required.";
-    if (!EMAIL_RE.test(value.trim())) return "Enter a valid email address.";
+    const v = value.trim();
+    if (!v) return "Email is required.";
+    if (v.length > EMAIL_MAX) return `Email must be ${EMAIL_MAX} characters or fewer.`;
+    if (!EMAIL_RE.test(v)) return "Enter a valid email address.";
     return undefined;
 };
 
 const validateMessage = ({ value }) => {
-    if (!value.trim()) return "Message is required.";
-    if (value.trim().length < MESSAGE_MIN) return `Please add a few more details (${MESSAGE_MIN}+ characters).`;
+    const v = value.trim();
+    if (!v) return "Message is required.";
+    if (v.length < MESSAGE_MIN) return `Please add a few more details (${MESSAGE_MIN}+ characters).`;
+    if (v.length > MESSAGE_MAX) return `Message must be ${MESSAGE_MAX} characters or fewer.`;
     return undefined;
 };
 
@@ -124,7 +136,7 @@ export function ContactForm() {
                                 className="flex flex-col gap-5"
                             >
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                                    <form.Field name="firstName" validators={{ onChange: required("First name") }}>
+                                    <form.Field name="firstName" validators={{ onChange: required("First name", NAME_MAX) }}>
                                         {(field) => (
                                             <div>
                                                 <label htmlFor="firstName" className={LABEL}>
@@ -136,6 +148,7 @@ export function ContactForm() {
                                                     type="text"
                                                     autoComplete="given-name"
                                                     required
+                                                    maxLength={NAME_MAX}
                                                     disabled={submitting}
                                                     value={field.state.value}
                                                     onChange={(e) => field.handleChange(e.target.value)}
@@ -156,7 +169,7 @@ export function ContactForm() {
                                         )}
                                     </form.Field>
 
-                                    <form.Field name="lastName" validators={{ onChange: required("Last name") }}>
+                                    <form.Field name="lastName" validators={{ onChange: required("Last name", NAME_MAX) }}>
                                         {(field) => (
                                             <div>
                                                 <label htmlFor="lastName" className={LABEL}>
@@ -168,6 +181,7 @@ export function ContactForm() {
                                                     type="text"
                                                     autoComplete="family-name"
                                                     required
+                                                    maxLength={NAME_MAX}
                                                     disabled={submitting}
                                                     value={field.state.value}
                                                     onChange={(e) => field.handleChange(e.target.value)}
@@ -198,6 +212,7 @@ export function ContactForm() {
                                                 type="email"
                                                 autoComplete="email"
                                                 required
+                                                maxLength={EMAIL_MAX}
                                                 disabled={submitting}
                                                 value={field.state.value}
                                                 onChange={(e) => field.handleChange(e.target.value)}
@@ -216,7 +231,7 @@ export function ContactForm() {
                                     )}
                                 </form.Field>
 
-                                <form.Field name="subject" validators={{ onChange: required("Subject") }}>
+                                <form.Field name="subject" validators={{ onChange: required("Subject", SUBJECT_MAX) }}>
                                     {(field) => (
                                         <div>
                                             <label htmlFor="subject" className={LABEL}>
@@ -227,6 +242,7 @@ export function ContactForm() {
                                                 name="subject"
                                                 type="text"
                                                 required
+                                                maxLength={SUBJECT_MAX}
                                                 disabled={submitting}
                                                 value={field.state.value}
                                                 onChange={(e) => field.handleChange(e.target.value)}
@@ -256,6 +272,7 @@ export function ContactForm() {
                                                 name="message"
                                                 rows={6}
                                                 required
+                                                maxLength={MESSAGE_MAX}
                                                 disabled={submitting}
                                                 value={field.state.value}
                                                 onChange={(e) => field.handleChange(e.target.value)}
