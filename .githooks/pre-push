@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+# Aborts the push if package.json and package-lock.json are out of sync.
+# Catches the failure mode where `npm ci` would reject the lockfile on
+# Amplify or in CI. Enable via: git config core.hooksPath .githooks
+
+set -euo pipefail
+
+if ! git diff --cached --quiet -- package.json package-lock.json 2>/dev/null; then
+    : # staged-but-uncommitted changes don't matter for push validation
+fi
+
+# Only run when package.json or package-lock.json appears anywhere in the
+# range being pushed. Skips the check for branches that don't touch deps.
+range_changed_deps() {
+    local local_sha="$1"
+    local remote_sha="$2"
+    if [ "$remote_sha" = "0000000000000000000000000000000000000000" ]; then
+        # New branch — diff against the default upstream
+        git diff --name-only "origin/main...$local_sha" -- package.json package-lock.json 2>/dev/null
+    else
+        git diff --name-only "$remote_sha..$local_sha" -- package.json package-lock.json 2>/dev/null
+    fi
+}
+
+needs_check=0
+while read -r local_ref local_sha remote_ref remote_sha; do
+    [ -z "$local_sha" ] && continue
+    [ "$local_sha" = "0000000000000000000000000000000000000000" ] && continue
+    if [ -n "$(range_changed_deps "$local_sha" "$remote_sha")" ]; then
+        needs_check=1
+        break
+    fi
+done
+
+if [ "$needs_check" -eq 0 ]; then
+    exit 0
+fi
+
+echo "pre-push: package.json or package-lock.json changed — validating lockfile with npm ci --dry-run"
+
+if ! npm ci --dry-run --no-audit --no-fund >/tmp/pre-push-npm-ci.log 2>&1; then
+    echo
+    echo "✗ npm ci would fail — lockfile is out of sync with package.json."
+    echo "  Fix:  npm install && npm install --package-lock-only"
+    echo "  Then commit the updated package-lock.json and push again."
+    echo
+    echo "  Full output: /tmp/pre-push-npm-ci.log"
+    tail -20 /tmp/pre-push-npm-ci.log
+    exit 1
+fi
+
+echo "✓ lockfile validates"
