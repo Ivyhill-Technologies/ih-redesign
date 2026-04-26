@@ -17,7 +17,7 @@ const SUB_CAPABILITIES = [
         icon: Icon.BarChart,
         title: "Dashboards & Visualization",
         body: "Production dashboards on the Microsoft Power Platform — Power BI for most engagements, Tableau where the contract calls for it. Self-serve visibility for analysts, operators, and program leadership alike.",
-        tags: ["Power BI", "Tableau", "Self-serve"],
+        tags: ["Power BI", "Self-serve"],
     },
     {
         icon: Icon.Shield,
@@ -30,13 +30,13 @@ const SUB_CAPABILITIES = [
 const AI_COLUMNS = [
     {
         eyebrow: "Federal mission",
-        heading: "RAG inside the agency boundary.",
-        body: "Retrieval-augmented assistants that index policy manuals, SOPs, contract scope, case files, and records — running entirely inside FedRAMP-authorized cloud regions, with citations on every answer and audit trails on every query.",
+        heading: "RAG inside the agency's authorized cloud.",
+        body: "Retrieval-augmented assistants that index policy manuals, SOPs, contract scope, case files, and records — running entirely inside the cloud the agency has already authorized for its workloads, with citations on every answer and audit trails on every query.",
         items: [
             "Indexing pipelines for policy, SOPs, and records inventories — kept inside the agency's authorized cloud, never sent to a public model.",
             "Citations back to the source document on every answer so analysts verify against record, not model recall.",
             "Role-based retrieval so the assistant only surfaces what the user is already cleared to see.",
-            "Continuous monitoring and prompt/response logging aligned to NIST 800-53 and FedRAMP ConMon.",
+            "Continuous monitoring and prompt/response logging routed to the agency's logging stack.",
         ],
     },
     {
@@ -44,7 +44,7 @@ const AI_COLUMNS = [
         heading: "AI assistants on your own data.",
         body: "RAG and agentic workflows for commercial teams — sales playbooks, support knowledge bases, internal documentation, and product data — integrated with the SaaS stack the business already runs on.",
         items: [
-            "Index Confluence, SharePoint, Salesforce, Zendesk, and S3 into a single retrieval layer.",
+            "Index the SaaS tools, document repositories, and cloud storage your business already runs on into a single retrieval layer.",
             "Custom assistants for sales, support, and operations — grounded in your real documents, not generic web data.",
             "Agentic workflows that read, summarize, and take action across enterprise tools without copy-paste between tabs.",
             "Bring-your-own-cloud deployments on Azure, AWS, or GCP — your data stays in your tenant.",
@@ -57,13 +57,7 @@ const TOOLS = [
         name: "Power BI",
         src: "/assets/logos/powerbi.svg",
         description:
-            "Microsoft's BI platform — native to Azure Government and the M365 stack most agencies already license. Production dashboards with row-level security tied to Entra ID, riding on existing FedRAMP authorizations.",
-    },
-    {
-        name: "Tableau",
-        src: "/assets/logos/tableau.svg",
-        description:
-            "When the contract calls for Tableau specifically — Ivyhill delivers governed dashboards on Tableau Server inside agency-authorized boundaries, with the visual analytics depth Tableau is the standard for.",
+            "Microsoft's BI platform — native to the M365 stack most agencies already license. Production dashboards with row-level security tied to Entra ID, riding on the agency's existing tenant authorization. Tableau is also supported on engagements where the contract specifies it.",
     },
     {
         name: "pandas",
@@ -76,6 +70,12 @@ const TOOLS = [
         src: "/assets/logos/r.svg",
         description:
             "Statistical modeling for federal analytics that demand reproducible methods — hypothesis testing, time-series forecasting, and the publication-grade statistical output some agency programs require.",
+    },
+    {
+        name: "Decision support",
+        icon: Icon.BarChart,
+        description:
+            "The output of every Ivyhill analytics engagement — dashboards, forecasts, and predictive models that turn operational data into the evidence base agency leadership uses to make decisions, in real time.",
     },
 ];
 

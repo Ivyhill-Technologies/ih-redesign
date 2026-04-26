@@ -42,7 +42,7 @@ const SERVICES = [
     },
 ];
 
-const RAIL_POINTS = ["ISO-certified processes", "Cleared personnel", "Contract-vehicle-ready"];
+const RAIL_POINTS = ["ISO-certified processes", "SBA 8(a)", "MDOT MBE/DBE/SBE", "Contract-vehicle-ready"];
 
 const NAV = [
     { label: "Past performance", to: "/#past-performance" },

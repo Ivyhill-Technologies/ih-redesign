@@ -9,7 +9,7 @@ const BLOCKS = [
     {
         icon: Icon.Shield,
         title: "Keep your information safe.",
-        body: "Cybersecurity and infrastructure built to defense-in-depth standards, so your data, systems, and people stay protected. Cleared staff, defense-grade tooling, and the same rigor whether you're a federal agency or a private business.",
+        body: "Cybersecurity and infrastructure built to defense-in-depth standards, so your data, systems, and people stay protected. ISO 27001-certified information security, and the same rigor whether you're a federal agency or a private business.",
     },
     {
         icon: Icon.Folders,

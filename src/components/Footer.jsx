@@ -15,12 +15,7 @@ const COLS = [
     },
     {
         h: "Company",
-        items: [
-            { label: "About Ivyhill", href: "#" },
-            { label: "Leadership", href: "#" },
-            { label: "Careers", href: "#" },
-            { label: "Newsroom", href: "#" },
-        ],
+        items: [{ label: "About Ivyhill", href: "#" }],
     },
     {
         h: "Procurement",

@@ -5,7 +5,6 @@ const STATS = [
     ["Headquarters", "Hyattsville, MD"],
     ["Practice areas", "Seven"],
     ["Personnel", "51–200"],
-    ["Cleared staff", "Yes"],
     ["Cyber posture", "Defense-in-depth"],
 ];
 
@@ -37,7 +36,7 @@ export function Hero({ onCTA }) {
                         <p className="text-[18px] leading-[1.55] text-ink-300 max-w-[620px] m-0 mb-9">
                             Ivyhill partners with U.S. federal, state, and local agencies — and commercial clients — to develop
                             applications, manage records, secure infrastructure, and accelerate document conversion at agency
-                            scale. ISO-certified, contract-vehicle-ready, cleared personnel.
+                            scale. ISO-certified and contract-vehicle-ready.
                         </p>
                         <div className="flex gap-3 flex-wrap items-center">
                             <button
