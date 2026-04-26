@@ -9,7 +9,6 @@ const COLS = [
             { label: "Infrastructure Support", href: "/#capabilities" },
             { label: "Information Management", href: "/#capabilities" },
             { label: "Records Management", href: "/#capabilities" },
-            { label: "Document Conversion", href: "/#capabilities" },
             { label: "Queue Management", href: "/#capabilities" },
             { label: "Cybersecurity", href: "/#capabilities" },
         ],

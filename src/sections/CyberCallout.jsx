@@ -1,12 +1,17 @@
 import { Icon } from "../components/Icons.jsx";
 
 const FEATURES = [
-    "Defense-in-depth across every engagement",
-    "Continuous control monitoring",
-    "NIST-aligned response playbooks",
-    "Cleared personnel for sensitive work",
+    "Active protection on every engagement",
+    "Machine-intelligence static analyzer",
+    "Behavioral threat engine",
+    "Prevention and response posture",
     "ISO/IEC 27001:2022 certified ISMS",
-    "FedRAMP-aware cloud configurations",
+];
+
+const CERTS = [
+    ["ISO 27001:2022", "Information security"],
+    ["ISO 9001:2015", "Quality management"],
+    ["ISO 20000-1:2018", "IT service management"],
 ];
 
 export function CyberCallout() {
@@ -16,7 +21,7 @@ export function CyberCallout() {
                 <div className="pt-6 border-t border-ink-900 mb-9">
                     <span className="eyebrow">Horizontal capability</span>
                 </div>
-                <div className="grid grid-cols-[1fr_1.2fr] gap-20 items-start">
+                <div className="grid grid-cols-[1fr_1fr] gap-16 items-start">
                     <div>
                         <h2 className="m-0 mb-5 font-bold leading-[1.1] tracking-[-0.02em] text-fg-1 text-balance text-[clamp(28px,3vw,40px)]">
                             Cybersecurity is not a service line. It runs across all of them.
@@ -29,24 +34,41 @@ export function CyberCallout() {
                             <button type="button" className="btn btn-secondary">
                                 Security overview
                             </button>
-                            <button type="button" className="btn btn-ghost">
-                                View ISO 27001 certificate <Icon.ExternalLink size={14} />
-                            </button>
                         </div>
+                        <dl className="mt-10 pt-6 border-t border-line-1 grid grid-cols-3 gap-6 m-0">
+                            {CERTS.map(([term, desc]) => (
+                                <div key={term} className="m-0">
+                                    <dt className="m-0 text-[11px] font-semibold tracking-[0.14em] uppercase text-ivy-green-700">
+                                        {term}
+                                    </dt>
+                                    <dd className="m-0 mt-1 text-[13px] text-fg-3 leading-[1.4]">{desc}</dd>
+                                </div>
+                            ))}
+                        </dl>
                     </div>
-                    <ul className="m-0 p-0 list-none grid grid-cols-2 gap-px bg-line-1 border border-line-1">
-                        {FEATURES.map((f) => (
-                            <li
-                                key={f}
-                                className="bg-white py-5 px-[22px] flex items-start gap-3 text-[14px] text-fg-2 leading-[1.5]"
-                            >
-                                <span className="text-ivy-green-600 shrink-0 mt-0.5">
-                                    <Icon.Check size={16} />
-                                </span>
-                                <span>{f}</span>
-                            </li>
-                        ))}
-                    </ul>
+                    <aside className="bg-ivy-green-50 border border-ivy-green-100 p-8">
+                        <div className="flex items-baseline justify-between mb-5 pb-4 border-b border-ivy-green-100">
+                            <span className="text-[11px] font-semibold tracking-[0.14em] uppercase text-ivy-green-700">
+                                Included on every engagement
+                            </span>
+                            <span className="text-[12px] text-fg-3 tabular-nums">{FEATURES.length} controls</span>
+                        </div>
+                        <ul className="m-0 p-0 list-none flex flex-col">
+                            {FEATURES.map((f, i) => (
+                                <li
+                                    key={f}
+                                    className={`flex items-center gap-4 py-3.5 text-[15px] text-fg-2 leading-[1.45] ${
+                                        i !== FEATURES.length - 1 ? "border-b border-ivy-green-100" : ""
+                                    }`}
+                                >
+                                    <span className="shrink-0 inline-flex items-center justify-center w-6 h-6 rounded-full bg-white border border-ivy-green-100 text-ivy-green-600">
+                                        <Icon.Check size={14} />
+                                    </span>
+                                    <span>{f}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </aside>
                 </div>
             </div>
         </section>

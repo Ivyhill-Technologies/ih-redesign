@@ -38,13 +38,6 @@ const ITEMS = [
         tags: ["NARA", "Schedules", "Disposition"],
     },
     {
-        icon: Icon.Scan,
-        title: "Document Conversion",
-        slug: null,
-        body: "Scanning, imaging, and Intelligent Word Recognition (IWR) at agency scale.",
-        tags: ["Scanning", "Imaging", "IWR"],
-    },
-    {
         icon: Icon.Users,
         title: "Queue Management",
         slug: "queue-management",
@@ -74,17 +67,30 @@ function CapabilityCard({ item }) {
             href={href}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
-            className={`bg-white py-8 px-7 flex flex-col gap-3.5 cursor-pointer min-h-[240px] no-underline text-inherit border-t-2 transition-colors duration-150 ${
-                hover ? "border-ivy-green-500" : "border-transparent"
+            className={`group bg-white py-8 px-7 flex flex-col gap-4 cursor-pointer min-h-[260px] no-underline text-inherit border transition-colors duration-150 ${
+                hover ? "border-ivy-green-500" : "border-line-1"
             }`}
         >
-            <I size={28} />
+            <div
+                className={`inline-flex items-center justify-center w-12 h-12 rounded-md transition-colors duration-150 ${
+                    hover
+                        ? "bg-ivy-green-600 text-white border border-ivy-green-600"
+                        : "bg-ivy-green-50 text-ivy-green-700 border border-ivy-green-100"
+                }`}
+            >
+                <I size={24} />
+            </div>
             <h3 className="m-0 text-[18px] font-semibold text-fg-1 flex items-center gap-2">
                 {item.title}
-                {item.slug && <Icon.Arrow size={14} />}
+                {item.slug && (
+                    <Icon.Arrow
+                        size={14}
+                        className={`transition-transform duration-150 ${hover ? "translate-x-0.5 text-ivy-green-700" : ""}`}
+                    />
+                )}
             </h3>
             <p className="m-0 text-[14px] leading-[1.55] text-fg-3 flex-1">{item.body}</p>
-            <div className="flex gap-1.5 flex-wrap">{tagNodes}</div>
+            <div className="flex gap-1.5 flex-wrap pt-3 border-t border-line-1">{tagNodes}</div>
         </a>
     );
 }
@@ -98,7 +104,7 @@ export function CapabilityGrid() {
                 </div>
                 <div className="grid grid-cols-2 gap-12 mb-8 items-start">
                     <h2 className="m-0 font-bold leading-[1.1] tracking-[-0.02em] text-fg-1 text-balance text-[clamp(28px,3vw,40px)]">
-                        Seven practice areas. One accountable team.
+                        Six practice areas. One accountable team.
                     </h2>
                     <div>
                         <p className="m-0 mb-3.5 text-[17px] leading-[1.6] text-fg-3">
@@ -111,25 +117,10 @@ export function CapabilityGrid() {
                         </p>
                     </div>
                 </div>
-                <div className="grid grid-cols-3 gap-px bg-line-1 border border-line-1">
+                <div className="grid grid-cols-3 gap-6">
                     {ITEMS.map((it) => (
                         <CapabilityCard key={it.title} item={it} />
                     ))}
-                    <div className="bg-steel-900 text-white py-8 px-7 flex flex-col justify-between min-h-[240px]">
-                        <div>
-                            <Icon.Shield size={28} />
-                            <h3 className="mt-[18px] mb-2 text-[20px] font-semibold text-white">Cybersecurity, horizontal.</h3>
-                            <p className="m-0 text-[14px] leading-[1.55] text-white/[0.72]">
-                                A defense-in-depth posture runs across every practice area — ISO/IEC 27001 backed.
-                            </p>
-                        </div>
-                        <a
-                            href="#cyber"
-                            className="text-ivy-green-400 no-underline text-[13px] font-semibold mt-4 inline-flex items-center gap-1.5"
-                        >
-                            Read the brief <Icon.Arrow size={14} />
-                        </a>
-                    </div>
                 </div>
             </div>
         </section>

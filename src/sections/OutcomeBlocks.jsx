@@ -44,7 +44,7 @@ export function OutcomeBlocks() {
                 </div>
                 <div className="mt-12 pt-8 border-t border-line-1 flex items-center justify-between flex-wrap gap-4">
                     <p className="m-0 text-[14px] text-fg-4">
-                        Looking for something more specific? We work across seven practice areas.
+                        Looking for something more specific? We work across six practice areas.
                     </p>
                     <a
                         href="#capabilities"

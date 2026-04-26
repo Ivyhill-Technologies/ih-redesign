@@ -88,7 +88,7 @@ function CapabilityGrid() {
                             textWrap: "balance",
                         }}
                     >
-                        Seven practice areas. One accountable team.
+                        Six practice areas. One accountable team.
                     </h2>
                     <div>
                         <p
