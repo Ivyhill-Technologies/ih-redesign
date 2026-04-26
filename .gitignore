@@ -54,3 +54,8 @@ coverage/
 
 # Playwright screenshots
 screenshots/
+
+# amplify
+.amplify
+amplify_outputs*
+amplifyconfiguration*
