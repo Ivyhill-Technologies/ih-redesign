@@ -3,9 +3,10 @@ import { Icon } from "../../components/Icons.jsx";
 const STATS = [
     ["Founded", "2015"],
     ["Headquarters", "Hyattsville, MD"],
-    ["Practice areas", "Seven"],
-    ["Personnel", "51–200"],
-    ["Cyber posture", "Defense-in-depth"],
+    ["Federal agencies", "11 served"],
+    ["ISO certifications", "3 active"],
+    ["SB designations", "6 active"],
+    ["GSA MAS", "Through 2030"],
 ];
 
 export function Hero() {
