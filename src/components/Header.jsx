@@ -52,7 +52,7 @@ const NAV = [
 const NAV_LINK_BASE =
     "text-sm font-medium no-underline pb-0.5 border-b-2 inline-flex items-center gap-1.5 whitespace-nowrap relative";
 
-export function Header({ onCTA }) {
+export function Header() {
     const [scrolled, setScrolled] = useState(false);
     const [capsOpen, setCapsOpen] = useState(false);
     const closeTimer = useRef(null);
@@ -199,16 +199,15 @@ export function Header({ onCTA }) {
                                                 ))}
                                             </ul>
                                             <div className="mt-auto">
-                                                <button
-                                                    type="button"
-                                                    onClick={() => {
-                                                        setCapsOpen(false);
-                                                        onCTA?.();
-                                                    }}
-                                                    className="btn bg-ivy-green-500 text-ink-1000 hover:bg-ivy-green-400 border-transparent w-full justify-center"
+                                                <a
+                                                    href="/documents/Ivyhill-Capability-Statement-2026.pdf"
+                                                    target="_blank"
+                                                    rel="noopener"
+                                                    onClick={() => setCapsOpen(false)}
+                                                    className="btn bg-ivy-green-500 text-ink-1000 hover:bg-ivy-green-400 border-transparent w-full justify-center no-underline"
                                                 >
                                                     Capability statement <Icon.Arrow size={13} />
-                                                </button>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -222,9 +221,14 @@ export function Header({ onCTA }) {
                         ))}
                     </nav>
                     <span className="flex-1" />
-                    <button type="button" className="btn btn-primary whitespace-nowrap" onClick={onCTA}>
+                    <a
+                        href="/documents/Ivyhill-Capability-Statement-2026.pdf"
+                        target="_blank"
+                        rel="noopener"
+                        className="btn btn-primary whitespace-nowrap no-underline"
+                    >
                         Capability statement <Icon.Arrow size={14} />
-                    </button>
+                    </a>
                 </div>
             </div>
         </header>

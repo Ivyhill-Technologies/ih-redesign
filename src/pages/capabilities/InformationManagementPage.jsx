@@ -41,25 +41,20 @@ const OUTCOMES = [
 export function InformationManagementPage() {
     return (
         <SiteShell>
-            {({ showToast }) => (
-                <>
-                    <CapabilityHero
-                        title="Information Management"
-                        lede="Ivyhill specializes in getting your mission-critical information to the right people, at the right place, at the right time — helping you manage both physical and digital data throughout the information lifecycle, regardless of source or format."
-                        onCTA={() => showToast()}
-                    />
-                    <CapabilityIntro
-                        title="Get control of your information."
-                        lede="Information is the currency of the 21st-century digital workplace. Ivyhill delivers flexible, secure information management solutions for federal agencies and commercial enterprises — scanning and storage scaled for organizations of any size, records programs that hold up to audit, and the analytics layer that turns stored data into operational insight."
-                        outcomes={OUTCOMES}
-                    />
-                    <CapabilityCards
-                        title="Four practice areas across the information lifecycle."
-                        lede="From records programs and business intelligence through scanning, imaging, and customer service operations — Ivyhill manages the full path information takes through the enterprise."
-                        cards={SUB_CAPABILITIES}
-                    />
-                </>
-            )}
+            <CapabilityHero
+                title="Information Management"
+                lede="Ivyhill specializes in getting your mission-critical information to the right people, at the right place, at the right time — helping you manage both physical and digital data throughout the information lifecycle, regardless of source or format."
+            />
+            <CapabilityIntro
+                title="Get control of your information."
+                lede="Information is the currency of the 21st-century digital workplace. Ivyhill delivers flexible, secure information management solutions for federal agencies and commercial enterprises — scanning and storage scaled for organizations of any size, records programs that hold up to audit, and the analytics layer that turns stored data into operational insight."
+                outcomes={OUTCOMES}
+            />
+            <CapabilityCards
+                title="Four practice areas across the information lifecycle."
+                lede="From records programs and business intelligence through scanning, imaging, and customer service operations — Ivyhill manages the full path information takes through the enterprise."
+                cards={SUB_CAPABILITIES}
+            />
         </SiteShell>
     );
 }

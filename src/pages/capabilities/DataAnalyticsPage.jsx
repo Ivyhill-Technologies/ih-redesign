@@ -89,34 +89,29 @@ const OUTCOMES = [
 export function DataAnalyticsPage() {
     return (
         <SiteShell>
-            {({ showToast }) => (
-                <>
-                    <CapabilityHero
-                        title="Data Analytics"
-                        lede="Mission-grade analytics for U.S. federal agencies. Ivyhill turns operational data — including the records inventories tracked by DHS programs — into dashboards, forecasts, and AI-augmented predictions that save agencies time and money."
-                        onCTA={() => showToast()}
-                    />
-                    <CapabilityIntro
-                        title="From records inventories to operational foresight."
-                        lede="Federal programs generate enormous operational data — case throughput, records lifecycle, customer flow, contract performance. Ivyhill turns that data into dashboards, forecasts, and AI-driven predictions so program leadership can move from reporting on the past to anticipating what's next."
-                        outcomes={OUTCOMES}
-                    />
-                    <CapabilityCards
-                        title="Three ways we deliver analytics for federal programs."
-                        lede="From discovery through dashboards through predictive models — Ivyhill builds the analytics layer agencies need to move from descriptive reporting to forward-looking decision support."
-                        cards={SUB_CAPABILITIES}
-                    />
-                    <CapabilityAISpotlight
-                        title="RAG and applied AI on the data you already own."
-                        lede="The same operational data that feeds dashboards can power a retrieval layer that lets staff query agency policy, contract language, case history, or product documentation in plain English. Ivyhill builds RAG systems and AI assistants on the data you already own — engineered for the security boundaries of federal work and the integration realities of commercial enterprise."
-                        columns={AI_COLUMNS}
-                    />
-                    <CapabilityTools
-                        lede="Production-grade tooling we deliver against — from BI dashboards to predictive modeling pipelines. Hover any tool to see how it fits."
-                        tools={TOOLS}
-                    />
-                </>
-            )}
+            <CapabilityHero
+                title="Data Analytics"
+                lede="Mission-grade analytics for U.S. federal agencies. Ivyhill turns operational data — including the records inventories tracked by DHS programs — into dashboards, forecasts, and AI-augmented predictions that save agencies time and money."
+            />
+            <CapabilityIntro
+                title="From records inventories to operational foresight."
+                lede="Federal programs generate enormous operational data — case throughput, records lifecycle, customer flow, contract performance. Ivyhill turns that data into dashboards, forecasts, and AI-driven predictions so program leadership can move from reporting on the past to anticipating what's next."
+                outcomes={OUTCOMES}
+            />
+            <CapabilityCards
+                title="Three ways we deliver analytics for federal programs."
+                lede="From discovery through dashboards through predictive models — Ivyhill builds the analytics layer agencies need to move from descriptive reporting to forward-looking decision support."
+                cards={SUB_CAPABILITIES}
+            />
+            <CapabilityAISpotlight
+                title="RAG and applied AI on the data you already own."
+                lede="The same operational data that feeds dashboards can power a retrieval layer that lets staff query agency policy, contract language, case history, or product documentation in plain English. Ivyhill builds RAG systems and AI assistants on the data you already own — engineered for the security boundaries of federal work and the integration realities of commercial enterprise."
+                columns={AI_COLUMNS}
+            />
+            <CapabilityTools
+                lede="Production-grade tooling we deliver against — from BI dashboards to predictive modeling pipelines. Hover any tool to see how it fits."
+                tools={TOOLS}
+            />
         </SiteShell>
     );
 }

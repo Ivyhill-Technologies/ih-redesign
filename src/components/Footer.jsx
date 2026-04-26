@@ -20,7 +20,7 @@ const COLS = [
     {
         h: "Procurement",
         items: [
-            { label: "Capability statement", href: "#" },
+            { label: "Capability statement", href: "/documents/Ivyhill-Capability-Statement-2026.pdf", external: true },
             { label: "Past performance", href: "/#past-performance" },
             { label: "NAICS codes", href: "/#naics" },
         ],
@@ -65,7 +65,11 @@ export function Footer() {
                             <ul className="list-none p-0 m-0 flex flex-col gap-2.5">
                                 {col.items.map((i) => (
                                     <li key={i.label}>
-                                        <a href={i.href} className="text-white/[0.78] no-underline text-[13px]">
+                                        <a
+                                            href={i.href}
+                                            {...(i.external ? { target: "_blank", rel: "noopener" } : {})}
+                                            className="text-white/[0.78] no-underline text-[13px]"
+                                        >
                                             {i.label}
                                         </a>
                                     </li>

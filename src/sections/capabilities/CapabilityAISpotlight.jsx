@@ -20,16 +20,11 @@ export function CapabilityAISpotlight({ eyebrow = "RAG & applied AI", title, led
                                 {col.eyebrow}
                             </span>
                             <h3 className="m-0 text-[20px] font-semibold text-fg-1">{col.heading}</h3>
-                            {col.body && (
-                                <p className="m-0 text-[15px] leading-[1.6] text-fg-3">{col.body}</p>
-                            )}
+                            {col.body && <p className="m-0 text-[15px] leading-[1.6] text-fg-3">{col.body}</p>}
                             {col.items && col.items.length > 0 && (
                                 <ul className="list-none m-0 p-0 mt-2 flex flex-col gap-3">
                                     {col.items.map((it) => (
-                                        <li
-                                            key={it}
-                                            className="flex items-start gap-3 text-[14px] leading-[1.55] text-fg-2"
-                                        >
+                                        <li key={it} className="flex items-start gap-3 text-[14px] leading-[1.55] text-fg-2">
                                             <span className="mt-1 text-ivy-green-600 shrink-0">
                                                 <Icon.Check size={14} />
                                             </span>

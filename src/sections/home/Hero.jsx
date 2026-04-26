@@ -8,7 +8,7 @@ const STATS = [
     ["Cyber posture", "Defense-in-depth"],
 ];
 
-export function Hero({ onCTA }) {
+export function Hero() {
     return (
         <section className="relative overflow-hidden bg-steel-900">
             <div className="hairline-grid-dark absolute inset-0 pointer-events-none" />
@@ -39,13 +39,14 @@ export function Hero({ onCTA }) {
                             scale. ISO-certified and contract-vehicle-ready.
                         </p>
                         <div className="flex gap-3 flex-wrap items-center">
-                            <button
-                                type="button"
-                                className="btn bg-ivy-green-500 text-ink-1000 hover:bg-ivy-green-400 border-transparent"
-                                onClick={onCTA}
+                            <a
+                                href="/documents/Ivyhill-Capability-Statement-2026.pdf"
+                                target="_blank"
+                                rel="noopener"
+                                className="btn bg-ivy-green-500 text-ink-1000 hover:bg-ivy-green-400 border-transparent no-underline"
                             >
-                                Request capability statement <Icon.Arrow size={14} />
-                            </button>
+                                Capability statement <Icon.Arrow size={14} />
+                            </a>
                             <a
                                 href="#past-performance"
                                 className="btn bg-transparent text-white border border-white/25 hover:bg-white/10 no-underline"

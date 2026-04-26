@@ -1,6 +1,6 @@
 import { Icon } from "../../components/Icons.jsx";
 
-export function CapabilityHero({ eyebrow = "Capability", title, lede, ctaLabel = "Request capability statement", onCTA }) {
+export function CapabilityHero({ eyebrow = "Capability", title, lede }) {
     return (
         <section className="relative overflow-hidden bg-steel-900">
             <div className="hairline-grid-dark absolute inset-0 pointer-events-none" />
@@ -19,13 +19,14 @@ export function CapabilityHero({ eyebrow = "Capability", title, lede, ctaLabel =
                     {title}
                 </h1>
                 <p className="text-[18px] leading-[1.55] text-ink-300 max-w-[640px] m-0 mb-8">{lede}</p>
-                <button
-                    type="button"
-                    className="btn bg-ivy-green-500 text-ink-1000 hover:bg-ivy-green-400 border-transparent"
-                    onClick={onCTA}
+                <a
+                    href="/documents/Ivyhill-Capability-Statement-2026.pdf"
+                    target="_blank"
+                    rel="noopener"
+                    className="btn bg-ivy-green-500 text-ink-1000 hover:bg-ivy-green-400 border-transparent no-underline"
                 >
-                    {ctaLabel} <Icon.Arrow size={14} />
-                </button>
+                    Capability statement <Icon.Arrow size={14} />
+                </a>
             </div>
         </section>
     );

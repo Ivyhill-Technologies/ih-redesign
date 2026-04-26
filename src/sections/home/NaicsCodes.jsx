@@ -18,7 +18,7 @@ const CODES = [
     { code: "561421", label: "Telephone Answering Services" },
 ];
 
-export function NaicsCodes({ onCTA }) {
+export function NaicsCodes() {
     return (
         <section id="naics" className="section bg-surface-subtle border-t border-b border-line-1">
             <div className="container">
@@ -36,9 +36,14 @@ export function NaicsCodes({ onCTA }) {
                             contracting officers find us in procurement databases.
                         </p>
                         <div className="flex gap-3 flex-wrap">
-                            <button type="button" className="btn btn-primary" onClick={onCTA}>
+                            <a
+                                href="/documents/Ivyhill-Capability-Statement-2026.pdf"
+                                target="_blank"
+                                rel="noopener"
+                                className="btn btn-primary no-underline"
+                            >
                                 Capability statement
-                            </button>
+                            </a>
                         </div>
                     </div>
                     <ul className="list-none m-0 p-0 grid grid-cols-2 gap-px bg-line-1 border border-line-1">

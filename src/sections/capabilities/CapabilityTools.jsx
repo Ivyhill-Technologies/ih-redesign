@@ -59,16 +59,16 @@ function GroupedToolsTabs({ groups, lede, aside, practiceItems, frameworks }) {
             )}
             {frameworks && frameworks.length > 0 && (
                 <div>
-                    <div className="text-[11px] font-mono uppercase tracking-[0.08em] text-fg-1 mb-3">
-                        Compliance alignment
-                    </div>
+                    <div className="text-[11px] font-mono uppercase tracking-[0.08em] text-fg-1 mb-3">Compliance alignment</div>
                     <ul className="m-0 p-0 list-none flex flex-wrap gap-2">
                         {frameworks.map((f) => (
                             <li
                                 key={f}
                                 className="flex items-center gap-1.5 px-3 py-1.5 bg-ivy-green-50 border border-ivy-green-100 text-[11px] font-mono tracking-[0.05em] text-ivy-green-700"
                             >
-                                <span aria-hidden="true" className="text-ivy-green-500 text-[10px]">✓</span>
+                                <span aria-hidden="true" className="text-ivy-green-500 text-[10px]">
+                                    ✓
+                                </span>
                                 {f}
                             </li>
                         ))}

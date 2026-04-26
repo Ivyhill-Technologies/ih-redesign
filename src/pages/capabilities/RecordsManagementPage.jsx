@@ -114,81 +114,72 @@ const APP_COLUMNS = [
 export function RecordsManagementPage() {
     return (
         <SiteShell>
-            {({ showToast }) => (
-                <>
-                    <CapabilityHero
-                        title="Records Management"
-                        lede="Records Management solutions for federal, local government, and commercial clients. Ivyhill is an Information Management company — delivering modernization and intelligent process automation across an organization's records program."
-                        onCTA={() => showToast()}
-                    />
-                    <CapabilityIntro
-                        title="Standardized records modules. Configurable for each enterprise."
-                        lede="Ivyhill provides Records, Case, Knowledge, and Content Management solutions to federal, local government, and commercial customers. The Records Management practice ships as a library of standardized modules — schedules, inventories, file plans, site visits, analytics — that get configured to each organization's authorities and workflows rather than rebuilt from scratch."
-                        outcomes={OUTCOMES}
-                    />
-                    <CapabilityCards
-                        title="Eight modules covering the records lifecycle."
-                        lede="From schedule management through inventories, file plans, periodic review, Capstone tracking, and site visits — Ivyhill's records modules are designed to be adopted together and governed centrally."
-                        cards={MODULES}
-                    />
-                    <section className="section bg-ink-1000 text-white">
-                        <div className="container px-6">
-                            <div className="flex items-baseline gap-6 mb-12 pt-6 border-t border-ivy-green-500">
-                                <span className="eyebrow pt-3.5 text-ivy-green-400">
-                                    Featured capability
-                                </span>
+            <CapabilityHero
+                title="Records Management"
+                lede="Records Management solutions for federal, local government, and commercial clients. Ivyhill is an Information Management company — delivering modernization and intelligent process automation across an organization's records program."
+            />
+            <CapabilityIntro
+                title="Standardized records modules. Configurable for each enterprise."
+                lede="Ivyhill provides Records, Case, Knowledge, and Content Management solutions to federal, local government, and commercial customers. The Records Management practice ships as a library of standardized modules — schedules, inventories, file plans, site visits, analytics — that get configured to each organization's authorities and workflows rather than rebuilt from scratch."
+                outcomes={OUTCOMES}
+            />
+            <CapabilityCards
+                title="Eight modules covering the records lifecycle."
+                lede="From schedule management through inventories, file plans, periodic review, Capstone tracking, and site visits — Ivyhill's records modules are designed to be adopted together and governed centrally."
+                cards={MODULES}
+            />
+            <section className="section bg-ink-1000 text-white">
+                <div className="container px-6">
+                    <div className="flex items-baseline gap-6 mb-12 pt-6 border-t border-ivy-green-500">
+                        <span className="eyebrow pt-3.5 text-ivy-green-400">Featured capability</span>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12 items-start">
+                        <h2 className="m-0 font-bold leading-[1.1] tracking-[-0.02em] text-white text-balance text-[clamp(28px,3vw,40px)]">
+                            Document Conversion — turning physical records into searchable digital assets.
+                        </h2>
+                        <p className="m-0 text-[17px] leading-[1.6] text-ink-300">
+                            Document conversion is one of the most resource-intensive parts of any records program. Ivyhill's
+                            specialists run the scanning, recognition, and quality workflow end-to-end — leveraging AI to ensure a
+                            smooth paper-to-digital transition and to extract the data elements that matter for downstream
+                            decision support.
+                        </p>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-ink-800 border border-ink-800 mb-12">
+                        {CONVERSION_TECHS.map((t) => (
+                            <div key={t.abbr} className="bg-ink-900 p-8 flex flex-col gap-3">
+                                <div className="flex items-baseline gap-3">
+                                    <span className="text-[28px] font-bold tracking-[-0.02em] text-ivy-green-400">{t.abbr}</span>
+                                    <span className="text-[12px] font-mono uppercase tracking-[0.08em] text-ink-400">
+                                        {t.name}
+                                    </span>
+                                </div>
+                                <p className="m-0 text-[14px] leading-[1.6] text-ink-300">{t.body}</p>
                             </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12 items-start">
-                                <h2 className="m-0 font-bold leading-[1.1] tracking-[-0.02em] text-white text-balance text-[clamp(28px,3vw,40px)]">
-                                    Document Conversion — turning physical records into searchable digital assets.
-                                </h2>
-                                <p className="m-0 text-[17px] leading-[1.6] text-ink-300">
-                                    Document conversion is one of the most resource-intensive parts of any records program. Ivyhill's specialists run the scanning, recognition, and quality workflow end-to-end — leveraging AI to ensure a smooth paper-to-digital transition and to extract the data elements that matter for downstream decision support.
-                                </p>
-                            </div>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-ink-800 border border-ink-800 mb-12">
-                                {CONVERSION_TECHS.map((t) => (
-                                    <div key={t.abbr} className="bg-ink-900 p-8 flex flex-col gap-3">
-                                        <div className="flex items-baseline gap-3">
-                                            <span className="text-[28px] font-bold tracking-[-0.02em] text-ivy-green-400">
-                                                {t.abbr}
-                                            </span>
-                                            <span className="text-[12px] font-mono uppercase tracking-[0.08em] text-ink-400">
-                                                {t.name}
-                                            </span>
-                                        </div>
-                                        <p className="m-0 text-[14px] leading-[1.6] text-ink-300">{t.body}</p>
-                                    </div>
-                                ))}
-                            </div>
-                            <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-12 items-start">
-                                <h3 className="m-0 text-[20px] font-semibold !text-white">
-                                    What you get from an Ivyhill conversion engagement.
-                                </h3>
-                                <ul className="list-none m-0 p-0 grid grid-cols-1 md:grid-cols-2 gap-5">
-                                    {CONVERSION_OUTCOMES.map((o) => (
-                                        <li
-                                            key={o}
-                                            className="flex items-start gap-3 text-[14px] leading-[1.55] text-ink-200"
-                                        >
-                                            <span className="mt-1 text-ivy-green-400 shrink-0">
-                                                <Icon.Check size={14} />
-                                            </span>
-                                            <span>{o}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
-                    </section>
-                    <CapabilityAISpotlight
-                        eyebrow="Data-driven applications"
-                        title="Modernization and intelligent process automation across the records program."
-                        lede="The records modules are delivered as integrated, data-driven applications — workflow, notifications, reporting, and analytics built into the same platform, with AI assistance introduced where it genuinely helps records staff handle scale."
-                        columns={APP_COLUMNS}
-                    />
-                </>
-            )}
+                        ))}
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-12 items-start">
+                        <h3 className="m-0 text-[20px] font-semibold !text-white">
+                            What you get from an Ivyhill conversion engagement.
+                        </h3>
+                        <ul className="list-none m-0 p-0 grid grid-cols-1 md:grid-cols-2 gap-5">
+                            {CONVERSION_OUTCOMES.map((o) => (
+                                <li key={o} className="flex items-start gap-3 text-[14px] leading-[1.55] text-ink-200">
+                                    <span className="mt-1 text-ivy-green-400 shrink-0">
+                                        <Icon.Check size={14} />
+                                    </span>
+                                    <span>{o}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <CapabilityAISpotlight
+                eyebrow="Data-driven applications"
+                title="Modernization and intelligent process automation across the records program."
+                lede="The records modules are delivered as integrated, data-driven applications — workflow, notifications, reporting, and analytics built into the same platform, with AI assistance introduced where it genuinely helps records staff handle scale."
+                columns={APP_COLUMNS}
+            />
         </SiteShell>
     );
 }

@@ -41,25 +41,20 @@ const OUTCOMES = [
 export function InfrastructureSupportPage() {
     return (
         <SiteShell>
-            {({ showToast }) => (
-                <>
-                    <CapabilityHero
-                        title="Infrastructure Support"
-                        lede="IT systems operations and maintenance covering all software and hardware tied to applications, servers, and networking — on-premises, in the cloud, or in a hybrid solution. Ivyhill delivers a secure, reliable, and efficient IT infrastructure that keeps the mission moving."
-                        onCTA={() => showToast()}
-                    />
-                    <CapabilityIntro
-                        title="A modern help desk and the infrastructure behind it."
-                        lede="Ivyhill provides Infrastructure Support to federal, local government, and commercial customers — leading with a modern help desk and IT support practice, backed by the operations, cloud, and cyber protection work that keeps systems available. Critical systems always have someone looking out for them, behind the scenes and on the front line."
-                        outcomes={OUTCOMES}
-                    />
-                    <CapabilityCards
-                        title="Four practice areas across IT infrastructure."
-                        lede="Help desk and IT support solutions lead the practice — backed by O&M for applications, servers, and networking, cloud and hybrid management, and active cyber protection."
-                        cards={SUB_CAPABILITIES}
-                    />
-                </>
-            )}
+            <CapabilityHero
+                title="Infrastructure Support"
+                lede="IT systems operations and maintenance covering all software and hardware tied to applications, servers, and networking — on-premises, in the cloud, or in a hybrid solution. Ivyhill delivers a secure, reliable, and efficient IT infrastructure that keeps the mission moving."
+            />
+            <CapabilityIntro
+                title="A modern help desk and the infrastructure behind it."
+                lede="Ivyhill provides Infrastructure Support to federal, local government, and commercial customers — leading with a modern help desk and IT support practice, backed by the operations, cloud, and cyber protection work that keeps systems available. Critical systems always have someone looking out for them, behind the scenes and on the front line."
+                outcomes={OUTCOMES}
+            />
+            <CapabilityCards
+                title="Four practice areas across IT infrastructure."
+                lede="Help desk and IT support solutions lead the practice — backed by O&M for applications, servers, and networking, cloud and hybrid management, and active cyber protection."
+                cards={SUB_CAPABILITIES}
+            />
         </SiteShell>
     );
 }

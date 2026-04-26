@@ -41,25 +41,20 @@ const OUTCOMES = [
 export function QueueManagementPage() {
     return (
         <SiteShell>
-            {({ showToast }) => (
-                <>
-                    <CapabilityHero
-                        title="Queue Management"
-                        lede="Ivyhill streamlines customer flow for high-volume federal and public-facing service environments. User-friendly queue solutions with remote check-in, low-touch on-site options, automated notifications, and the analytics agencies need to optimize the experience end-to-end."
-                        onCTA={() => showToast()}
-                    />
-                    <CapabilityIntro
-                        title="Effortless queue management for the agencies serving the public."
-                        lede="Federal and local-government service environments handle enormous public-facing volume — and every minute spent waiting is a minute the mission isn't moving. Ivyhill delivers automated, compliant queue solutions that balance a straightforward customer experience with the regulatory adherence and data-driven insight program leadership expects."
-                        outcomes={OUTCOMES}
-                    />
-                    <CapabilityCards
-                        title="Four ways we deliver queue management."
-                        lede="From remote check-in through multi-platform display through queue analytics — Ivyhill builds the customer-flow layer agencies need to keep service moving and patrons informed."
-                        cards={SUB_CAPABILITIES}
-                    />
-                </>
-            )}
+            <CapabilityHero
+                title="Queue Management"
+                lede="Ivyhill streamlines customer flow for high-volume federal and public-facing service environments. User-friendly queue solutions with remote check-in, low-touch on-site options, automated notifications, and the analytics agencies need to optimize the experience end-to-end."
+            />
+            <CapabilityIntro
+                title="Effortless queue management for the agencies serving the public."
+                lede="Federal and local-government service environments handle enormous public-facing volume — and every minute spent waiting is a minute the mission isn't moving. Ivyhill delivers automated, compliant queue solutions that balance a straightforward customer experience with the regulatory adherence and data-driven insight program leadership expects."
+                outcomes={OUTCOMES}
+            />
+            <CapabilityCards
+                title="Four ways we deliver queue management."
+                lede="From remote check-in through multi-platform display through queue analytics — Ivyhill builds the customer-flow layer agencies need to keep service moving and patrons informed."
+                cards={SUB_CAPABILITIES}
+            />
         </SiteShell>
     );
 }

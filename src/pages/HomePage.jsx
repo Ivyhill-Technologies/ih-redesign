@@ -10,17 +10,13 @@ import { StatsBand } from "../sections/home/StatsBand.jsx";
 export function HomePage() {
     return (
         <SiteShell>
-            {({ showToast }) => (
-                <>
-                    <Hero onCTA={() => showToast()} />
-                    <OutcomeBlocks />
-                    <CapabilityGrid />
-                    <PastPerformance />
-                    <StatsBand />
-                    <CyberCallout />
-                    <NaicsCodes onCTA={() => showToast()} />
-                </>
-            )}
+            <Hero />
+            <OutcomeBlocks />
+            <CapabilityGrid />
+            <PastPerformance />
+            <StatsBand />
+            <CyberCallout />
+            <NaicsCodes />
         </SiteShell>
     );
 }
