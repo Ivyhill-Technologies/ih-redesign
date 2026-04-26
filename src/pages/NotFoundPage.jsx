@@ -10,7 +10,7 @@ export function NotFoundPage() {
                     <h1 className="mb-4">Page not found.</h1>
                     <p className="mb-6 text-fg-3">
                         The page you requested is not available. Return to the
-                        homepage or browse our contract vehicles.
+                        homepage to keep browsing.
                     </p>
                     <div className="flex gap-3">
                         <Link
@@ -18,12 +18,6 @@ export function NotFoundPage() {
                             className="btn btn-primary no-underline"
                         >
                             Back to home
-                        </Link>
-                        <Link
-                            to="/contracts"
-                            className="btn btn-secondary no-underline"
-                        >
-                            View contract vehicles
                         </Link>
                     </div>
                 </div>

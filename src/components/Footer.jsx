@@ -28,12 +28,7 @@ const COLS = [
         items: [
             { label: "Capability statement", href: "#" },
             { label: "Past performance", href: "/#past-performance" },
-            { label: "Contract vehicles", href: "/contracts" },
             { label: "NAICS codes", href: "/#naics" },
-            {
-                label: "Small-business designations",
-                href: "/contracts#designations",
-            },
         ],
     },
 ];

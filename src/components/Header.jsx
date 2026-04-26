@@ -14,7 +14,6 @@ const SERVICES = [
 
 const NAV = [
     { label: "Past performance", to: "/#past-performance" },
-    { label: "Contracts", to: "/contracts" },
     { label: "About", to: "/#about" },
 ];
 
@@ -88,26 +87,15 @@ export function Header({ onCTA }) {
                                 <polyline points="6 9 12 15 18 9" />
                             </svg>
                         </a>
-                        {NAV.map(({ label, to }) => {
-                            const isContracts = to === "/contracts";
-                            return (
-                                <NavLink
-                                    key={label}
-                                    to={to}
-                                    end={isContracts}
-                                    className={({ isActive }) => {
-                                        const active = isActive && isContracts;
-                                        return `${NAV_LINK_BASE} ${
-                                            active
-                                                ? "text-fg-1 border-ivy-green-500"
-                                                : "text-fg-2 border-transparent"
-                                        }`;
-                                    }}
-                                >
-                                    {label}
-                                </NavLink>
-                            );
-                        })}
+                        {NAV.map(({ label, to }) => (
+                            <NavLink
+                                key={label}
+                                to={to}
+                                className={`${NAV_LINK_BASE} text-fg-2 border-transparent`}
+                            >
+                                {label}
+                            </NavLink>
+                        ))}
                     </nav>
                     <span className="flex-1" />
                     <button
