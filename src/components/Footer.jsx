@@ -16,7 +16,7 @@ const COLS = [
     {
         h: "Resources",
         items: [
-            { label: "About Ivyhill", href: "#" },
+            { label: "About Ivyhill", href: "/about" },
             { label: "Capability statement", href: "/documents/Ivyhill-Capability-Statement-2026.pdf", external: true },
             { label: "Past performance", href: "/#past-performance" },
             { label: "NAICS codes", href: "/#naics" },
