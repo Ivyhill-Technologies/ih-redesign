@@ -9,9 +9,7 @@ export function SiteShell({ children }) {
     const timerRef = useRef(null);
     const location = useLocation();
 
-    const showToast = (
-        msg = "Capability statement requested. We'll be in touch within one business day.",
-    ) => {
+    const showToast = (msg = "Capability statement requested. We'll be in touch within one business day.") => {
         setToast(msg);
         if (timerRef.current) clearTimeout(timerRef.current);
         timerRef.current = setTimeout(() => setToast(null), 2800);
@@ -22,8 +20,7 @@ export function SiteShell({ children }) {
             const id = location.hash.slice(1);
             requestAnimationFrame(() => {
                 const el = document.getElementById(id);
-                if (el)
-                    el.scrollIntoView({ behavior: "smooth", block: "start" });
+                if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
             });
         } else {
             window.scrollTo({ top: 0 });
@@ -33,11 +30,7 @@ export function SiteShell({ children }) {
     return (
         <>
             <Header onCTA={() => showToast()} />
-            <main>
-                {typeof children === "function"
-                    ? children({ showToast })
-                    : children}
-            </main>
+            <main>{typeof children === "function" ? children({ showToast }) : children}</main>
             <Footer />
             <Toast message={toast} />
         </>

@@ -12,12 +12,8 @@ export function CodesStrip() {
             <div className="container px-6 py-7 grid grid-cols-5 gap-6">
                 {ITEMS.map((it) => (
                     <div key={it.label}>
-                        <div className="text-[10px] tracking-[0.12em] uppercase text-fg-4 font-semibold mb-1.5">
-                            {it.label}
-                        </div>
-                        <div className="font-mono text-[13px] text-fg-1 tracking-[0.02em]">
-                            {it.value}
-                        </div>
+                        <div className="text-[10px] tracking-[0.12em] uppercase text-fg-4 font-semibold mb-1.5">{it.label}</div>
+                        <div className="font-mono text-[13px] text-fg-1 tracking-[0.02em]">{it.value}</div>
                     </div>
                 ))}
             </div>

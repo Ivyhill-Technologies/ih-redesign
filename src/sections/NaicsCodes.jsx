@@ -20,15 +20,10 @@ const CODES = [
 
 export function NaicsCodes({ onCTA }) {
     return (
-        <section
-            id="naics"
-            className="section bg-surface-subtle border-t border-b border-line-1"
-        >
+        <section id="naics" className="section bg-surface-subtle border-t border-b border-line-1">
             <div className="container">
                 <div className="flex items-baseline gap-6 mb-9 pt-6 border-t border-ink-900">
-                    <span className="eyebrow pt-3.5 whitespace-nowrap">
-                        NAICS Codes
-                    </span>
+                    <span className="eyebrow pt-3.5 whitespace-nowrap">NAICS Codes</span>
                 </div>
                 <div className="grid grid-cols-[1fr_1.4fr] gap-20 items-start">
                     <div>
@@ -36,19 +31,12 @@ export function NaicsCodes({ onCTA }) {
                             Registered to do the work.
                         </h2>
                         <p className="m-0 mb-7 text-[17px] leading-[1.6] text-fg-3">
-                            Ivyhill is classified under the North American
-                            Industry Classification System (NAICS) for the work
-                            we deliver — IT services, management consulting, and
-                            administrative support. These codes let federal
-                            contracting officers find us in procurement
-                            databases.
+                            Ivyhill is classified under the North American Industry Classification System (NAICS) for the work we
+                            deliver — IT services, management consulting, and administrative support. These codes let federal
+                            contracting officers find us in procurement databases.
                         </p>
                         <div className="flex gap-3 flex-wrap">
-                            <button
-                                type="button"
-                                className="btn btn-primary"
-                                onClick={onCTA}
-                            >
+                            <button type="button" className="btn btn-primary" onClick={onCTA}>
                                 Capability statement
                             </button>
                         </div>
@@ -58,9 +46,7 @@ export function NaicsCodes({ onCTA }) {
                             <li
                                 key={c.code}
                                 className={`bg-white py-4 px-[18px] flex flex-col gap-1 border-l-2 ${
-                                    c.primary
-                                        ? "border-ivy-green-500"
-                                        : "border-transparent"
+                                    c.primary ? "border-ivy-green-500" : "border-transparent"
                                 }`}
                             >
                                 <div className="flex items-center gap-2">
@@ -73,9 +59,7 @@ export function NaicsCodes({ onCTA }) {
                                         </span>
                                     )}
                                 </div>
-                                <div className="text-[13px] text-fg-3 leading-[1.4]">
-                                    {c.label}
-                                </div>
+                                <div className="text-[13px] text-fg-3 leading-[1.4]">{c.label}</div>
                             </li>
                         ))}
                     </ul>

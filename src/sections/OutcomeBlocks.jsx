@@ -28,30 +28,23 @@ export function OutcomeBlocks() {
                         <span className="eyebrow">How we help</span>
                     </div>
                     <h2 className="m-0 font-bold leading-[1.1] tracking-[-0.02em] text-fg-1 text-balance text-[clamp(28px,3.2vw,44px)]">
-                        We build, secure, and manage the systems your
-                        organization runs on.
+                        We build, secure, and manage the systems your organization runs on.
                     </h2>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
                     {BLOCKS.map(({ icon: I, title, body }) => (
-                        <div
-                            key={title}
-                            className="relative pl-6 border-l-2 border-ivy-green-500"
-                        >
+                        <div key={title} className="relative pl-6 border-l-2 border-ivy-green-500">
                             <I size={32} className="text-ivy-green-600 mb-5" />
                             <h3 className="m-0 mb-3 text-[22px] font-semibold leading-[1.2] tracking-[-0.01em] text-fg-1">
                                 {title}
                             </h3>
-                            <p className="m-0 text-[15px] leading-[1.65] text-fg-3">
-                                {body}
-                            </p>
+                            <p className="m-0 text-[15px] leading-[1.65] text-fg-3">{body}</p>
                         </div>
                     ))}
                 </div>
                 <div className="mt-12 pt-8 border-t border-line-1 flex items-center justify-between flex-wrap gap-4">
                     <p className="m-0 text-[14px] text-fg-4">
-                        Looking for something more specific? We work across seven
-                        practice areas.
+                        Looking for something more specific? We work across seven practice areas.
                     </p>
                     <a
                         href="#capabilities"

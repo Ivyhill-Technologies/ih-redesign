@@ -42,11 +42,7 @@ const SERVICES = [
     },
 ];
 
-const RAIL_POINTS = [
-    "ISO-certified processes",
-    "Cleared personnel",
-    "Contract-vehicle-ready",
-];
+const RAIL_POINTS = ["ISO-certified processes", "Cleared personnel", "Contract-vehicle-ready"];
 
 const NAV = [
     { label: "Past performance", to: "/#past-performance" },
@@ -120,12 +116,7 @@ export function Header({ onCTA }) {
                         <LogoMark size={44} className="block" />
                     </Link>
                     <nav className="flex gap-7 items-center">
-                        <div
-                            ref={wrapRef}
-                            className="relative"
-                            onMouseEnter={openCaps}
-                            onMouseLeave={closeCaps}
-                        >
+                        <div ref={wrapRef} className="relative" onMouseEnter={openCaps} onMouseLeave={closeCaps}>
                             <button
                                 type="button"
                                 onClick={toggleCaps}
@@ -144,9 +135,7 @@ export function Header({ onCTA }) {
                                     strokeWidth="2.25"
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
-                                    className={`transition-transform duration-150 ease-in-out ${
-                                        capsOpen ? "rotate-180" : ""
-                                    }`}
+                                    className={`transition-transform duration-150 ease-in-out ${capsOpen ? "rotate-180" : ""}`}
                                 >
                                     <polyline points="6 9 12 15 18 9" />
                                 </svg>
@@ -195,23 +184,15 @@ export function Header({ onCTA }) {
                                             }}
                                         />
                                         <div className="relative flex flex-col h-full">
-                                            <div className="eyebrow text-ivy-green-400 mb-3">
-                                                Why Ivyhill
-                                            </div>
+                                            <div className="eyebrow text-ivy-green-400 mb-3">Why Ivyhill</div>
                                             <p className="text-[15px] font-semibold leading-snug text-white m-0 mb-4">
-                                                Built for high-stakes,
-                                                regulated work.
+                                                Built for high-stakes, regulated work.
                                             </p>
                                             <ul className="m-0 p-0 list-none flex flex-col gap-2 mb-5">
                                                 {RAIL_POINTS.map((p) => (
-                                                    <li
-                                                        key={p}
-                                                        className="flex items-start gap-2 text-[13px] text-ink-200"
-                                                    >
+                                                    <li key={p} className="flex items-start gap-2 text-[13px] text-ink-200">
                                                         <span className="text-ivy-green-400 mt-[2px] shrink-0">
-                                                            <Icon.Check
-                                                                size={14}
-                                                            />
+                                                            <Icon.Check size={14} />
                                                         </span>
                                                         {p}
                                                     </li>
@@ -226,8 +207,7 @@ export function Header({ onCTA }) {
                                                     }}
                                                     className="btn bg-ivy-green-500 text-ink-1000 hover:bg-ivy-green-400 border-transparent w-full justify-center"
                                                 >
-                                                    Capability statement{" "}
-                                                    <Icon.Arrow size={13} />
+                                                    Capability statement <Icon.Arrow size={13} />
                                                 </button>
                                             </div>
                                         </div>
@@ -236,21 +216,13 @@ export function Header({ onCTA }) {
                             )}
                         </div>
                         {NAV.map(({ label, to }) => (
-                            <NavLink
-                                key={label}
-                                to={to}
-                                className={`${NAV_LINK_BASE} text-fg-2 border-transparent`}
-                            >
+                            <NavLink key={label} to={to} className={`${NAV_LINK_BASE} text-fg-2 border-transparent`}>
                                 {label}
                             </NavLink>
                         ))}
                     </nav>
                     <span className="flex-1" />
-                    <button
-                        type="button"
-                        className="btn btn-primary whitespace-nowrap"
-                        onClick={onCTA}
-                    >
+                    <button type="button" className="btn btn-primary whitespace-nowrap" onClick={onCTA}>
                         Capability statement <Icon.Arrow size={14} />
                     </button>
                 </div>

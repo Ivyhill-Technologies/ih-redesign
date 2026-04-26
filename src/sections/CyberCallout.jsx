@@ -19,22 +19,18 @@ export function CyberCallout() {
                 <div className="grid grid-cols-[1fr_1.2fr] gap-20 items-start">
                     <div>
                         <h2 className="m-0 mb-5 font-bold leading-[1.1] tracking-[-0.02em] text-fg-1 text-balance text-[clamp(28px,3vw,40px)]">
-                            Cybersecurity is not a service line. It runs across
-                            all of them.
+                            Cybersecurity is not a service line. It runs across all of them.
                         </h2>
                         <p className="m-0 mb-6 text-[17px] leading-[1.6] text-fg-3">
-                            Every Ivyhill engagement inherits an
-                            active-protection posture. The practice areas above
-                            are delivered against the same security backbone —
-                            not bolted on, not a separate quote.
+                            Every Ivyhill engagement inherits an active-protection posture. The practice areas above are delivered
+                            against the same security backbone — not bolted on, not a separate quote.
                         </p>
                         <div className="flex gap-3 flex-wrap">
                             <button type="button" className="btn btn-secondary">
                                 Security overview
                             </button>
                             <button type="button" className="btn btn-ghost">
-                                View ISO 27001 certificate{" "}
-                                <Icon.ExternalLink size={14} />
+                                View ISO 27001 certificate <Icon.ExternalLink size={14} />
                             </button>
                         </div>
                     </div>

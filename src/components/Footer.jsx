@@ -39,22 +39,14 @@ export function Footer() {
             <div className="container pt-[72px] pb-8 px-6">
                 <div className="grid grid-cols-[1.3fr_1fr_1fr_1fr] gap-12 mb-14">
                     <div>
-                        <img
-                            src="/assets/logo-horizontal-2c.png"
-                            alt="Ivyhill"
-                            className="h-8 block mb-5 brightness-0 invert"
-                        />
+                        <img src="/assets/logo-horizontal-2c.png" alt="Ivyhill" className="h-8 block mb-5 brightness-0 invert" />
                         <p className="m-0 mb-5 text-[13px] leading-[1.6] text-white/60 max-w-[320px]">
-                            Enterprise Information Management for U.S. federal,
-                            state, and local agencies, and commercial clients.
+                            Enterprise Information Management for U.S. federal, state, and local agencies, and commercial clients.
                             Founded 2015.
                         </p>
                         <ul className="list-none p-0 m-0 flex flex-col gap-2.5 text-[13px]">
                             <li className="flex gap-2.5 items-start">
-                                <Icon.Pin
-                                    size={14}
-                                    className="mt-0.5 text-ivy-green-400 shrink-0"
-                                />
+                                <Icon.Pin size={14} className="mt-0.5 text-ivy-green-400 shrink-0" />
                                 <span>
                                     4301 Garden City Dr., Suite 410
                                     <br />
@@ -62,17 +54,11 @@ export function Footer() {
                                 </span>
                             </li>
                             <li className="flex gap-2.5 items-center">
-                                <Icon.Phone
-                                    size={14}
-                                    className="text-ivy-green-400 shrink-0"
-                                />
+                                <Icon.Phone size={14} className="text-ivy-green-400 shrink-0" />
                                 +1 (301) 477-1080
                             </li>
                             <li className="flex gap-2.5 items-center">
-                                <Icon.Mail
-                                    size={14}
-                                    className="text-ivy-green-400 shrink-0"
-                                />
+                                <Icon.Mail size={14} className="text-ivy-green-400 shrink-0" />
                                 info@ivyhilltech.com
                             </li>
                         </ul>
@@ -85,10 +71,7 @@ export function Footer() {
                             <ul className="list-none p-0 m-0 flex flex-col gap-2.5">
                                 {col.items.map((i) => (
                                     <li key={i.label}>
-                                        <a
-                                            href={i.href}
-                                            className="text-white/[0.78] no-underline text-[13px]"
-                                        >
+                                        <a href={i.href} className="text-white/[0.78] no-underline text-[13px]">
                                             {i.label}
                                         </a>
                                     </li>

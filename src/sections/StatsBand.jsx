@@ -11,16 +11,11 @@ export function StatsBand() {
             <div className="container py-[72px] px-6">
                 <div className="grid grid-cols-4 gap-12">
                     {STATS.map((s) => (
-                        <div
-                            key={s.l}
-                            className="border-t border-white/[0.18] pt-5"
-                        >
+                        <div key={s.l} className="border-t border-white/[0.18] pt-5">
                             <div className="font-bold leading-none tracking-[-0.02em] text-white mb-3 tabular-nums text-[clamp(36px,4vw,56px)]">
                                 {s.n}
                             </div>
-                            <div className="text-[14px] text-white/[0.72] leading-[1.5]">
-                                {s.l}
-                            </div>
+                            <div className="text-[14px] text-white/[0.72] leading-[1.5]">{s.l}</div>
                         </div>
                     ))}
                 </div>

@@ -2,11 +2,7 @@ import { Icon } from "./Icons.jsx";
 
 export function Toast({ message }) {
     return (
-        <div
-            className={`toast ${message ? "show" : ""}`}
-            role="status"
-            aria-live="polite"
-        >
+        <div className={`toast ${message ? "show" : ""}`} role="status" aria-live="polite">
             {message && (
                 <>
                     <span className="check">

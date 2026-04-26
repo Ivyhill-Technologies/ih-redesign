@@ -69,15 +69,9 @@
     --rule: var(--ink-900);
 
     /* Type */
-    --font-sans:
-        "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-        "Helvetica Neue", Arial, sans-serif;
-    --font-display:
-        "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-        sans-serif;
-    --font-mono:
-        ui-monospace, "SF Mono", "JetBrains Mono", "Roboto Mono", Menlo,
-        Consolas, monospace;
+    --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-display: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Roboto Mono", Menlo, Consolas, monospace;
 
     --fs-display: clamp(40px, 5vw, 64px);
     --fs-h1: clamp(32px, 3.4vw, 44px);
@@ -124,12 +118,9 @@
     --r-pill: 999px;
 
     /* Shadows */
-    --shadow-1:
-        0 1px 2px rgba(11, 18, 32, 0.06), 0 1px 1px rgba(11, 18, 32, 0.04);
-    --shadow-2:
-        0 2px 4px rgba(11, 18, 32, 0.06), 0 4px 12px rgba(11, 18, 32, 0.06);
-    --shadow-3:
-        0 4px 12px rgba(11, 18, 32, 0.08), 0 12px 32px rgba(11, 18, 32, 0.08);
+    --shadow-1: 0 1px 2px rgba(11, 18, 32, 0.06), 0 1px 1px rgba(11, 18, 32, 0.04);
+    --shadow-2: 0 2px 4px rgba(11, 18, 32, 0.06), 0 4px 12px rgba(11, 18, 32, 0.06);
+    --shadow-3: 0 4px 12px rgba(11, 18, 32, 0.08), 0 12px 32px rgba(11, 18, 32, 0.08);
     --shadow-inset: inset 0 0 0 1px rgba(11, 18, 32, 0.06);
     --focus-ring: 0 0 0 3px rgba(128, 185, 65, 0.35);
 

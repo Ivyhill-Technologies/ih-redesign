@@ -65,10 +65,7 @@ function CapabilityCard({ item }) {
                   </span>,
               ]
             : []),
-        <span
-            key={t}
-            className="text-[11px] text-fg-4 font-mono tracking-[0.02em]"
-        >
+        <span key={t} className="text-[11px] text-fg-4 font-mono tracking-[0.02em]">
             {t}
         </span>,
     ]);
@@ -86,9 +83,7 @@ function CapabilityCard({ item }) {
                 {item.title}
                 {item.slug && <Icon.Arrow size={14} />}
             </h3>
-            <p className="m-0 text-[14px] leading-[1.55] text-fg-3 flex-1">
-                {item.body}
-            </p>
+            <p className="m-0 text-[14px] leading-[1.55] text-fg-3 flex-1">{item.body}</p>
             <div className="flex gap-1.5 flex-wrap">{tagNodes}</div>
         </a>
     );
@@ -107,16 +102,12 @@ export function CapabilityGrid() {
                     </h2>
                     <div>
                         <p className="m-0 mb-3.5 text-[17px] leading-[1.6] text-fg-3">
-                            Ivyhill keeps mission-critical systems running for
-                            federal, state, and local government — and the same
-                            teams, tooling, and standards run commercial
-                            engagements without the procurement overhead.
+                            Ivyhill keeps mission-critical systems running for federal, state, and local government — and the same
+                            teams, tooling, and standards run commercial engagements without the procurement overhead.
                         </p>
                         <p className="m-0 text-[15px] leading-[1.6] text-fg-4">
-                            Every engagement is staffed by Ivyhill personnel and
-                            delivered against an agency contract vehicle, an
-                            ISO-certified quality program, and a
-                            defense-in-depth security posture.
+                            Every engagement is staffed by Ivyhill personnel and delivered against an agency contract vehicle, an
+                            ISO-certified quality program, and a defense-in-depth security posture.
                         </p>
                     </div>
                 </div>
@@ -127,12 +118,9 @@ export function CapabilityGrid() {
                     <div className="bg-steel-900 text-white py-8 px-7 flex flex-col justify-between min-h-[240px]">
                         <div>
                             <Icon.Shield size={28} />
-                            <h3 className="mt-[18px] mb-2 text-[20px] font-semibold text-white">
-                                Cybersecurity, horizontal.
-                            </h3>
+                            <h3 className="mt-[18px] mb-2 text-[20px] font-semibold text-white">Cybersecurity, horizontal.</h3>
                             <p className="m-0 text-[14px] leading-[1.55] text-white/[0.72]">
-                                A defense-in-depth posture runs across every
-                                practice area — ISO/IEC 27001 backed.
+                                A defense-in-depth posture runs across every practice area — ISO/IEC 27001 backed.
                             </p>
                         </div>
                         <a
