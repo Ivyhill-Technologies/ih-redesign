@@ -36,8 +36,8 @@ export function AboutCerts() {
                         Audit-ready by design.
                     </h2>
                     <p className="m-0 text-[17px] leading-[1.6] text-fg-3">
-                        Three active ISO certifications and Maryland Department of Transportation (MDOT) business
-                        designations document how Ivyhill plans, secures, and delivers the work.
+                        Three active ISO certifications and Maryland Department of Transportation (MDOT) business designations
+                        document how Ivyhill plans, secures, and delivers the work.
                     </p>
                 </div>
 
@@ -46,13 +46,9 @@ export function AboutCerts() {
                         <div key={c.code} className="bg-white p-7 flex flex-col gap-3 border-t-2 border-ivy-green-500">
                             <div className="flex items-center gap-2 text-ivy-green-700">
                                 <Icon.Shield size={18} />
-                                <span className="font-mono text-[12px] tracking-[0.04em] uppercase font-semibold">
-                                    Active
-                                </span>
+                                <span className="font-mono text-[12px] tracking-[0.04em] uppercase font-semibold">Active</span>
                             </div>
-                            <div className="font-mono text-[15px] text-fg-1 font-semibold tracking-[0.01em]">
-                                {c.code}
-                            </div>
+                            <div className="font-mono text-[15px] text-fg-1 font-semibold tracking-[0.01em]">{c.code}</div>
                             <div className="text-[15px] font-semibold text-fg-1 leading-[1.3]">{c.label}</div>
                             <p className="m-0 text-[13.5px] leading-[1.55] text-fg-3">{c.desc}</p>
                         </div>
@@ -62,16 +58,11 @@ export function AboutCerts() {
                 <div className="bg-surface-subtle border border-line-1 rounded-[4px] p-7">
                     <div className="flex items-baseline gap-3 mb-5">
                         <span className="eyebrow text-ivy-green-700">MDOT designations</span>
-                        <span className="text-[12px] text-fg-4">
-                            Certified by the Maryland Department of Transportation
-                        </span>
+                        <span className="text-[12px] text-fg-4">Certified by the Maryland Department of Transportation</span>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         {DESIGNATIONS.map((d) => (
-                            <div
-                                key={d.abbr}
-                                className="bg-white border border-line-1 rounded-[4px] p-5 flex items-center gap-4"
-                            >
+                            <div key={d.abbr} className="bg-white border border-line-1 rounded-[4px] p-5 flex items-center gap-4">
                                 <div className="w-14 h-14 shrink-0 border border-ink-700 bg-steel-900 text-white flex items-center justify-center font-mono font-semibold tracking-[0.06em] text-[13px]">
                                     {d.abbr}
                                 </div>

@@ -47,8 +47,8 @@ export function AboutPage() {
                                 Trusted across the federal mission.
                             </h2>
                             <p className="m-0 mb-7 text-[17px] leading-[1.6] text-ink-300">
-                                Ivyhill supports agencies across labor, justice, defense, immigration, and health — and
-                                brings the same rigor to commercial clients running regulated programs.
+                                Ivyhill supports agencies across labor, justice, defense, immigration, and health — and brings the
+                                same rigor to commercial clients running regulated programs.
                             </p>
                             <Link
                                 to="/#past-performance"
@@ -81,8 +81,7 @@ export function AboutPage() {
                                 Get information management solutions today.
                             </h2>
                             <p className="m-0 text-[16px] leading-[1.6] text-fg-3">
-                                Request the current capability statement or reach out to start a conversation about your
-                                program.
+                                Request the current capability statement or reach out to start a conversation about your program.
                             </p>
                         </div>
                         <div className="flex flex-col gap-3 md:items-end">

@@ -40,8 +40,8 @@ export function AboutPortfolio() {
                         Five service areas, one accountable team.
                     </h2>
                     <p className="m-0 text-[17px] leading-[1.6] text-fg-3">
-                        Ivyhill's portfolio spans the systems federal agencies and commercial clients depend on — built,
-                        secured, and managed under one roof.
+                        Ivyhill's portfolio spans the systems federal agencies and commercial clients depend on — built, secured,
+                        and managed under one roof.
                     </p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
