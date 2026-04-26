@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { Icon } from "./Icons.jsx";
+import { LogoMark } from "./Logo.jsx";
 
 const SERVICES = [
     { name: "Data Analytics", slug: "data-analytics" },
@@ -55,13 +56,10 @@ export function Header({ onCTA }) {
                 <div className="container flex items-center gap-9 px-6 py-[18px]">
                     <Link
                         to="/"
-                        className="flex items-center gap-2.5 no-underline"
+                        aria-label="Ivyhill Technologies — home"
+                        className="flex items-center no-underline text-ivy-green-500"
                     >
-                        <img
-                            src="/assets/logo-horizontal-2c.png"
-                            alt="Ivyhill Technologies"
-                            className="h-[30px] block"
-                        />
+                        <LogoMark size={44} className="block" />
                     </Link>
                     <nav className="flex gap-7 relative">
                         <a

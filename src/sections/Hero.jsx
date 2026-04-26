@@ -29,19 +29,22 @@ export function Hero({ onCTA }) {
             <div className="container relative px-6 pt-[120px] pb-24">
                 <div className="grid grid-cols-[7fr_5fr] gap-16 items-start">
                     <div>
-                        <div className="flex items-center gap-2.5 mb-6">
-                            <span className="inline-block w-6 h-px bg-ivy-green-500" />
-                            <span className="eyebrow text-ivy-green-400">
+                        <h1 className="font-bold leading-[0.98] tracking-[-0.035em] text-white m-0 mb-6 text-balance whitespace-nowrap text-[clamp(40px,5.4vw,72px)]">
+                            Ivyhill Technologies
+                        </h1>
+                        <div className="flex items-center gap-2.5 mb-5">
+                            <span className="inline-block w-8 h-[2px] bg-ivy-green-500" />
+                            <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-ivy-green-400">
                                 Enterprise Information Management
                             </span>
                         </div>
-                        <h1 className="display font-bold leading-[1.04] tracking-[-0.025em] text-white m-0 mb-7 text-balance text-[clamp(40px,5.2vw,68px)]">
+                        <p className="font-semibold leading-[1.15] tracking-[-0.018em] text-ink-100 m-0 mb-7 text-balance text-[clamp(24px,2.8vw,36px)]">
                             Mission-grade IT for the{" "}
                             <span className="text-ivy-green-500">
                                 federal enterprise
                             </span>
                             .
-                        </h1>
+                        </p>
                         <p className="text-[18px] leading-[1.55] text-ink-300 max-w-[620px] m-0 mb-9">
                             Ivyhill partners with U.S. federal, state, and local
                             agencies — and commercial clients — to develop
@@ -70,10 +73,7 @@ export function Hero({ onCTA }) {
                                 className="btn bg-transparent text-ink-300 hover:text-white hover:bg-white/5 no-underline"
                             >
                                 NAICS codes{" "}
-                                <Icon.Arrow
-                                    size={14}
-                                    className="rotate-90"
-                                />
+                                <Icon.Arrow size={14} className="rotate-90" />
                             </a>
                         </div>
                     </div>
