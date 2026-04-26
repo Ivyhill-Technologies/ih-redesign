@@ -153,7 +153,7 @@ export function Header({ onCTA }) {
                                                 return (
                                                     <a
                                                         key={s.slug}
-                                                        href={`/services/${s.slug}`}
+                                                        href={`/capabilities/${s.slug}`}
                                                         role="menuitem"
                                                         className="group relative flex items-start gap-3 rounded-md py-3 pl-4 pr-3 no-underline text-fg-1 transition-colors duration-100 hover:bg-surface-subtle"
                                                     >
