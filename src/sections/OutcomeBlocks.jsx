@@ -20,12 +20,12 @@ const BLOCKS = [
 
 export function OutcomeBlocks() {
     return (
-        <section className="section bg-surface-subtle">
+        <section className="section bg-ivy-green-50">
             <div className="container px-6">
                 <div className="max-w-[820px] mb-14">
                     <div className="flex items-center gap-2.5 mb-5">
                         <span className="inline-block w-6 h-px bg-ivy-green-500" />
-                        <span className="eyebrow">How we help</span>
+                        <span className="eyebrow text-ivy-green-700">How we help</span>
                     </div>
                     <h2 className="m-0 font-bold leading-[1.1] tracking-[-0.02em] text-fg-1 text-balance text-[clamp(28px,3.2vw,44px)]">
                         We build, secure, and manage the systems your organization runs on.

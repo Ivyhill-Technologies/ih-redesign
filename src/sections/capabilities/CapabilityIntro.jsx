@@ -2,10 +2,10 @@ import { Icon } from "../../components/Icons.jsx";
 
 export function CapabilityIntro({ eyebrow = "Why this matters", title, lede, outcomes = [] }) {
     return (
-        <section className="section bg-surface-subtle">
+        <section className="section bg-ivy-green-50">
             <div className="container px-6">
                 <div className="flex items-baseline gap-6 mb-12 pt-6 border-t border-ink-900">
-                    <span className="eyebrow pt-3.5">{eyebrow}</span>
+                    <span className="eyebrow pt-3.5 text-ivy-green-700">{eyebrow}</span>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-[1fr_1.2fr] gap-16 items-start">
                     <h2 className="m-0 font-bold leading-[1.1] tracking-[-0.02em] text-fg-1 text-balance text-[clamp(28px,3vw,40px)]">

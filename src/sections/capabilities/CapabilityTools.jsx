@@ -155,7 +155,7 @@ export function CapabilityTools({ eyebrow = "Tooling", lede, tools, groups, asid
         <section className="section bg-surface-subtle border-t border-line-1">
             <div className="container px-6">
                 <div className="flex items-baseline gap-6 mb-10 pt-6 border-t border-ink-900">
-                    <span className="eyebrow pt-3.5">{eyebrow}</span>
+                    <span className="eyebrow pt-3.5 text-ivy-green-700">{eyebrow}</span>
                 </div>
 
                 {groups ? (

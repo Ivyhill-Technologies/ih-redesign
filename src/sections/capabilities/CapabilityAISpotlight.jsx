@@ -5,7 +5,7 @@ export function CapabilityAISpotlight({ eyebrow = "RAG & applied AI", title, led
         <section className="section border-t border-line-1">
             <div className="container px-6">
                 <div className="flex items-baseline gap-6 mb-12 pt-6 border-t border-ink-900">
-                    <span className="eyebrow pt-3.5">{eyebrow}</span>
+                    <span className="eyebrow pt-3.5 text-ivy-green-700">{eyebrow}</span>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12 items-start">
                     <h2 className="m-0 font-bold leading-[1.1] tracking-[-0.02em] text-fg-1 text-balance text-[clamp(28px,3vw,40px)]">
