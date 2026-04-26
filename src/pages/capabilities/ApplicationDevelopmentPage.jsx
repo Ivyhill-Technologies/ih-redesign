@@ -100,6 +100,18 @@ const TOOL_GROUPS = [
                 description:
                     "Backend services, data pipelines, and the bridge between application code and the AI/ML models agencies are increasingly adopting for forecasting and automation.",
             },
+            {
+                name: "TypeScript",
+                src: "/assets/logos/typescript.svg",
+                description:
+                    "Typed JavaScript for codebases that have to outlast the team that wrote them — compile-time guarantees that catch entire classes of bugs before they reach production and make long-running federal applications safer to refactor.",
+            },
+            {
+                name: "Bash / Shell",
+                src: "/assets/logos/bash.svg",
+                description:
+                    "The Linux scripting layer underneath every Ivyhill deployment — server bootstrapping, system glue, and the small reliable automations that keep production environments predictable across long contract periods.",
+            },
         ],
     },
     {
@@ -142,7 +154,7 @@ const TOOL_GROUPS = [
     {
         category: "DevOps",
         summary:
-            "Containerization and orchestration through a hardened CI/CD pipeline — signed images, vulnerability scanning, and immutable tags — so the package landing in production is the same one the security team reviewed. Ivyhill builds pipelines where the authorization boundary is defined in code: infrastructure-as-code for every resource, policy-as-code for every access rule, and automated compliance scanning on every commit so continuous monitoring isn't a checkbox exercise bolted on after deployment. The result is a deployment process an assessor can audit, a developer can repeat, and an operations team can hand off without undocumented tribal knowledge.",
+            "Containerized application packaging shipped through a hardened CI/CD pipeline — signed images, dependency scanning, and immutable tags — so the package landing in production is the same one the security team reviewed. Ivyhill expresses every server bootstrap and configuration step as version-controlled code rather than tribal knowledge in a runbook nobody reads, with automated checks on every commit so continuous monitoring isn't a checkbox exercise bolted on after deployment. The result is a deployment process an assessor can audit, a developer can repeat, and an operations team can hand off cleanly at contract close.",
         tools: [
             {
                 name: "Docker",
@@ -151,10 +163,28 @@ const TOOL_GROUPS = [
                     "Containerized application packaging — same image moves from developer laptop to staging to production, with no environment drift across the agency clouds Ivyhill deploys to.",
             },
             {
-                name: "Kubernetes",
-                src: "/assets/logos/kubernetes.svg",
+                name: "Nginx",
+                src: "/assets/logos/nginx.svg",
                 description:
-                    "Production orchestration for containerized workloads — automated scaling, rolling deploys, and self-healing infrastructure that lets agency applications meet variable demand without overprovisioning.",
+                    "Reverse proxy, TLS termination, and load balancing in front of containerized applications — the production traffic layer Linux operators have relied on for two decades, configured alongside the rest of the deployment as code rather than clicked into a console.",
+            },
+            {
+                name: "Git",
+                src: "/assets/logos/git.svg",
+                description:
+                    "Version control as the system of record — every change traceable, every release tagged, and every artifact in production tied back to a specific commit an assessor can audit.",
+            },
+            {
+                name: "GitHub Actions",
+                src: "/assets/logos/githubactions.svg",
+                description:
+                    "Automated build, test, and deployment pipelines triggered on every commit — vulnerability scanning, dependency checks, and image signing wired into the workflow so the package landing in production has already cleared the security gates.",
+            },
+            {
+                name: "Ansible",
+                src: "/assets/logos/ansible.svg",
+                description:
+                    "Agentless configuration management over SSH — server provisioning, package installs, and service hardening expressed as version-controlled playbooks rather than tribal knowledge in a runbook nobody reads.",
             },
         ],
     },
@@ -180,6 +210,18 @@ const TOOL_GROUPS = [
                 src: "/assets/logos/gcp.svg",
                 description:
                     "Strong fit for analytics-heavy and AI-forward workloads — BigQuery, Vertex AI, and Google's data tooling for agencies leaning into machine learning and large-scale data work.",
+            },
+            {
+                name: "Microsoft 365 GCC",
+                src: "/assets/logos/m365.svg",
+                description:
+                    "The Government Community Cloud tenant where Ivyhill delivers SharePoint and Power Platform workloads — segregated from commercial M365, aligned to federal data-handling expectations, and the natural home for the agency's authorized productivity stack.",
+            },
+            {
+                name: "Cloudflare",
+                src: "/assets/logos/cloudflare.svg",
+                description:
+                    "Edge services in front of agency applications — global CDN, TLS termination, DDoS protection, and a managed WAF — delivered through a FedRAMP Moderate authorized platform that takes traffic-layer hardening off the agency's infrastructure team.",
             },
         ],
     },
