@@ -3,6 +3,7 @@ import { ApplicationDevelopmentPage } from "./pages/capabilities/ApplicationDeve
 import { DataAnalyticsPage } from "./pages/capabilities/DataAnalyticsPage.jsx";
 import { InformationManagementPage } from "./pages/capabilities/InformationManagementPage.jsx";
 import { InfrastructureSupportPage } from "./pages/capabilities/InfrastructureSupportPage.jsx";
+import { QueueManagementPage } from "./pages/capabilities/QueueManagementPage.jsx";
 import { RecordsManagementPage } from "./pages/capabilities/RecordsManagementPage.jsx";
 import { HomePage } from "./pages/HomePage.jsx";
 import { NotFoundPage } from "./pages/NotFoundPage.jsx";
@@ -16,6 +17,7 @@ export function App() {
                 <Route path="/capabilities/data-analytics" element={<DataAnalyticsPage />} />
                 <Route path="/capabilities/information-management" element={<InformationManagementPage />} />
                 <Route path="/capabilities/infrastructure-support" element={<InfrastructureSupportPage />} />
+                <Route path="/capabilities/queue-management" element={<QueueManagementPage />} />
                 <Route path="/capabilities/records-management" element={<RecordsManagementPage />} />
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
