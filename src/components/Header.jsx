@@ -48,6 +48,7 @@ const NAV = [
     { label: "Past performance", to: "/#past-performance" },
     { label: "Contracts", to: "/contracts" },
     { label: "About", to: "/about" },
+    { label: "Contact", to: "/contact" },
 ];
 
 const NAV_LINK_BASE =

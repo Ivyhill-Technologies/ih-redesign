@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AboutPage } from "./pages/AboutPage.jsx";
+import { ContactPage } from "./pages/ContactPage.jsx";
 import { ContractsPage } from "./pages/ContractsPage.jsx";
 import { ApplicationDevelopmentPage } from "./pages/capabilities/ApplicationDevelopmentPage.jsx";
 import { DataAnalyticsPage } from "./pages/capabilities/DataAnalyticsPage.jsx";
@@ -17,6 +18,7 @@ export function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/contracts" element={<ContractsPage />} />
+                <Route path="/contact" element={<ContactPage />} />
                 <Route path="/capabilities/application-development" element={<ApplicationDevelopmentPage />} />
                 <Route path="/capabilities/data-analytics" element={<DataAnalyticsPage />} />
                 <Route path="/capabilities/information-management" element={<InformationManagementPage />} />
