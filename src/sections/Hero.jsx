@@ -39,9 +39,9 @@ export function Hero({ onCTA }) {
                             </span>
                         </div>
                         <p className="font-semibold leading-[1.15] tracking-[-0.018em] text-ink-100 m-0 mb-7 text-balance text-[clamp(24px,2.8vw,36px)]">
-                            Mission-grade IT for the{" "}
+                            Mission-grade IT for{" "}
                             <span className="text-ivy-green-500">
-                                federal enterprise
+                                agencies and enterprises
                             </span>
                             .
                         </p>
