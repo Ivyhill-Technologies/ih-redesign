@@ -38,7 +38,7 @@ export function OutcomeBlocks() {
                             <h3 className="m-0 mb-3 text-[22px] font-semibold leading-[1.2] tracking-[-0.01em] text-fg-1">
                                 {title}
                             </h3>
-                            <p className="m-0 text-[15px] leading-[1.65] text-fg-3">{body}</p>
+                            <p className="m-0 text-[17px] leading-[1.65] text-fg-3">{body}</p>
                         </div>
                     ))}
                 </div>

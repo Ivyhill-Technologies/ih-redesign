@@ -30,7 +30,7 @@ export function NaicsCodes() {
                         <h2 className="m-0 mb-5 font-bold leading-[1.1] tracking-[-0.02em] text-fg-1 text-balance text-[clamp(28px,3vw,40px)]">
                             Registered to do the work.
                         </h2>
-                        <p className="m-0 mb-7 text-[17px] leading-[1.6] text-fg-3">
+                        <p className="m-0 mb-7 text-[19px] leading-[1.6] text-fg-3">
                             Ivyhill is classified under the North American Industry Classification System (NAICS) for the work we
                             deliver — IT services, management consulting, and administrative support. These codes let federal
                             contracting officers find us in procurement databases.

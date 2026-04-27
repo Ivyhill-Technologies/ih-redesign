@@ -46,7 +46,7 @@ export function AboutPage() {
                             <h2 className="m-0 mb-5 font-bold leading-[1.1] tracking-[-0.02em] text-white text-balance text-[clamp(28px,3vw,40px)]">
                                 Trusted across the federal mission.
                             </h2>
-                            <p className="m-0 mb-7 text-[17px] leading-[1.6] text-ink-300">
+                            <p className="m-0 mb-7 text-[19px] leading-[1.6] text-ink-300">
                                 Ivyhill supports agencies across labor, justice, defense, immigration, and health — and brings the
                                 same rigor to commercial clients running regulated programs.
                             </p>

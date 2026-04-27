@@ -35,7 +35,7 @@ export function AboutCerts() {
                     <h2 className="m-0 font-bold leading-[1.1] tracking-[-0.02em] text-fg-1 text-balance text-[clamp(28px,3vw,40px)]">
                         Audit-ready by design.
                     </h2>
-                    <p className="m-0 text-[17px] leading-[1.6] text-fg-3">
+                    <p className="m-0 text-[19px] leading-[1.6] text-fg-3">
                         Three active ISO certifications and Maryland Department of Transportation (MDOT) business designations
                         document how Ivyhill plans, secures, and delivers the work.
                     </p>
@@ -48,8 +48,8 @@ export function AboutCerts() {
                                 <Icon.Shield size={18} />
                                 <span className="font-mono text-[12px] tracking-[0.04em] uppercase font-semibold">Active</span>
                             </div>
-                            <div className="font-mono text-[15px] text-fg-1 font-semibold tracking-[0.01em]">{c.code}</div>
-                            <div className="text-[15px] font-semibold text-fg-1 leading-[1.3]">{c.label}</div>
+                            <div className="font-mono text-[17px] text-fg-1 font-semibold tracking-[0.01em]">{c.code}</div>
+                            <div className="text-[17px] font-semibold text-fg-1 leading-[1.3]">{c.label}</div>
                             <p className="m-0 text-[13.5px] leading-[1.55] text-fg-3">{c.desc}</p>
                         </div>
                     ))}

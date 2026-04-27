@@ -158,7 +158,7 @@ function VehiclePanel({ v }) {
                 {v.benefits && (
                     <div className="border-l-2 border-ivy-green-500 pl-5 py-1 mb-6">
                         <div className="eyebrow text-ivy-green-700 mb-2">Features &amp; benefits</div>
-                        <p className="m-0 text-[15px] leading-[1.6] text-fg-2">{v.benefits}</p>
+                        <p className="m-0 text-[17px] leading-[1.6] text-fg-2">{v.benefits}</p>
                     </div>
                 )}
 
@@ -293,7 +293,7 @@ function VehiclePanel({ v }) {
 
                 <div className="border border-line-1 rounded-[6px] bg-white p-6 mt-4">
                     <div className="eyebrow text-ivy-green-700 mb-3">Contract contact</div>
-                    <div className="text-[15px] font-semibold text-fg-1 mb-1">Deanna Eaton</div>
+                    <div className="text-[17px] font-semibold text-fg-1 mb-1">Deanna Eaton</div>
                     <div className="text-[13px] text-fg-3 mb-4">President &amp; CEO</div>
                     <ul className="list-none m-0 p-0 flex flex-col gap-2.5 text-[13.5px]">
                         <li className="flex items-center gap-2.5">

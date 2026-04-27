@@ -104,14 +104,14 @@ export function CapabilityGrid() {
                 </div>
                 <div className="grid grid-cols-2 gap-12 mb-8 items-start">
                     <h2 className="m-0 font-bold leading-[1.1] tracking-[-0.02em] text-fg-1 text-balance text-[clamp(28px,3vw,40px)]">
-                        Six practice areas. One accountable team.
+                        End-to-end capabilities. One accountable team.
                     </h2>
                     <div>
-                        <p className="m-0 mb-3.5 text-[17px] leading-[1.6] text-fg-3">
+                        <p className="m-0 mb-3.5 text-[19px] leading-[1.6] text-fg-3">
                             Ivyhill keeps mission-critical systems running for federal, state, and local government — and the same
                             teams, tooling, and standards run commercial engagements without the procurement overhead.
                         </p>
-                        <p className="m-0 text-[15px] leading-[1.6] text-fg-4">
+                        <p className="m-0 text-[17px] leading-[1.6] text-fg-4">
                             Every engagement is staffed by Ivyhill personnel and delivered against an agency contract vehicle, an
                             ISO-certified quality program, and a defense-in-depth security posture.
                         </p>

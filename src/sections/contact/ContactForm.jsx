@@ -15,7 +15,7 @@ const INITIAL = {
 };
 
 const FIELD_BASE =
-    "w-full rounded-[4px] border bg-white px-3.5 py-2.5 text-[15px] text-fg-1 placeholder:text-fg-4 transition-colors focus:outline-none focus:ring-2 disabled:bg-surface-subtle disabled:text-fg-3";
+    "w-full rounded-[4px] border bg-white px-3.5 py-2.5 text-[17px] text-fg-1 placeholder:text-fg-4 transition-colors focus:outline-none focus:ring-2 disabled:bg-surface-subtle disabled:text-fg-3";
 
 const FIELD_OK = "border-line-2 focus:border-ivy-green-500 focus:ring-ivy-green-500/20";
 const FIELD_ERR = "border-status-danger focus:border-status-danger focus:ring-status-danger/20";
@@ -101,7 +101,7 @@ export function ContactForm() {
                         <h2 className="m-0 mb-2 font-bold leading-[1.15] tracking-[-0.02em] text-fg-1 text-balance text-[clamp(22px,2.2vw,30px)]">
                             Tell us how we can help.
                         </h2>
-                        <p className="m-0 mb-8 text-[15px] leading-[1.6] text-fg-3">
+                        <p className="m-0 mb-8 text-[17px] leading-[1.6] text-fg-3">
                             Use the form below and a member of our team will follow up. Required fields are marked with an
                             asterisk.
                         </p>
@@ -112,7 +112,7 @@ export function ContactForm() {
                                     <Icon.Check size={18} />
                                 </span>
                                 <div>
-                                    <p className="m-0 mb-1 text-[15px] font-semibold text-fg-1">Thanks — message sent.</p>
+                                    <p className="m-0 mb-1 text-[17px] font-semibold text-fg-1">Thanks — message sent.</p>
                                     <p className="m-0 text-[14px] leading-[1.55] text-fg-3">
                                         We received your note and will be in touch shortly. You can{" "}
                                         <button

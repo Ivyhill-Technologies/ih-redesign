@@ -142,7 +142,7 @@ export function Header() {
                                         />
                                         <div className="relative flex flex-col h-full">
                                             <div className="eyebrow text-ivy-green-400 mb-3">Why Ivyhill</div>
-                                            <p className="text-[15px] font-semibold leading-snug text-white m-0 mb-4">
+                                            <p className="text-[17px] font-semibold leading-snug text-white m-0 mb-4">
                                                 Built for high-stakes, regulated work.
                                             </p>
                                             <ul className="m-0 p-0 list-none flex flex-col gap-2 mb-5">

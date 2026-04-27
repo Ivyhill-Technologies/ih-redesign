@@ -137,7 +137,7 @@ export function RecordsManagementPage() {
                         <h2 className="m-0 font-bold leading-[1.1] tracking-[-0.02em] text-white text-balance text-[clamp(28px,3vw,40px)]">
                             Document Conversion — turning physical records into searchable digital assets.
                         </h2>
-                        <p className="m-0 text-[17px] leading-[1.6] text-ink-300">
+                        <p className="m-0 text-[19px] leading-[1.6] text-ink-300">
                             Document conversion is one of the most resource-intensive parts of any records program. Ivyhill's
                             specialists run the scanning, recognition, and quality workflow end-to-end — leveraging AI to ensure a
                             smooth paper-to-digital transition and to extract the data elements that matter for downstream

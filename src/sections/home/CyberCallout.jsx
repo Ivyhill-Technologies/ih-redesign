@@ -26,7 +26,7 @@ export function CyberCallout() {
                         <h2 className="m-0 mb-5 font-bold leading-[1.1] tracking-[-0.02em] text-fg-1 text-balance text-[clamp(28px,3vw,40px)]">
                             Cybersecurity is not a service line. It runs across all of them.
                         </h2>
-                        <p className="m-0 mb-6 text-[17px] leading-[1.6] text-fg-3">
+                        <p className="m-0 mb-6 text-[19px] leading-[1.6] text-fg-3">
                             Every Ivyhill engagement inherits an active-protection posture. The practice areas above are delivered
                             against the same security backbone — not bolted on, not a separate quote.
                         </p>
@@ -57,7 +57,7 @@ export function CyberCallout() {
                             {FEATURES.map((f, i) => (
                                 <li
                                     key={f}
-                                    className={`flex items-center gap-4 py-3.5 text-[15px] text-fg-2 leading-[1.45] ${
+                                    className={`flex items-center gap-4 py-3.5 text-[17px] text-fg-2 leading-[1.45] ${
                                         i !== FEATURES.length - 1 ? "border-b border-ivy-green-100" : ""
                                     }`}
                                 >

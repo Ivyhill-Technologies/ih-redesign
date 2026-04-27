@@ -42,7 +42,7 @@ export function PastPerformance() {
                     <h2 className="m-0 font-bold leading-[1.1] tracking-[-0.02em] text-fg-1 text-balance text-[clamp(28px,3vw,40px)]">
                         Trusted across the federal mission.
                     </h2>
-                    <p className="m-0 text-[17px] leading-[1.6] text-fg-3">
+                    <p className="m-0 text-[19px] leading-[1.6] text-fg-3">
                         A representative sample of agency engagements. Full past-performance documentation, including CPARS
                         scores, available on capability-statement request.
                     </p>
@@ -61,7 +61,7 @@ export function PastPerformance() {
                                 <div className="text-[11px] text-fg-4 tracking-[0.12em] uppercase font-semibold mb-1">
                                     U.S. Federal
                                 </div>
-                                <h3 className="m-0 mb-1.5 text-[15px] font-semibold text-fg-1 leading-[1.3]">{a.name}</h3>
+                                <h3 className="m-0 mb-1.5 text-[17px] font-semibold text-fg-1 leading-[1.3]">{a.name}</h3>
                                 <p className="m-0 text-[13px] text-fg-3 leading-[1.5]">{a.work}</p>
                             </div>
                         </article>

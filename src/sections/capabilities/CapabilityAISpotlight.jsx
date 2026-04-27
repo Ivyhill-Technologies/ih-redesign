@@ -11,7 +11,7 @@ export function CapabilityAISpotlight({ eyebrow = "RAG & applied AI", title, led
                     <h2 className="m-0 font-bold leading-[1.1] tracking-[-0.02em] text-fg-1 text-balance text-[clamp(28px,3vw,40px)]">
                         {title}
                     </h2>
-                    {lede && <p className="m-0 text-[17px] leading-[1.6] text-fg-3">{lede}</p>}
+                    {lede && <p className="m-0 text-[19px] leading-[1.6] text-fg-3">{lede}</p>}
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-line-1 border border-line-1">
                     {columns.map((col) => (
@@ -20,7 +20,7 @@ export function CapabilityAISpotlight({ eyebrow = "RAG & applied AI", title, led
                                 {col.eyebrow}
                             </span>
                             <h3 className="m-0 text-[20px] font-semibold text-fg-1">{col.heading}</h3>
-                            {col.body && <p className="m-0 text-[15px] leading-[1.6] text-fg-3">{col.body}</p>}
+                            {col.body && <p className="m-0 text-[17px] leading-[1.6] text-fg-3">{col.body}</p>}
                             {col.items && col.items.length > 0 && (
                                 <ul className="list-none m-0 p-0 mt-2 flex flex-col gap-3">
                                     {col.items.map((it) => (

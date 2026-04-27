@@ -12,11 +12,11 @@ export function CapabilityIntro({ eyebrow = "Why this matters", title, lede, out
                         {title}
                     </h2>
                     <div>
-                        {lede && <p className="m-0 mb-8 text-[17px] leading-[1.6] text-fg-3">{lede}</p>}
+                        {lede && <p className="m-0 mb-8 text-[19px] leading-[1.6] text-fg-3">{lede}</p>}
                         {outcomes.length > 0 && (
                             <ul className="list-none m-0 p-0 grid grid-cols-1 gap-5">
                                 {outcomes.map((o) => (
-                                    <li key={o} className="flex items-start gap-3 text-[15px] leading-[1.55] text-fg-2">
+                                    <li key={o} className="flex items-start gap-3 text-[17px] leading-[1.55] text-fg-2">
                                         <span className="mt-1 text-ivy-green-600 shrink-0">
                                             <Icon.Check size={16} />
                                         </span>
