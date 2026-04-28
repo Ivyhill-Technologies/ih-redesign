@@ -51,7 +51,6 @@ export function CyberCallout() {
                             <span className="text-[11px] font-semibold tracking-[0.14em] uppercase text-ivy-green-700">
                                 Included on every engagement
                             </span>
-                            <span className="text-[12px] text-fg-3 tabular-nums">{FEATURES.length} controls</span>
                         </div>
                         <ul className="m-0 p-0 list-none flex flex-col">
                             {FEATURES.map((f, i) => (
