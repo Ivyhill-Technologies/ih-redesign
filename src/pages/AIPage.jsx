@@ -28,7 +28,7 @@ const APPROACH_COLUMNS = [
     {
         eyebrow: "Federal & regulated",
         heading: "Inside the cloud you've already authorized.",
-        body: "For federal and regulated buyers, AI integration is a security conversation before it's a product conversation. Ivyhill builds inside the boundary you already trust — Bedrock or Azure OpenAI in your authorized tenant, retrieval pipelines that never ship data to a public model, and audit trails that hold up to inspection.",
+        body: "For federal and regulated buyers, AI integration is a security conversation before it's a product conversation. Ivyhill builds inside the boundary you already trust — the AI platforms already approved for your authorized cloud, retrieval pipelines that never ship data to a public model, and audit trails that hold up to inspection.",
         items: [
             "Deploy inside the agency's authorized cloud — no data routed to public model APIs.",
             "Citations on every answer so staff verify against record, not against model recall.",
@@ -44,7 +44,7 @@ const APPROACH_COLUMNS = [
             "Index the SaaS tools, knowledge bases, and cloud storage your business already runs on.",
             "Custom assistants for sales, support, and operations — grounded in your real documents.",
             "Agentic workflows that read, summarize, and act across enterprise tools.",
-            "Bring-your-own-cloud deployments on Azure, AWS, or GCP — your data stays in your tenant.",
+            "Bring-your-own-cloud deployments that keep your data inside your tenant.",
         ],
     },
 ];
@@ -65,22 +65,22 @@ export function AIPage() {
             <section className="section bg-ivy-green-50">
                 <div className="container px-6">
                     <div className="flex items-baseline gap-6 mb-12 pt-6 border-t border-ink-900">
-                        <span className="eyebrow pt-3.5 text-ivy-green-700">How we approach AI</span>
+                        <span className="eyebrow pt-3.5 text-ivy-green-700">AI with Ivyhill</span>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-[1fr_1.2fr] gap-8 md:gap-16 items-start">
                         <h2 className="m-0 font-bold leading-[1.1] tracking-[-0.02em] text-fg-1 text-balance text-[clamp(26px,3vw,40px)]">
-                            Integrators, not researchers.
+                            An integration-first approach to AI.
                         </h2>
                         <div className="flex flex-col gap-5">
                             <p className="m-0 text-[17px] md:text-[19px] leading-[1.6] text-fg-3">
-                                Ivyhill doesn't train custom models or build novel ML from scratch. We integrate the AI you can
-                                already buy — Amazon Bedrock, Azure OpenAI, the open-source stack — into the data, workflows, and
-                                authorization boundaries your organization already runs on.
+                                Ivyhill takes proven AI tools and puts them to work inside the workflows, the data, and the
+                                permissions your organization already runs on. The craft is in tailoring them to how your team
+                                actually operates day to day.
                             </p>
                             <p className="m-0 text-[17px] leading-[1.6] text-fg-2">
-                                That distinction matters. The hard part of AI in a real organization isn't the model — it's the
-                                integration: which document set to ground it on, which permissions to honor, which cloud it lives
-                                in, who's accountable for what it says. That's the work we do.
+                                Which document set should it ground on. Which permissions should it honor. Which cloud should it
+                                live in. Who is accountable for what it says. Those are the questions that turn "we should do
+                                something with AI" into something operational — and integration is the work Ivyhill does.
                             </p>
                         </div>
                     </div>
