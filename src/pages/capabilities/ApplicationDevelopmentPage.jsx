@@ -229,7 +229,10 @@ const TOOL_GROUPS = [
 
 export function ApplicationDevelopmentPage() {
     return (
-        <SiteShell>
+        <SiteShell
+            title="Application Development"
+            description="Custom, cross-platform application development for U.S. federal agencies — SharePoint intranets, Microsoft Power Platform solutions, mobile and web applications, and cloud-native services built to mission requirements."
+        >
             <CapabilityHero
                 title="Application Development"
                 lede="Custom, cross-platform applications for U.S. federal agencies. Ivyhill delivers data-driven systems — SharePoint intranets, Microsoft Power Platform solutions, mobile and web applications, and cloud-native services — built to mission requirements rather than retrofitted from generic commercial software."

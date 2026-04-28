@@ -40,7 +40,10 @@ const OUTCOMES = [
 
 export function QueueManagementPage() {
     return (
-        <SiteShell>
+        <SiteShell
+            title="Queue Management"
+            description="Queue management for high-volume federal and public-facing service environments — remote check-in, low-touch on-site options, automated notifications, and the analytics agencies need to optimize the customer experience end-to-end."
+        >
             <CapabilityHero
                 title="Queue Management"
                 lede="Ivyhill streamlines customer flow for high-volume federal and public-facing service environments. User-friendly queue solutions with remote check-in, low-touch on-site options, automated notifications, and the analytics agencies need to optimize the experience end-to-end."

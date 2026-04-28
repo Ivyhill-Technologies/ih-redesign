@@ -3,7 +3,10 @@ import { SiteShell } from "../components/SiteShell.jsx";
 
 export function NotFoundPage() {
     return (
-        <SiteShell>
+        <SiteShell
+            title="Page Not Found"
+            description="The page you requested is not available. Return to the Ivyhill Technologies homepage to keep browsing."
+        >
             <section className="section">
                 <div className="container max-w-[720px]">
                     <div className="eyebrow mb-4">Error 404</div>

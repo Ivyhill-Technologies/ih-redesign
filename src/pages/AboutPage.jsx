@@ -17,7 +17,10 @@ const AGENCIES = ["DOL", "DOJ", "ICE", "NIH", "USAF", "U.S. Army"];
 
 export function AboutPage() {
     return (
-        <SiteShell>
+        <SiteShell
+            title="About Ivyhill"
+            description="Established in 2015, Ivyhill Technologies is a federal and commercial services firm holding three active ISO certifications and MDOT minority, disadvantaged, and small business designations. We serve agencies including DOL, DOJ, ICE, NIH, USAF, and the U.S. Army."
+        >
             <CapabilityHero
                 eyebrow="About"
                 title="About Ivyhill Technologies"

@@ -1,14 +1,11 @@
 import { Amplify } from "aws-amplify";
-import React from "react";
-import ReactDOM from "react-dom/client";
+import { ViteReactSSG } from "vite-react-ssg";
 import outputs from "../amplify_outputs.json";
-import { App } from "./App.jsx";
+import { routes } from "./App.jsx";
 import "./styles/global.css";
 
-Amplify.configure(outputs);
-
-ReactDOM.createRoot(document.getElementById("root")).render(
-    <React.StrictMode>
-        <App />
-    </React.StrictMode>,
-);
+export const createRoot = ViteReactSSG({ routes }, ({ isClient }) => {
+    if (isClient) {
+        Amplify.configure(outputs);
+    }
+});

@@ -40,7 +40,10 @@ const OUTCOMES = [
 
 export function InfrastructureSupportPage() {
     return (
-        <SiteShell>
+        <SiteShell
+            title="Infrastructure Support"
+            description="IT infrastructure support for federal, local government, and commercial customers — modern help desk, applications and server O&M, networking, cloud and hybrid management, and active cyber protection."
+        >
             <CapabilityHero
                 title="Infrastructure Support"
                 lede="IT systems operations and maintenance covering all software and hardware tied to applications, servers, and networking — on-premises, in the cloud, or in a hybrid solution. Ivyhill delivers a secure, reliable, and efficient IT infrastructure that keeps the mission moving."

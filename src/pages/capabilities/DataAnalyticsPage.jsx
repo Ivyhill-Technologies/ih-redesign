@@ -88,7 +88,10 @@ const OUTCOMES = [
 
 export function DataAnalyticsPage() {
     return (
-        <SiteShell>
+        <SiteShell
+            title="Data Analytics"
+            description="Mission-grade data analytics for U.S. federal agencies. Ivyhill turns operational data into dashboards, forecasts, and AI-augmented predictions — including RAG systems built on the data agencies already own."
+        >
             <CapabilityHero
                 title="Data Analytics"
                 lede="Mission-grade analytics for U.S. federal agencies. Ivyhill turns operational data — including the records inventories tracked by DHS programs — into dashboards, forecasts, and AI-augmented predictions that save agencies time and money."

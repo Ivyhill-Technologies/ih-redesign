@@ -40,7 +40,10 @@ const OUTCOMES = [
 
 export function InformationManagementPage() {
     return (
-        <SiteShell>
+        <SiteShell
+            title="Information Management"
+            description="Information management for federal agencies and commercial enterprises — records programs, business intelligence, scanning and imaging, and customer service operations across the full information lifecycle."
+        >
             <CapabilityHero
                 title="Information Management"
                 lede="Ivyhill specializes in getting your mission-critical information to the right people, at the right place, at the right time — helping you manage both physical and digital data throughout the information lifecycle, regardless of source or format."

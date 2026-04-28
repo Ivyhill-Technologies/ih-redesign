@@ -1,10 +1,17 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { Head } from "vite-react-ssg";
 import { Footer } from "./Footer.jsx";
 import { Header } from "./Header.jsx";
 
-export function SiteShell({ children }) {
+const DEFAULT_TITLE = "Ivyhill Technologies — Federal IT Services";
+const DEFAULT_DESCRIPTION =
+    "Enterprise Information Management for U.S. federal, state, and local agencies, and commercial clients. ISO-certified, contract-vehicle-ready.";
+
+export function SiteShell({ children, title, description }) {
     const location = useLocation();
+    const fullTitle = title ? `${title} — Ivyhill Technologies` : DEFAULT_TITLE;
+    const fullDescription = description || DEFAULT_DESCRIPTION;
 
     useEffect(() => {
         if (location.hash) {
@@ -20,6 +27,10 @@ export function SiteShell({ children }) {
 
     return (
         <>
+            <Head>
+                <title>{fullTitle}</title>
+                <meta name="description" content={fullDescription} />
+            </Head>
             <Header />
             <main>{children}</main>
             <Footer />

@@ -5,7 +5,10 @@ import { ContractVehicles } from "../sections/contracts/ContractVehicles.jsx";
 
 export function ContractsPage() {
     return (
-        <SiteShell>
+        <SiteShell
+            title="Contract Vehicles"
+            description="Ivyhill Technologies holds federal contract vehicles spanning IT services, records and information management, and defense — making it straightforward for federal, state, and local buyers to put us on contract."
+        >
             <CapabilityHero
                 eyebrow="Contracts"
                 title="Contract vehicles"

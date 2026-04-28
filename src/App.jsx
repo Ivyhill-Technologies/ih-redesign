@@ -1,4 +1,3 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AboutPage } from "./pages/AboutPage.jsx";
 import { ContactPage } from "./pages/ContactPage.jsx";
 import { ContractsPage } from "./pages/ContractsPage.jsx";
@@ -11,22 +10,16 @@ import { RecordsManagementPage } from "./pages/capabilities/RecordsManagementPag
 import { HomePage } from "./pages/HomePage.jsx";
 import { NotFoundPage } from "./pages/NotFoundPage.jsx";
 
-export function App() {
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/about" element={<AboutPage />} />
-                <Route path="/contracts" element={<ContractsPage />} />
-                <Route path="/contact" element={<ContactPage />} />
-                <Route path="/capabilities/application-development" element={<ApplicationDevelopmentPage />} />
-                <Route path="/capabilities/data-analytics" element={<DataAnalyticsPage />} />
-                <Route path="/capabilities/information-management" element={<InformationManagementPage />} />
-                <Route path="/capabilities/infrastructure-support" element={<InfrastructureSupportPage />} />
-                <Route path="/capabilities/queue-management" element={<QueueManagementPage />} />
-                <Route path="/capabilities/records-management" element={<RecordsManagementPage />} />
-                <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-        </BrowserRouter>
-    );
-}
+export const routes = [
+    { path: "/", Component: HomePage },
+    { path: "/about", Component: AboutPage },
+    { path: "/contracts", Component: ContractsPage },
+    { path: "/contact", Component: ContactPage },
+    { path: "/capabilities/application-development", Component: ApplicationDevelopmentPage },
+    { path: "/capabilities/data-analytics", Component: DataAnalyticsPage },
+    { path: "/capabilities/information-management", Component: InformationManagementPage },
+    { path: "/capabilities/infrastructure-support", Component: InfrastructureSupportPage },
+    { path: "/capabilities/queue-management", Component: QueueManagementPage },
+    { path: "/capabilities/records-management", Component: RecordsManagementPage },
+    { path: "*", Component: NotFoundPage },
+];

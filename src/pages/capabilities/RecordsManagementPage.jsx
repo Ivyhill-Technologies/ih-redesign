@@ -113,7 +113,10 @@ const APP_COLUMNS = [
 
 export function RecordsManagementPage() {
     return (
-        <SiteShell>
+        <SiteShell
+            title="Records Management"
+            description="Records, case, knowledge, and content management solutions for federal, local government, and commercial clients — schedules, inventories, file plans, periodic review, Capstone tracking, and site visits delivered as standardized, configurable modules."
+        >
             <CapabilityHero
                 title="Records Management"
                 lede="Records Management solutions for federal, local government, and commercial clients. Ivyhill is an Information Management company — delivering modernization and intelligent process automation across an organization's records program."

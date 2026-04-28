@@ -3,7 +3,11 @@ import { generateClient } from "aws-amplify/data";
 import { useState } from "react";
 import { Icon } from "../../components/Icons.jsx";
 
-const client = generateClient();
+let client;
+const getClient = () => {
+    if (!client) client = generateClient();
+    return client;
+};
 
 const INITIAL = {
     firstName: "",
@@ -64,7 +68,7 @@ export function ContactForm() {
             if (value.website) return;
 
             try {
-                const { errors: apiErrors } = await client.models.ContactSubmission.create({
+                const { errors: apiErrors } = await getClient().models.ContactSubmission.create({
                     firstName: value.firstName.trim(),
                     lastName: value.lastName.trim(),
                     email: value.email.trim(),

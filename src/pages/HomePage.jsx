@@ -9,7 +9,7 @@ import { StatsBand } from "../sections/home/StatsBand.jsx";
 
 export function HomePage() {
     return (
-        <SiteShell>
+        <SiteShell description="Ivyhill Technologies delivers federal IT services — application development, data analytics, information and records management, infrastructure support, and queue management — for U.S. federal, state, and local agencies. ISO-certified and contract-vehicle-ready.">
             <Hero />
             <OutcomeBlocks />
             <CapabilityGrid />

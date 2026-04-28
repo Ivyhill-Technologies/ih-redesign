@@ -4,7 +4,10 @@ import { ContactForm } from "../sections/contact/ContactForm.jsx";
 
 export function ContactPage() {
     return (
-        <SiteShell>
+        <SiteShell
+            title="Contact"
+            description="Reach Ivyhill Technologies to discuss an upcoming federal requirement, RFI, or commercial program. Contact us by form, phone, or email and a member of our team will follow up promptly."
+        >
             <CapabilityHero
                 eyebrow="Contact"
                 title="Get in touch with Ivyhill."
