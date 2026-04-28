@@ -49,7 +49,7 @@ export function PastPerformance() {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {AGENCIES.map((a) => (
-                        <article key={a.abbr} className="bg-white border border-line-1 rounded-[4px] p-6 flex gap-4">
+                        <article key={a.abbr} className="bg-white border border-line-1 rounded-sm p-6 flex gap-4">
                             <div
                                 className={`w-16 h-16 shrink-0 border border-ink-700 bg-steel-900 text-white flex items-center justify-center font-mono font-semibold tracking-[0.06em] ${
                                     a.abbr.length > 3 ? "text-[11px]" : "text-[13px]"
@@ -67,7 +67,7 @@ export function PastPerformance() {
                         </article>
                     ))}
                 </div>
-                <div className="mt-8 py-6 px-7 bg-white border border-line-1 border-l-2 border-l-ivy-green-500 rounded-[4px] max-w-[760px]">
+                <div className="mt-8 py-6 px-7 bg-white border border-line-1 border-l-2 border-l-ivy-green-500 rounded-sm max-w-[760px]">
                     <p className="m-0 mb-2 text-[18px] text-fg-1 leading-[1.4]">
                         "Ivyhill digitized 2.4 million pages on schedule and within budget for our records modernization."
                     </p>

@@ -19,7 +19,7 @@ const INITIAL = {
 };
 
 const FIELD_BASE =
-    "w-full rounded-[4px] border bg-white px-3.5 py-2.5 text-[17px] text-fg-1 placeholder:text-fg-4 transition-colors focus:outline-none focus:ring-2 disabled:bg-surface-subtle disabled:text-fg-3";
+    "w-full rounded-sm border bg-white px-3.5 py-2.5 text-[17px] text-fg-1 placeholder:text-fg-4 transition-colors focus:outline-none focus:ring-2 disabled:bg-surface-subtle disabled:text-fg-3";
 
 const FIELD_OK = "border-line-2 focus:border-ivy-green-500 focus:ring-ivy-green-500/20";
 const FIELD_ERR = "border-status-danger focus:border-status-danger focus:ring-status-danger/20";
@@ -100,7 +100,7 @@ export function ContactForm() {
         <section className="section">
             <div className="container px-6">
                 <div className="grid grid-cols-1 md:grid-cols-[1.5fr_1fr] gap-12 items-start">
-                    <div className="border border-line-1 rounded-[4px] bg-white p-8 md:p-10 border-l-2 border-l-ivy-green-500">
+                    <div className="border border-line-1 rounded-sm bg-white p-8 md:p-10 border-l-2 border-l-ivy-green-500">
                         <div className="eyebrow text-ivy-green-700 mb-3">Send a message</div>
                         <h2 className="m-0 mb-2 font-bold leading-[1.15] tracking-[-0.02em] text-fg-1 text-balance text-[clamp(22px,2.2vw,30px)]">
                             Tell us how we can help.
@@ -111,7 +111,7 @@ export function ContactForm() {
                         </p>
 
                         {status === "success" ? (
-                            <div className="rounded-[4px] border border-ivy-green-500/40 bg-ivy-green-50 p-5 flex items-start gap-3">
+                            <div className="rounded-sm border border-ivy-green-500/40 bg-ivy-green-50 p-5 flex items-start gap-3">
                                 <span className="text-ivy-green-700 mt-[2px] shrink-0">
                                     <Icon.Check size={18} />
                                 </span>
@@ -334,7 +334,7 @@ export function ContactForm() {
                                 {status === "error" && (
                                     <div
                                         role="alert"
-                                        className="rounded-[4px] border border-line-1 bg-surface-subtle px-4 py-3 text-[14px] text-fg-2"
+                                        className="rounded-sm border border-line-1 bg-surface-subtle px-4 py-3 text-[14px] text-fg-2"
                                     >
                                         {submitError}
                                     </div>
@@ -358,7 +358,7 @@ export function ContactForm() {
                     </div>
 
                     <aside className="flex flex-col gap-6">
-                        <div className="border border-line-1 rounded-[4px] bg-white p-7">
+                        <div className="border border-line-1 rounded-sm bg-white p-7">
                             <div className="eyebrow text-ivy-green-700 mb-3">Corporate office</div>
                             <ul className="list-none m-0 p-0 flex flex-col gap-4 text-[14px]">
                                 <li className="flex items-start gap-3">
@@ -393,7 +393,7 @@ export function ContactForm() {
                             </ul>
                         </div>
 
-                        <div className="border border-line-1 rounded-[4px] bg-ivy-green-50 p-7">
+                        <div className="border border-line-1 rounded-sm bg-ivy-green-50 p-7">
                             <div className="eyebrow text-ivy-green-700 mb-3">Contracting</div>
                             <p className="m-0 mb-4 text-[14px] leading-[1.6] text-fg-2">
                                 Building a requirement or RFI? Pull our current capability statement and we'll route you to the
@@ -409,7 +409,7 @@ export function ContactForm() {
                             </a>
                         </div>
 
-                        <div className="border border-line-1 rounded-[4px] bg-white p-7">
+                        <div className="border border-line-1 rounded-sm bg-white p-7">
                             <div className="eyebrow text-ivy-green-700 mb-3">Hours</div>
                             <p className="m-0 text-[14px] leading-[1.6] text-fg-2">
                                 Monday – Friday

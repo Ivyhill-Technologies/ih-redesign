@@ -1,6 +1,6 @@
 const STATS = [
     { n: "2.4M+", l: "Pages digitized for federal clients" },
-    { n: "7", l: "Practice areas, one accountable team" },
+    { n: "One", l: "Accountable team across every capability" },
     { n: "3", l: "Active ISO certifications" },
     { n: "10 yr", l: "Serving the federal mission" },
 ];

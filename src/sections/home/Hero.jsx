@@ -63,7 +63,7 @@ export function Hero() {
                             </a>
                         </div>
                     </div>
-                    <aside className="border border-white/10 rounded-[4px] py-6 px-[26px] bg-white/[0.03] backdrop-blur-sm">
+                    <aside className="border border-white/10 rounded-sm py-6 px-[26px] bg-white/[0.03] backdrop-blur-sm">
                         <div className="eyebrow mb-3.5 text-ivy-green-400">At a glance</div>
                         <dl className="m-0 grid grid-cols-2 gap-y-[18px] gap-x-6">
                             {STATS.map(([k, v]) => (

@@ -44,13 +44,13 @@ export function OutcomeBlocks() {
                 </div>
                 <div className="mt-12 pt-8 border-t border-line-1 flex items-center justify-between flex-wrap gap-4">
                     <p className="m-0 text-[14px] text-fg-4">
-                        Looking for something more specific? We work across six practice areas.
+                        Looking for something more specific? See the full set of capabilities.
                     </p>
                     <a
                         href="#capabilities"
                         className="text-[14px] font-semibold text-fg-1 inline-flex items-center gap-1.5 no-underline hover:text-ivy-green-700"
                     >
-                        See all practice areas <Icon.Arrow size={14} />
+                        See all capabilities <Icon.Arrow size={14} />
                     </a>
                 </div>
             </div>

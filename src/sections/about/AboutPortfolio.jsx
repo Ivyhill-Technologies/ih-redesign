@@ -48,7 +48,7 @@ export function AboutPortfolio() {
                     {PORTFOLIO.map(({ icon: I, title, body }) => (
                         <div
                             key={title}
-                            className="group bg-white border border-line-1 rounded-[4px] py-7 px-6 flex flex-col gap-3.5 min-h-[220px] border-t-2 border-t-transparent hover:border-t-ivy-green-500 transition-colors duration-150"
+                            className="group bg-white border border-line-1 rounded-sm py-7 px-6 flex flex-col gap-3.5 min-h-[220px] border-t-2 border-t-transparent hover:border-t-ivy-green-500 transition-colors duration-150"
                         >
                             <I size={26} className="text-ivy-green-600" />
                             <h3 className="m-0 text-[19px] font-semibold text-fg-1">{title}</h3>

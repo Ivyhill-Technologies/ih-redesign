@@ -54,7 +54,7 @@ export function InformationManagementPage() {
                 outcomes={OUTCOMES}
             />
             <CapabilityCards
-                title="Four practice areas across the information lifecycle."
+                title="How we work across the information lifecycle."
                 lede="From records programs and business intelligence through scanning, imaging, and customer service operations — Ivyhill manages the full path information takes through the enterprise."
                 cards={SUB_CAPABILITIES}
             />

@@ -124,9 +124,6 @@ function GroupedToolsTabs({ groups, lede, aside, practiceItems, frameworks }) {
                             >
                                 {g.category}
                             </div>
-                            <div className="text-[11px] text-fg-4 mt-1 font-mono">
-                                {g.tools.length} {g.tools.length === 1 ? "tool" : "tools"}
-                            </div>
                         </button>
                     );
                 })}

@@ -55,14 +55,14 @@ export function AboutCerts() {
                     ))}
                 </div>
 
-                <div className="bg-surface-subtle border border-line-1 rounded-[4px] p-7">
+                <div className="bg-surface-subtle border border-line-1 rounded-sm p-7">
                     <div className="flex items-baseline gap-3 mb-5">
                         <span className="eyebrow text-ivy-green-700">MDOT designations</span>
                         <span className="text-[12px] text-fg-4">Certified by the Maryland Department of Transportation</span>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         {DESIGNATIONS.map((d) => (
-                            <div key={d.abbr} className="bg-white border border-line-1 rounded-[4px] p-5 flex items-center gap-4">
+                            <div key={d.abbr} className="bg-white border border-line-1 rounded-sm p-5 flex items-center gap-4">
                                 <div className="w-14 h-14 shrink-0 border border-ink-700 bg-steel-900 text-white flex items-center justify-center font-mono font-semibold tracking-[0.06em] text-[13px]">
                                     {d.abbr}
                                 </div>

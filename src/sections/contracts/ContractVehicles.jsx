@@ -266,7 +266,7 @@ function VehiclePanel({ v }) {
             </div>
 
             <aside className="lg:sticky lg:top-24 self-start">
-                <div className="border border-line-1 rounded-[6px] bg-surface-subtle p-6">
+                <div className="border border-line-1 rounded-md bg-surface-subtle p-6">
                     <div className="eyebrow text-ivy-green-700 mb-4">General information</div>
                     <div className="flex flex-col">
                         {v.contractName && <MetaRow label="Contract name" value={v.contractName} />}
@@ -291,7 +291,7 @@ function VehiclePanel({ v }) {
                     )}
                 </div>
 
-                <div className="border border-line-1 rounded-[6px] bg-white p-6 mt-4">
+                <div className="border border-line-1 rounded-md bg-white p-6 mt-4">
                     <div className="eyebrow text-ivy-green-700 mb-3">Contract contact</div>
                     <div className="text-[17px] font-semibold text-fg-1 mb-1">Deanna Eaton</div>
                     <div className="text-[13px] text-fg-3 mb-4">President &amp; CEO</div>
@@ -329,7 +329,7 @@ export function ContractVehicles() {
                 <div
                     role="tablist"
                     aria-label="Contract vehicles"
-                    className="flex flex-wrap gap-px bg-line-1 border border-line-1 mb-10 overflow-hidden rounded-[4px]"
+                    className="flex flex-wrap gap-px bg-line-1 border border-line-1 mb-10 overflow-hidden rounded-sm"
                 >
                     {VEHICLES.map((v) => {
                         const isActive = v.id === activeId;

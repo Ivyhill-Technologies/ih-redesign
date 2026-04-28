@@ -27,7 +27,7 @@ export function CyberCallout() {
                             Cybersecurity is not a service line. It runs across all of them.
                         </h2>
                         <p className="m-0 mb-6 text-[17px] md:text-[19px] leading-[1.6] text-fg-3">
-                            Every Ivyhill engagement inherits an active-protection posture. The practice areas above are delivered
+                            Every Ivyhill engagement inherits an active-protection posture. The capabilities above are delivered
                             against the same security backbone — not bolted on, not a separate quote.
                         </p>
                         <div className="flex gap-3 flex-wrap">

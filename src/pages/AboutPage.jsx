@@ -64,7 +64,7 @@ export function AboutPage() {
                             {AGENCIES.map((a) => (
                                 <li
                                     key={a}
-                                    className="border border-white/[0.12] bg-white/[0.04] px-4 py-3.5 rounded-[4px] flex items-center gap-3"
+                                    className="border border-white/[0.12] bg-white/[0.04] px-4 py-3.5 rounded-sm flex items-center gap-3"
                                 >
                                     <span className="w-1.5 h-1.5 rounded-full bg-ivy-green-400" />
                                     <span className="text-[14px] font-semibold tracking-[0.02em] text-white">{a}</span>
@@ -77,7 +77,7 @@ export function AboutPage() {
 
             <section className="section">
                 <div className="container px-6">
-                    <div className="border border-line-1 rounded-[4px] bg-white p-10 md:p-12 grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-10 items-center border-l-2 border-l-ivy-green-500">
+                    <div className="border border-line-1 rounded-sm bg-white p-10 md:p-12 grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-10 items-center border-l-2 border-l-ivy-green-500">
                         <div>
                             <div className="eyebrow text-ivy-green-700 mb-3">Get in touch</div>
                             <h2 className="m-0 mb-3 font-bold leading-[1.15] tracking-[-0.02em] text-fg-1 text-balance text-[clamp(24px,2.4vw,34px)]">

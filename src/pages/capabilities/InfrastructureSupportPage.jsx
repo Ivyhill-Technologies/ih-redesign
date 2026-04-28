@@ -54,7 +54,7 @@ export function InfrastructureSupportPage() {
                 outcomes={OUTCOMES}
             />
             <CapabilityCards
-                title="Four practice areas across IT infrastructure."
+                title="How we work across IT infrastructure."
                 lede="Help desk and IT support solutions lead the practice — backed by O&M for applications, servers, and networking, cloud and hybrid management, and active cyber protection."
                 cards={SUB_CAPABILITIES}
             />

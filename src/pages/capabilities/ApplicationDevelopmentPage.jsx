@@ -243,14 +243,15 @@ export function ApplicationDevelopmentPage() {
                 outcomes={OUTCOMES}
             />
             <CapabilityCards
-                title="Four delivery models, one accountable team."
+                title="Multiple delivery models, one accountable team."
                 lede="From SharePoint intranets and governed Power Platform rollouts to mobile-first field applications and fully custom cloud engineering — Ivyhill matches the delivery model to the mission rather than the other way around."
                 cards={SUB_CAPABILITIES}
             />
             <CapabilityTools
                 lede={[
                     "Tooling choices on a federal program are security choices. Every language, platform, and cloud region in the stack carries downstream weight on the agency's authorization boundary and the security posture the system has to live inside.",
-                    "Ivyhill leads with the platform the agency already owns — SharePoint and Power Platform inside an authorized M365 tenant — then extends to custom code and cloud infrastructure only where the mission requires it. Hover any tool to see how it fits.",
+                    "Ivyhill leads with the platform the agency already owns — SharePoint and Power Platform inside an authorized M365 tenant — then extends to custom code and cloud infrastructure only where the mission requires it.",
+                    "The tools below are representative — what Ivyhill has delivered with, not a limit on what we'll support. Hover any to see how it fits.",
                 ]}
                 aside={{
                     title: "Delivery posture",

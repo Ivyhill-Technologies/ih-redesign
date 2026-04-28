@@ -19,7 +19,7 @@ export function ContractsPage() {
 
             <section className="section bg-ivy-green-50">
                 <div className="container px-6">
-                    <div className="border border-line-1 rounded-[4px] bg-white p-10 md:p-12 grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-10 items-center border-l-2 border-l-ivy-green-500">
+                    <div className="border border-line-1 rounded-sm bg-white p-10 md:p-12 grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-10 items-center border-l-2 border-l-ivy-green-500">
                         <div>
                             <div className="eyebrow text-ivy-green-700 mb-3">Talk to a contracting officer</div>
                             <h2 className="m-0 mb-3 font-bold leading-[1.15] tracking-[-0.02em] text-fg-1 text-balance text-[clamp(24px,2.4vw,34px)]">

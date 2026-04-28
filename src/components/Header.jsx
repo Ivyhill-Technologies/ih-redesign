@@ -67,6 +67,7 @@ export function Header() {
         return () => window.removeEventListener("scroll", onScroll);
     }, []);
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: location is the navigation trigger that closes mobile menus on route change
     useEffect(() => {
         setMobileOpen(false);
         setMobileCapsOpen(false);
