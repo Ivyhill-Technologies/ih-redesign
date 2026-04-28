@@ -28,7 +28,7 @@ export function OutcomeBlocks() {
                         <span className="eyebrow text-ivy-green-700">How we help</span>
                     </div>
                     <h2 className="m-0 font-bold leading-[1.1] tracking-[-0.02em] text-fg-1 text-balance text-[clamp(28px,3.2vw,44px)]">
-                        We build, secure, and manage the systems your organization runs on.
+                        We build, secure, and manage the information your organization runs on.
                     </h2>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">

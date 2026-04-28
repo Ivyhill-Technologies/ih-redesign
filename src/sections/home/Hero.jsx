@@ -32,7 +32,8 @@ export function Hero() {
                             </span>
                         </div>
                         <p className="font-semibold leading-[1.15] tracking-[-0.018em] text-ink-100 m-0 mb-7 text-balance text-[clamp(24px,2.8vw,36px)]">
-                            Mission-grade IT for <span className="text-ivy-green-500">agencies and enterprises</span>.
+                            Mission-grade Information Management for{" "}
+                            <span className="text-ivy-green-500">agencies and enterprises</span>
                         </p>
                         <p className="text-[18px] leading-[1.55] text-ink-300 max-w-[620px] m-0 mb-9">
                             Ivyhill partners with U.S. federal, state, and local agencies — and commercial clients — to develop
