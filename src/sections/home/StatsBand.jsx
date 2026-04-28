@@ -1,8 +1,8 @@
 const STATS = [
     { n: "2.4M+", l: "Pages digitized for federal clients" },
-    { n: "One", l: "Accountable team across every capability" },
     { n: "3", l: "Active ISO certifications" },
     { n: "10 yr", l: "Serving the federal mission" },
+    { n: "1", l: "Accountable team across every capability" },
 ];
 
 export function StatsBand() {
