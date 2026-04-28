@@ -9,6 +9,8 @@ export function AnimatedNumber({ target, duration = 2000, decimals = 0, suffix =
         const node = nodeRef.current;
         if (!node) return;
 
+        let frameId;
+
         const observer = new IntersectionObserver(
             (entries) => {
                 const entry = entries[0];
@@ -26,7 +28,6 @@ export function AnimatedNumber({ target, duration = 2000, decimals = 0, suffix =
         function startAnimation() {
             const startTime = performance.now();
             const factor = 10 ** decimals;
-            let frameId;
 
             function tick(now) {
                 const elapsed = now - startTime;
@@ -42,7 +43,10 @@ export function AnimatedNumber({ target, duration = 2000, decimals = 0, suffix =
             frameId = requestAnimationFrame(tick);
         }
 
-        return () => observer.disconnect();
+        return () => {
+            observer.disconnect();
+            if (frameId) cancelAnimationFrame(frameId);
+        };
     }, [target, duration, decimals]);
 
     const formatted = display.toLocaleString(undefined, {
