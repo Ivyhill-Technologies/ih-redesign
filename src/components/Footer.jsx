@@ -29,7 +29,7 @@ export function Footer() {
     return (
         <footer className="bg-ink-1000 text-white/[0.72]">
             <div className="h-px bg-gradient-to-r from-transparent via-ivy-green-500/40 to-transparent" />
-            <div className="container pt-16 pb-8 px-6">
+            <div className="container pt-12 md:pt-16 pb-8 px-6">
                 <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between pb-10 mb-12 border-b border-white/[0.08]">
                     <div className="max-w-[520px]">
                         <div className="flex items-center gap-2.5 mb-2">
@@ -62,7 +62,7 @@ export function Footer() {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 gap-12 mb-14 md:grid-cols-[1.5fr_1fr_1fr]">
+                <div className="grid grid-cols-1 gap-10 md:gap-12 mb-12 md:mb-14 sm:grid-cols-2 md:grid-cols-[1.5fr_1fr_1fr]">
                     <div>
                         <img src="/assets/logo-horizontal-2c.png" alt="Ivyhill" className="h-8 block mb-5 brightness-0 invert" />
                         <p className="m-0 mb-5 text-[13px] leading-[1.6] text-white/60 max-w-[340px]">

@@ -25,12 +25,12 @@ export function NaicsCodes() {
                 <div className="flex items-baseline gap-6 mb-9 pt-6 border-t border-ink-900">
                     <span className="eyebrow pt-3.5 whitespace-nowrap">NAICS Codes</span>
                 </div>
-                <div className="grid grid-cols-[1fr_1.4fr] gap-20 items-start">
+                <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-10 md:gap-20 items-start">
                     <div>
-                        <h2 className="m-0 mb-5 font-bold leading-[1.1] tracking-[-0.02em] text-fg-1 text-balance text-[clamp(28px,3vw,40px)]">
+                        <h2 className="m-0 mb-5 font-bold leading-[1.1] tracking-[-0.02em] text-fg-1 text-balance text-[clamp(26px,3vw,40px)]">
                             Registered to do the work.
                         </h2>
-                        <p className="m-0 mb-7 text-[19px] leading-[1.6] text-fg-3">
+                        <p className="m-0 mb-7 text-[17px] md:text-[19px] leading-[1.6] text-fg-3">
                             Ivyhill is classified under the North American Industry Classification System (NAICS) for the work we
                             deliver — IT services, management consulting, and administrative support. These codes let federal
                             contracting officers find us in procurement databases.
@@ -46,7 +46,7 @@ export function NaicsCodes() {
                             </a>
                         </div>
                     </div>
-                    <ul className="list-none m-0 p-0 grid grid-cols-2 gap-px bg-line-1 border border-line-1">
+                    <ul className="list-none m-0 p-0 grid grid-cols-1 sm:grid-cols-2 gap-px bg-line-1 border border-line-1">
                         {CODES.map((c) => (
                             <li
                                 key={c.code}

@@ -17,7 +17,7 @@ const FLAT_COLS = {
 const GROUP_COLS = {
     1: "grid-cols-1 max-w-[260px]",
     2: "grid-cols-2 max-w-[520px]",
-    3: "grid-cols-3 max-w-[780px]",
+    3: "grid-cols-2 sm:grid-cols-3 max-w-[780px]",
     4: "grid-cols-2 sm:grid-cols-4",
     5: "grid-cols-2 sm:grid-cols-5",
 };

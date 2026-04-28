@@ -8,8 +8,8 @@ const STATS = [
 export function StatsBand() {
     return (
         <section className="text-white bg-gradient-to-b from-steel-900 to-ink-1000">
-            <div className="container py-[72px] px-6">
-                <div className="grid grid-cols-4 gap-12">
+            <div className="container py-12 md:py-[72px] px-6">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
                     {STATS.map((s) => (
                         <div key={s.l} className="border-t border-white/[0.18] pt-5">
                             <div className="font-bold leading-none tracking-[-0.02em] text-white mb-3 tabular-nums text-[clamp(36px,4vw,56px)]">

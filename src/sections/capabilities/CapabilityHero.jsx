@@ -8,9 +8,9 @@ export function CapabilityHero({ eyebrow = "Capability", title, lede }) {
                 src="/assets/icon-color-large.png"
                 alt=""
                 aria-hidden="true"
-                className="absolute -right-8 -top-2 w-[360px] h-auto pointer-events-none select-none opacity-[0.35]"
+                className="absolute -right-8 -top-2 w-[200px] md:w-[360px] h-auto pointer-events-none select-none opacity-[0.18] md:opacity-[0.35]"
             />
-            <div className="container relative px-6 pt-20 pb-16">
+            <div className="container relative px-6 pt-14 pb-12 md:pt-20 md:pb-16">
                 <div className="flex items-center gap-2.5 mb-5">
                     <span className="inline-block w-8 h-[2px] bg-ivy-green-500" />
                     <span className="text-[13px] font-bold tracking-[0.16em] uppercase text-ivy-green-400">{eyebrow}</span>
@@ -18,7 +18,7 @@ export function CapabilityHero({ eyebrow = "Capability", title, lede }) {
                 <h1 className="font-bold leading-[1.05] tracking-[-0.025em] text-white m-0 mb-5 text-balance text-[clamp(32px,4vw,52px)]">
                     {title}
                 </h1>
-                <p className="text-[18px] leading-[1.55] text-ink-300 max-w-[640px] m-0 mb-8">{lede}</p>
+                <p className="text-[16px] md:text-[18px] leading-[1.55] text-ink-300 max-w-[640px] m-0 mb-8">{lede}</p>
                 <a
                     href="/documents/Ivyhill-Capability-Statement-2026.pdf"
                     target="_blank"

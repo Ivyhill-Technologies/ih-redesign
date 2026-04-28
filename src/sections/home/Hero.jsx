@@ -17,12 +17,12 @@ export function Hero() {
                 src="/assets/icon-color-large.png"
                 alt=""
                 aria-hidden="true"
-                className="absolute -right-32 -top-8 w-[820px] h-auto pointer-events-none select-none opacity-[0.45]"
+                className="absolute -right-32 -top-8 w-[820px] h-auto pointer-events-none select-none opacity-[0.18] md:opacity-[0.45]"
             />
-            <div className="container relative px-6 pt-[120px] pb-24">
-                <div className="grid grid-cols-[7fr_5fr] gap-16 items-start">
+            <div className="container relative px-6 pt-16 pb-16 md:pt-[120px] md:pb-24">
+                <div className="grid grid-cols-1 md:grid-cols-[7fr_5fr] gap-10 md:gap-16 items-start">
                     <div>
-                        <h1 className="font-bold leading-[0.98] tracking-[-0.035em] text-white m-0 mb-6 text-balance whitespace-nowrap text-[clamp(40px,5.4vw,72px)]">
+                        <h1 className="font-bold leading-[1.02] md:leading-[0.98] tracking-[-0.035em] text-white m-0 mb-6 text-balance text-[clamp(34px,5.4vw,72px)]">
                             Ivyhill Technologies
                         </h1>
                         <div className="flex items-center gap-2.5 mb-5">
@@ -31,11 +31,11 @@ export function Hero() {
                                 Enterprise Information Management
                             </span>
                         </div>
-                        <p className="font-semibold leading-[1.15] tracking-[-0.018em] text-ink-100 m-0 mb-7 text-balance text-[clamp(24px,2.8vw,36px)]">
+                        <p className="font-semibold leading-[1.2] md:leading-[1.15] tracking-[-0.018em] text-ink-100 m-0 mb-7 text-balance text-[clamp(20px,2.8vw,36px)]">
                             Mission-grade Information Management for{" "}
                             <span className="text-ivy-green-500">agencies and enterprises</span>
                         </p>
-                        <p className="text-[18px] leading-[1.55] text-ink-300 max-w-[620px] m-0 mb-9">
+                        <p className="text-[16px] md:text-[18px] leading-[1.55] text-ink-300 max-w-[620px] m-0 mb-9">
                             Ivyhill partners with U.S. federal, state, and local agencies — and commercial clients — to develop
                             applications, manage records, secure infrastructure, and accelerate document conversion at agency
                             scale. ISO-certified and contract-vehicle-ready.

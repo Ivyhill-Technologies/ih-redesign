@@ -9,7 +9,7 @@ const ITEMS = [
 export function CodesStrip() {
     return (
         <section className="border-t border-b border-line-1 bg-surface-subtle">
-            <div className="container px-6 py-7 grid grid-cols-5 gap-6">
+            <div className="container px-6 py-7 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-6 gap-y-5">
                 {ITEMS.map((it) => (
                     <div key={it.label}>
                         <div className="text-[10px] tracking-[0.12em] uppercase text-fg-4 font-semibold mb-1.5">{it.label}</div>

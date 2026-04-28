@@ -21,12 +21,12 @@ export function CyberCallout() {
                 <div className="pt-6 border-t border-ink-900 mb-9">
                     <span className="eyebrow">Horizontal capability</span>
                 </div>
-                <div className="grid grid-cols-[1fr_1fr] gap-16 items-start">
+                <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-10 md:gap-16 items-start">
                     <div>
-                        <h2 className="m-0 mb-5 font-bold leading-[1.1] tracking-[-0.02em] text-fg-1 text-balance text-[clamp(28px,3vw,40px)]">
+                        <h2 className="m-0 mb-5 font-bold leading-[1.1] tracking-[-0.02em] text-fg-1 text-balance text-[clamp(26px,3vw,40px)]">
                             Cybersecurity is not a service line. It runs across all of them.
                         </h2>
-                        <p className="m-0 mb-6 text-[19px] leading-[1.6] text-fg-3">
+                        <p className="m-0 mb-6 text-[17px] md:text-[19px] leading-[1.6] text-fg-3">
                             Every Ivyhill engagement inherits an active-protection posture. The practice areas above are delivered
                             against the same security backbone — not bolted on, not a separate quote.
                         </p>
@@ -35,7 +35,7 @@ export function CyberCallout() {
                                 Security overview
                             </button>
                         </div>
-                        <dl className="mt-10 pt-6 border-t border-line-1 grid grid-cols-3 gap-6 m-0">
+                        <dl className="mt-10 pt-6 border-t border-line-1 grid grid-cols-1 sm:grid-cols-3 gap-6 m-0">
                             {CERTS.map(([term, desc]) => (
                                 <div key={term} className="m-0">
                                     <dt className="m-0 text-[11px] font-semibold tracking-[0.14em] uppercase text-ivy-green-700">
@@ -46,7 +46,7 @@ export function CyberCallout() {
                             ))}
                         </dl>
                     </div>
-                    <aside className="bg-ivy-green-50 border border-ivy-green-100 p-8">
+                    <aside className="bg-ivy-green-50 border border-ivy-green-100 p-6 md:p-8">
                         <div className="flex items-baseline justify-between mb-5 pb-4 border-b border-ivy-green-100">
                             <span className="text-[11px] font-semibold tracking-[0.14em] uppercase text-ivy-green-700">
                                 Included on every engagement
@@ -57,7 +57,7 @@ export function CyberCallout() {
                             {FEATURES.map((f, i) => (
                                 <li
                                     key={f}
-                                    className={`flex items-center gap-4 py-3.5 text-[17px] text-fg-2 leading-[1.45] ${
+                                    className={`flex items-center gap-3 md:gap-4 py-3 md:py-3.5 text-[15px] md:text-[17px] text-fg-2 leading-[1.45] ${
                                         i !== FEATURES.length - 1 ? "border-b border-ivy-green-100" : ""
                                     }`}
                                 >

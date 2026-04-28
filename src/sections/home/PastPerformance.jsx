@@ -38,16 +38,16 @@ export function PastPerformance() {
                 <div className="pt-6 border-t border-ink-900 mb-9">
                     <span className="eyebrow">Past performance</span>
                 </div>
-                <div className="grid grid-cols-2 gap-12 mb-14 items-start">
-                    <h2 className="m-0 font-bold leading-[1.1] tracking-[-0.02em] text-fg-1 text-balance text-[clamp(28px,3vw,40px)]">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mb-10 md:mb-14 items-start">
+                    <h2 className="m-0 font-bold leading-[1.1] tracking-[-0.02em] text-fg-1 text-balance text-[clamp(26px,3vw,40px)]">
                         Trusted across the federal mission.
                     </h2>
-                    <p className="m-0 text-[19px] leading-[1.6] text-fg-3">
+                    <p className="m-0 text-[17px] md:text-[19px] leading-[1.6] text-fg-3">
                         A representative sample of agency engagements. Full past-performance documentation, including CPARS
                         scores, available on capability-statement request.
                     </p>
                 </div>
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {AGENCIES.map((a) => (
                         <article key={a.abbr} className="bg-white border border-line-1 rounded-[4px] p-6 flex gap-4">
                             <div
