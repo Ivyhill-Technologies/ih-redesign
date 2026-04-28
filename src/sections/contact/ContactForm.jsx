@@ -1,6 +1,7 @@
 import { useForm } from "@tanstack/react-form";
 import { generateClient } from "aws-amplify/data";
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Icon } from "../../components/Icons.jsx";
 
 let client;
@@ -61,9 +62,11 @@ const validateMessage = ({ value }) => {
 export function ContactForm() {
     const [status, setStatus] = useState("idle");
     const [submitError, setSubmitError] = useState(null);
+    const [searchParams] = useSearchParams();
+    const initialSubject = (searchParams.get("subject") ?? "").slice(0, SUBJECT_MAX);
 
     const form = useForm({
-        defaultValues: INITIAL,
+        defaultValues: { ...INITIAL, subject: initialSubject },
         onSubmit: async ({ value, formApi }) => {
             if (value.website) return;
 

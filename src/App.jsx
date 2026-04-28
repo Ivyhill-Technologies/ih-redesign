@@ -1,4 +1,5 @@
 import { AboutPage } from "./pages/AboutPage.jsx";
+import { AIPage } from "./pages/AIPage.jsx";
 import { ContactPage } from "./pages/ContactPage.jsx";
 import { ContractsPage } from "./pages/ContractsPage.jsx";
 import { ApplicationDevelopmentPage } from "./pages/capabilities/ApplicationDevelopmentPage.jsx";
@@ -13,6 +14,7 @@ import { NotFoundPage } from "./pages/NotFoundPage.jsx";
 export const routes = [
     { path: "/", Component: HomePage },
     { path: "/about", Component: AboutPage },
+    { path: "/ai", Component: AIPage },
     { path: "/contracts", Component: ContractsPage },
     { path: "/contact", Component: ContactPage },
     { path: "/capabilities/application-development", Component: ApplicationDevelopmentPage },
