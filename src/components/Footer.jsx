@@ -4,13 +4,13 @@ const COLS = [
     {
         h: "Capabilities",
         items: [
-            { label: "Application Development", href: "/#capabilities" },
-            { label: "Data Analytics", href: "/#capabilities" },
-            { label: "Infrastructure Support", href: "/#capabilities" },
-            { label: "Information Management", href: "/#capabilities" },
-            { label: "Records Management", href: "/#capabilities" },
-            { label: "Queue Management", href: "/#capabilities" },
-            { label: "Cybersecurity", href: "/#capabilities" },
+            { label: "Application Development", href: "/capabilities/application-development" },
+            { label: "Data Analytics", href: "/capabilities/data-analytics" },
+            { label: "Infrastructure Support", href: "/capabilities/infrastructure-support" },
+            { label: "Information Management", href: "/capabilities/information-management" },
+            { label: "Records Management", href: "/capabilities/records-management" },
+            { label: "Queue Management", href: "/capabilities/queue-management" },
+            { label: "Cybersecurity", href: "/#cyber" },
         ],
     },
     {
