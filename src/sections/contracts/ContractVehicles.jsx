@@ -142,7 +142,7 @@ function MetaRow({ label, value, mono = false }) {
 function VehiclePanel({ v }) {
     const I = v.icon;
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-10">
+        <div className="grid grid-cols-1 xl:grid-cols-[1.4fr_1fr] gap-10">
             <div>
                 <div className="flex items-center gap-3 mb-4">
                     <span className="flex items-center justify-center w-10 h-10 rounded-md bg-ivy-green-50 text-ivy-green-700 shrink-0">
@@ -265,7 +265,7 @@ function VehiclePanel({ v }) {
                 )}
             </div>
 
-            <aside className="lg:sticky lg:top-24 self-start">
+            <aside className="xl:sticky xl:top-24 self-start">
                 <div className="border border-line-1 rounded-md bg-surface-subtle p-6">
                     <div className="eyebrow text-ivy-green-700 mb-4">General information</div>
                     <div className="flex flex-col">
@@ -322,47 +322,105 @@ export function ContractVehicles() {
     return (
         <section className="section">
             <div className="container px-6">
-                <div className="flex items-baseline gap-6 mb-10 pt-6 border-t border-ink-900">
+                <div className="flex items-baseline gap-6 mb-8 lg:mb-10 pt-6 border-t border-ink-900">
                     <span className="eyebrow pt-3.5 text-ivy-green-700">Active vehicles</span>
                 </div>
 
-                <div
-                    role="tablist"
-                    aria-label="Contract vehicles"
-                    className="flex flex-wrap gap-px bg-line-1 border border-line-1 mb-10 overflow-hidden rounded-sm"
-                >
-                    {VEHICLES.map((v) => {
-                        const isActive = v.id === activeId;
-                        const I = v.icon;
-                        return (
-                            <button
-                                key={v.id}
-                                type="button"
-                                role="tab"
-                                aria-selected={isActive}
-                                aria-controls={`panel-${v.id}`}
-                                id={`tab-${v.id}`}
-                                onClick={() => setActiveId(v.id)}
-                                className={`flex-1 min-w-[160px] text-left px-5 py-4 flex items-center gap-3 cursor-pointer transition-colors duration-100 border-t-2 ${
-                                    isActive
-                                        ? "bg-white border-ivy-green-500 text-fg-1"
-                                        : "bg-surface-subtle border-transparent text-fg-3 hover:bg-white hover:text-fg-1"
-                                }`}
-                            >
-                                <I size={18} className={isActive ? "text-ivy-green-600" : "text-fg-4"} />
-                                <div className="flex flex-col">
-                                    <span className="text-[11px] font-semibold tracking-[0.12em] uppercase text-fg-4">
-                                        {v.short}
-                                    </span>
-                                    <span className="text-[13.5px] font-semibold leading-tight">{v.name}</span>
-                                </div>
-                            </button>
-                        );
-                    })}
-                </div>
+                <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] xl:grid-cols-[280px_1fr] lg:gap-10">
+                    {/* Mobile: wrapped pill grid */}
+                    <div
+                        role="tablist"
+                        aria-label="Contract vehicles"
+                        className="lg:hidden flex flex-wrap gap-2 pb-5 mb-6 border-b border-line-1"
+                    >
+                        {VEHICLES.map((v) => {
+                            const isActive = v.id === activeId;
+                            const I = v.icon;
+                            return (
+                                <button
+                                    key={v.id}
+                                    type="button"
+                                    role="tab"
+                                    aria-selected={isActive}
+                                    aria-controls={`panel-${v.id}`}
+                                    onClick={() => setActiveId(v.id)}
+                                    className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[13px] font-semibold cursor-pointer transition-colors duration-100 ${
+                                        isActive
+                                            ? "border-ivy-green-500 bg-ivy-green-50 text-ivy-green-700"
+                                            : "border-line-1 bg-white text-fg-3 hover:text-fg-1 hover:border-line-2"
+                                    }`}
+                                >
+                                    <I size={14} />
+                                    {v.short}
+                                </button>
+                            );
+                        })}
+                    </div>
 
-                <div role="tabpanel" id={`panel-${active.id}`} aria-labelledby={`tab-${active.id}`} key={active.id}>
-                    <VehiclePanel v={active} />
+                    {/* Desktop: vertical rail */}
+                    <div
+                        role="tablist"
+                        aria-label="Contract vehicles"
+                        aria-orientation="vertical"
+                        className="hidden lg:flex lg:flex-col lg:sticky lg:top-24 lg:self-start lg:border-l lg:border-line-1"
+                    >
+                        {VEHICLES.map((v) => {
+                            const isActive = v.id === activeId;
+                            const I = v.icon;
+                            return (
+                                <button
+                                    key={v.id}
+                                    type="button"
+                                    role="tab"
+                                    aria-selected={isActive}
+                                    aria-controls={`panel-${v.id}`}
+                                    id={`tab-${v.id}`}
+                                    onClick={() => setActiveId(v.id)}
+                                    className={`group relative flex items-start gap-3 text-left pl-5 pr-4 py-4 cursor-pointer transition-colors duration-100 -ml-px border-l-2 ${
+                                        isActive
+                                            ? "bg-surface-subtle border-ivy-green-500"
+                                            : "border-transparent hover:bg-surface-subtle/70"
+                                    }`}
+                                >
+                                    <span
+                                        className={`flex items-center justify-center w-8 h-8 rounded-md shrink-0 transition-colors ${
+                                            isActive
+                                                ? "bg-ivy-green-100 text-ivy-green-700"
+                                                : "bg-white border border-line-1 text-fg-4 group-hover:text-fg-2"
+                                        }`}
+                                    >
+                                        <I size={15} />
+                                    </span>
+                                    <div className="flex flex-col min-w-0 pt-0.5">
+                                        <span
+                                            className={`text-[10.5px] font-semibold tracking-[0.14em] uppercase mb-0.5 transition-colors ${
+                                                isActive ? "text-ivy-green-700" : "text-fg-4"
+                                            }`}
+                                        >
+                                            {v.short}
+                                        </span>
+                                        <span
+                                            className={`text-[13px] font-semibold leading-[1.3] transition-colors ${
+                                                isActive ? "text-fg-1" : "text-fg-3 group-hover:text-fg-1"
+                                            }`}
+                                        >
+                                            {v.name}
+                                        </span>
+                                    </div>
+                                </button>
+                            );
+                        })}
+                    </div>
+
+                    <div
+                        role="tabpanel"
+                        id={`panel-${active.id}`}
+                        aria-labelledby={`tab-${active.id}`}
+                        key={active.id}
+                        className="min-w-0"
+                    >
+                        <VehiclePanel v={active} />
+                    </div>
                 </div>
             </div>
         </section>
