@@ -3,18 +3,9 @@ backend:
     phases:
         build:
             commands:
-                - |
-                    # Skip backend deploy when nothing under amplify/ changed.
-                    # CDK synth + diff round-trip is the biggest single time sink.
-                    git fetch --unshallow 2>/dev/null || true
-                    if git rev-parse HEAD^ >/dev/null 2>&1 && git diff --quiet HEAD^ HEAD -- amplify/; then
-                        echo "No changes under amplify/ — skipping backend deploy"
-                    else
-                        echo "Backend changes detected — running deploy"
-                        nvm install 22 && nvm use 22
-                        npm ci --no-audit --no-fund --cache .npm --prefer-offline
-                        npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
-                    fi
+                - nvm install 22 && nvm use 22
+                - npm ci --no-audit --no-fund --cache .npm --prefer-offline
+                - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
 frontend:
     phases:
         preBuild:
