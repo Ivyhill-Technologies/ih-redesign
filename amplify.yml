@@ -4,16 +4,20 @@ backend:
         build:
             commands:
                 - |
-                    # Skip backend deploy when nothing under amplify/ changed.
-                    # CDK synth + diff round-trip is the biggest single time sink.
+                    # The frontend statically imports amplify_outputs.json (gitignored),
+                    # so that file MUST exist after this phase no matter what.
                     git fetch --unshallow 2>/dev/null || true
+                    # Use the image's Node 22 if present; only install as a fallback.
+                    nvm use 22 2>/dev/null || nvm install 22
+                    npm install --no-audit --no-fund --prefer-offline
                     if git rev-parse HEAD^ >/dev/null 2>&1 && git diff --quiet HEAD^ HEAD -- amplify/; then
-                        echo "No changes under amplify/ — skipping backend deploy"
+                        # No backend changes: skip the slow CDK deploy, but still pull the
+                        # outputs file from the already-deployed backend (a fast CFN read).
+                        echo "No changes under amplify/ — generating outputs only (skipping deploy)"
+                        npx ampx generate outputs --branch $AWS_BRANCH --app-id $AWS_APP_ID
                     else
+                        # Backend changed: full deploy (this also writes amplify_outputs.json).
                         echo "Backend changes detected — running deploy"
-                        # Use the image's Node 22 if present; only install as a fallback.
-                        nvm use 22 2>/dev/null || nvm install 22
-                        npm install --no-audit --no-fund --prefer-offline
                         npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
                     fi
 frontend:
