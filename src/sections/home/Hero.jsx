@@ -15,7 +15,7 @@ const AUDIENCES = ["agencies and enterprises", "federal missions", "program offi
 export function Hero() {
     const [index, setIndex] = useState(0);
     const [isVisible, setVisible] = useState(true);
-
+    // simple comment
     useEffect(() => {
         setVisible(!document.hidden);
         const onChange = () => setVisible(!document.hidden);
