@@ -4,7 +4,7 @@ import { Icon } from "../../components/Icons.jsx";
 const STATS = [
     ["Founded", "2015"],
     ["Headquarters", "Hyattsville, MD"],
-    ["Federal agencies", "11 served"],
+    ["Federal agencies", "23 served"],
     ["ISO certifications", "3 active"],
     ["SB designations", "6 active"],
     ["GSA MAS", "Through 2030"],
