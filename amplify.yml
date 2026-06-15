@@ -11,19 +11,21 @@ backend:
                         echo "No changes under amplify/ — skipping backend deploy"
                     else
                         echo "Backend changes detected — running deploy"
-                        nvm install 22 && nvm use 22
-                        npm ci --no-audit --no-fund --cache .npm --prefer-offline
+                        # Use the image's Node 22 if present; only install as a fallback.
+                        nvm use 22 2>/dev/null || nvm install 22
+                        npm install --no-audit --no-fund --prefer-offline
                         npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
                     fi
 frontend:
     phases:
         preBuild:
             commands:
-                - nvm install 22 && nvm use 22
-                - npm ci --no-audit --no-fund --cache .npm --prefer-offline
+                # Don't re-download Node: reuse the image's version, install only as fallback.
+                - nvm use 22 2>/dev/null || nvm install 22
+                # npm install (not ci) so the cached node_modules is reused instead of wiped.
+                - npm install --no-audit --no-fund --prefer-offline
         build:
             commands:
-                - nvm use 22
                 - npm run build
     artifacts:
         baseDirectory: dist
