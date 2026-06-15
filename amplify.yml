@@ -1,32 +1,13 @@
 version: 1
-backend:
-    phases:
-        build:
-            commands:
-                - |
-                    # The frontend statically imports amplify_outputs.json (gitignored),
-                    # so that file MUST exist after this phase no matter what.
-                    git fetch --unshallow 2>/dev/null || true
-                    # Use the image's Node 22 if present; only install as a fallback.
-                    nvm use 22 2>/dev/null || nvm install 22
-                    npm install --no-audit --no-fund --prefer-offline
-                    if git rev-parse HEAD^ >/dev/null 2>&1 && git diff --quiet HEAD^ HEAD -- amplify/; then
-                        # No backend changes: skip the slow CDK deploy, but still pull the
-                        # outputs file from the already-deployed backend (a fast CFN read).
-                        echo "No changes under amplify/ — generating outputs only (skipping deploy)"
-                        npx ampx generate outputs --branch $AWS_BRANCH --app-id $AWS_APP_ID
-                    else
-                        # Backend changed: full deploy (this also writes amplify_outputs.json).
-                        echo "Backend changes detected — running deploy"
-                        npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
-                    fi
+# Amplify CI builds the FRONTEND only. The backend (under amplify/) is deployed
+# out-of-band from a dev machine via ampx, and amplify_outputs.json is committed
+# to the repo. There is intentionally no backend phase here — it never ran in CI.
 frontend:
     phases:
         preBuild:
             commands:
-                # Don't re-download Node: reuse the image's version, install only as fallback.
+                # Reuse the image's Node 22 if present; only install as a fallback.
                 - nvm use 22 2>/dev/null || nvm install 22
-                # npm install (not ci) so the cached node_modules is reused instead of wiped.
                 - npm install --no-audit --no-fund --prefer-offline
         build:
             commands:
