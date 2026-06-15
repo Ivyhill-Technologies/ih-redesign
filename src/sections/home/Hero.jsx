@@ -69,7 +69,7 @@ export function Hero() {
                             </span>
                         </p>
                         <p className="text-[16px] md:text-[18px] leading-[1.55] text-ink-300 max-w-[620px] m-0 mb-9">
-                            Ivyhill partners with U.S. federal, state, and local agencies — and commercial clients — to develop
+                            Ivyhill partners with U.S. federal, state, and local agencies, and commercial clients, to develop
                             applications, manage records, secure infrastructure, and accelerate document conversion at agency
                             scale. ISO-certified and contract-vehicle-ready.
                         </p>
