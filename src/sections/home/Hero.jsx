@@ -53,7 +53,7 @@ export function Hero() {
                             </span>
                         </div>
                         <p className="font-semibold leading-[1.2] md:leading-[1.15] tracking-[-0.018em] text-ink-100 m-0 mb-7 text-balance text-[clamp(20px,2.8vw,36px)]">
-                            Mission-grade Information Management for{" "}
+                            Enterprise Information Management for{" "}
                             <span className="relative inline-grid align-baseline text-ivy-green-500">
                                 {AUDIENCES.map((a, i) => (
                                     <span
