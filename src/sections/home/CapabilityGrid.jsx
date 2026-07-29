@@ -37,13 +37,6 @@ const ITEMS = [
         body: "NARA-aligned schedules, file plans, and disposition management.",
         tags: ["NARA", "Schedules", "Disposition"],
     },
-    {
-        icon: Icon.Users,
-        title: "Queue Management",
-        slug: "queue-management",
-        body: "Data-driven customer flow optimization for high-volume service environments.",
-        tags: ["Flow", "Analytics", "Service"],
-    },
 ];
 
 function CapabilityCard({ item }) {

@@ -6,11 +6,11 @@ export function ContactPage() {
     return (
         <SiteShell
             title="Contact"
-            description="Reach Ivyhill Technologies to discuss an upcoming federal requirement, RFI, or commercial program. Contact us by form, phone, or email and a member of our team will follow up promptly."
+            description="Contact Ivyhill Technologies to discuss an upcoming federal requirement, RFI, or commercial program. Contact us by form, phone, or email and a member of our team will follow up promptly."
         >
             <CapabilityHero
                 eyebrow="Contact"
-                title="Get in touch with Ivyhill."
+                title="Get in touch with Ivyhill"
                 lede="Use the form below to start a conversation about an upcoming requirement or RFI, or reach us directly by phone or email. A member of our team will follow up promptly."
             />
             <ContactForm />

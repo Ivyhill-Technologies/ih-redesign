@@ -168,9 +168,7 @@ function VehiclePanel({ v }) {
                         <ul className="list-none m-0 p-0 grid grid-cols-1 gap-3">
                             {v.benefitsList.map((b) => (
                                 <li key={b} className="flex items-start gap-3 text-[14.5px] leading-[1.55] text-fg-2">
-                                    <span className="mt-1 text-ivy-green-600 shrink-0">
-                                        <Icon.Check size={14} />
-                                    </span>
+                                    <span className="mt-[9px] w-1 h-1 rounded-full bg-ivy-green-500 shrink-0" />
                                     <span>{b}</span>
                                 </li>
                             ))}
@@ -254,7 +252,8 @@ function VehiclePanel({ v }) {
                                 <div className="eyebrow text-ivy-green-700 mb-3">Task order types</div>
                                 <ul className="list-none m-0 p-0 flex flex-col gap-2">
                                     {v.taskOrders.map((t) => (
-                                        <li key={t} className="text-[14px] text-fg-2 font-mono tracking-[0.01em]">
+                                        <li key={t} className="flex items-center gap-2.5 text-[14px] text-fg-2">
+                                            <Icon.Check size={14} className="text-ivy-green-600 shrink-0" />
                                             {t}
                                         </li>
                                     ))}

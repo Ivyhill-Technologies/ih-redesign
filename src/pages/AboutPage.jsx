@@ -8,12 +8,12 @@ import { CapabilityIntro } from "../sections/capabilities/CapabilityIntro.jsx";
 
 const ABOUT_POINTS = [
     "Established in 2015 to deliver high-quality services efficiently and on schedule.",
-    "Serves both U.S. federal agencies and commercial clients.",
-    "Holds three active ISO certifications spanning quality, IT service management, and information security.",
-    "MDOT-certified Minority, Disadvantaged, and Small Business Enterprise.",
+    "Serving U.S. federal, State, & local agencies and commercial clients.",
+    "ISO certifications spanning quality (ISO 9001:2015), IT service management (ISO/IEC 20000-1:2018), and information security (ISO/IEC 27001:2022).",
+    "State of Maryland DOT-certified Minority Business Enterprise (MBE), Disadvantage Business Enterprise (DBE), and Small Business Enterprise (SBE)",
 ];
 
-const AGENCIES = ["DOL", "DOJ", "ICE", "NIH", "USAF", "U.S. Army"];
+const AGENCIES = ["DHHS", "DOL", "DOJ", "DHS", "NIH", "USDA", "USAF", "U.S. Army"];
 
 export function AboutPage() {
     return (
@@ -24,13 +24,13 @@ export function AboutPage() {
             <CapabilityHero
                 eyebrow="About"
                 title="About Ivyhill Technologies"
-                lede="Ivyhill is a federal and commercial services firm built to deliver high-quality work in regulated, mission-driven environments — software and systems, information and records, customer-facing operations, and the back-office functions that keep programs running."
+                lede="Ivyhill is a federal and commercial services firm built to deliver high-quality work in regulated, mission-driven environments: software and systems, information and records, customer-facing operations, and the back-office functions that keep programs running."
             />
 
             <CapabilityIntro
                 eyebrow="Who we are"
-                title="A decade of service to the federal mission."
-                lede="Established in 2015, Ivyhill provides high-quality services to U.S. federal agencies and commercial clients. Our portfolio spans software and systems development, information and records management, contact center services, human resources support, and administrative support — backed by ISO-certified processes and MDOT business designations."
+                title="A decade of service to the federal mission"
+                lede="Established in 2015, Ivyhill provides high-quality services to U.S. federal agencies and commercial clients. Our portfolio spans software and systems development, information and records management, contact center services, human resources support, and administrative support backed by ISO-certified processes and SBA business designations."
                 outcomes={ABOUT_POINTS}
             />
 

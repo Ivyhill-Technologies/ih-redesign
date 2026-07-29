@@ -6,40 +6,40 @@ import { LogoMark } from "./Logo.jsx";
 
 const SERVICES = [
     {
-        name: "Data Analytics",
-        slug: "data-analytics",
-        desc: "Decisions from data at agency scale",
-        icon: Icon.BarChart,
-    },
-    {
-        name: "Infrastructure Support",
-        slug: "infrastructure-support",
-        desc: "Resilient cloud, network, and systems",
-        icon: Icon.Server,
+        name: "Information Governance",
+        slug: "information-management",
+        desc: "Govern content across its lifecycle, Policies, standards, and accountability structures",
+        icon: Icon.Folders,
     },
     {
         name: "Application Development",
         slug: "application-development",
-        desc: "Custom apps for mission workflows",
+        desc: "Custom apps for mission workflows, Open Source & Microsoft ecosystems",
         icon: Icon.Code,
     },
     {
-        name: "Information Management",
+        name: "Data/Information Lifecycle Management",
         slug: "information-management",
-        desc: "Govern content across its lifecycle",
-        icon: Icon.Folders,
-    },
+        desc: "Creation/capture of information Classification and metadata tagging, Storage and archiving",
+        icon: Icon.Archive,
+    },    
     {
         name: "Records Management",
         slug: "records-management",
-        desc: "Compliant retention and disposition",
+        desc: "NARA Compliance, retention scheduling and disposal/destruction, schedule & file plan management",
         icon: Icon.Archive,
     },
     {
-        name: "Queue Management",
-        slug: "queue-management",
-        desc: "Throughput for high-volume operations",
-        icon: Icon.Users,
+        name: "Data Analytics & Business Intelligence",
+        slug: "data-analytics",
+        desc: "Turning stored information into actionable insight, Reporting, dashboards, data visualization",
+        icon: Icon.BarChart,
+    },
+    {
+        name: "Security & Infrastructure",
+        slug: "infrastructure-support",
+        desc: "Resilient cloud, network, and systems services, Email & Network Security, Backup/Recovery, EDR/XDR/MDR",
+        icon: Icon.Server,
     },
 ];
 
@@ -47,9 +47,10 @@ const RAIL_POINTS = ["ISO-certified processes", "SBA 8(a)", "MDOT MBE/DBE/SBE", 
 
 const NAV = [
     { label: "AI", to: "/ai" },
-    { label: "Contracts", to: "/contracts" },
+    { label: "Contract Vehicles", to: "/contracts" },
     { label: "About", to: "/about" },
     { label: "Contact", to: "/contact" },
+    { label: "Career Opportunities", to: "https://apply.workable.com/ivyhill-technologies-llc/" },
 ];
 
 const NAV_LINK_BASE =

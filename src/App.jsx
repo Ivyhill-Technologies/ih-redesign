@@ -6,7 +6,6 @@ import { ApplicationDevelopmentPage } from "./pages/capabilities/ApplicationDeve
 import { DataAnalyticsPage } from "./pages/capabilities/DataAnalyticsPage.jsx";
 import { InformationManagementPage } from "./pages/capabilities/InformationManagementPage.jsx";
 import { InfrastructureSupportPage } from "./pages/capabilities/InfrastructureSupportPage.jsx";
-import { QueueManagementPage } from "./pages/capabilities/QueueManagementPage.jsx";
 import { RecordsManagementPage } from "./pages/capabilities/RecordsManagementPage.jsx";
 import { HomePage } from "./pages/HomePage.jsx";
 import { NotFoundPage } from "./pages/NotFoundPage.jsx";
@@ -21,7 +20,6 @@ export const routes = [
     { path: "/capabilities/data-analytics", Component: DataAnalyticsPage },
     { path: "/capabilities/information-management", Component: InformationManagementPage },
     { path: "/capabilities/infrastructure-support", Component: InfrastructureSupportPage },
-    { path: "/capabilities/queue-management", Component: QueueManagementPage },
     { path: "/capabilities/records-management", Component: RecordsManagementPage },
     { path: "*", Component: NotFoundPage },
 ];
