@@ -4,7 +4,7 @@ import { Head } from "vite-react-ssg";
 import { Footer } from "./Footer.jsx";
 import { Header } from "./Header.jsx";
 
-const DEFAULT_TITLE = "Ivyhill Technologies — Federal IT Services";
+const DEFAULT_TITLE = "Ivyhill Technologies – Integrity & Quality in Information Management";
 const DEFAULT_DESCRIPTION =
     "Enterprise Information Management for U.S. federal, state, and local agencies, and commercial clients. ISO-certified, contract-vehicle-ready.";
 
