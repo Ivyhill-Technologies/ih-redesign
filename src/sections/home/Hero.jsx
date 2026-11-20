@@ -6,7 +6,7 @@ const STATS = [
     ["Headquarters", "Hyattsville, MD"],
     ["Federal agencies", "23 served"],
     ["ISO certifications", "3 active"],
-    ["CMMC Certified Level-2", "(Conditional)"],
+    ["CMMC Certified", "Level 1"],
     ["GSA MAS", "Through 2030"],
 ];
 
