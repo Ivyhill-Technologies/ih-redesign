@@ -120,6 +120,10 @@ export function Footer() {
                     <span>Federal · State · Local · Commercial</span>
                     <span className="hidden sm:inline text-white/25">·</span>
                     <span>Hyattsville, Maryland</span>
+                    <span className="hidden sm:inline text-white/25">·</span>
+                    <span className="text-white/30" title="Site version (commit · build date)">
+                        {__COMMIT__} · {__BUILD_DATE__}
+                    </span>
                     <span className="sm:flex-1" />
                     <a
                         href="#top"
