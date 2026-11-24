@@ -399,8 +399,8 @@ export function ContactForm() {
                         <div className="border border-line-1 rounded-sm bg-ivy-green-50 p-7">
                             <div className="eyebrow text-ivy-green-700 mb-3">Contracting</div>
                             <p className="m-0 mb-4 text-[14px] leading-[1.6] text-fg-2">
-                                Building a requirement or Request For Information (RFI)? Pull our current capability statement and let us route you to the
-                                correct contract vehicle for efficient procurement.
+                                Building a requirement or Request For Information (RFI)? Pull our current capability statement and
+                                let us route you to the correct contract vehicle for efficient procurement.
                             </p>
                             <a
                                 href="/documents/Ivyhill-Capability-Statement-2026.pdf"
