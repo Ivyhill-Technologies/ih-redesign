@@ -6,8 +6,8 @@
 
 **A migration from a WordPress marketing site to a modern, federal-IT-grade web application.**
 
-[![Node](https://img.shields.io/badge/node-22-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
-[![Vite](https://img.shields.io/badge/vite-5-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Node](https://img.shields.io/badge/node-26-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Vite](https://img.shields.io/badge/vite-6-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
 [![React](https://img.shields.io/badge/react-18-61DAFB?logo=react&logoColor=black)](https://react.dev/)
 [![Biome](https://img.shields.io/badge/biome-2.4-60A5FA?logo=biome&logoColor=white)](https://biomejs.dev/)
 [![Brand](https://img.shields.io/badge/Ivyhill_Green-%2380B941-80B941)](#brand)
@@ -42,9 +42,9 @@ addresses contracting officers, not casual visitors.
 
 ## Stack
 
-- **Node 22** — pinned via `.mise.toml`, so `mise install` provisions the
+- **Node 26** — pinned via `.mise.toml`, so `mise install` provisions the
   exact version on a fresh machine.
-- **Vite 5** + **React 18** + **React Router 6** — single-page app, two
+- **Vite 6** + **React 18** + **React Router 6** — single-page app, two
   routes today (`/`, `/contracts`), wired for more.
 - **Inter Variable** + design tokens — every color, font size, spacing step,
   radius, shadow, and motion curve lives in `src/styles/tokens.css`.
@@ -56,8 +56,8 @@ addresses contracting officers, not casual visitors.
 ## Run it
 
 ```sh
-mise install        # first time only — picks up Node 22 from .mise.toml
-npm install
+mise install        # first time only — picks up Node 26 from .mise.toml
+npm ci
 npm run dev         # http://localhost:5173
 ```
 
@@ -68,6 +68,17 @@ npm run dev         # http://localhost:5173
 | `npm run preview` | Serve the production build locally |
 | `npm run check` | Biome lint + format check |
 | `npm run lint:fix` | Apply Biome fixes |
+| `npm run backend:install` | Install backend tooling into `amplify/` |
+| `npm run ampx -- <cmd>` | Run the Amplify CLI, e.g. `npm run ampx -- sandbox` |
+
+### Backend (Amplify Gen 2)
+
+Backend tooling (`@aws-amplify/backend`, `backend-cli`, `aws-cdk-lib`, etc.)
+lives in `amplify/package.json`, not the root. The Amplify Hosting build only
+installs and builds the frontend (`npm ci`), and the backend is deployed from
+a dev machine. AWS's backend packages ship bundled dependencies that `npm ci`
+rejects, so keeping them out of the root keeps the frontend install strict.
+Use `npm install` (not `ci`) inside `amplify/`.
 
 ---
 

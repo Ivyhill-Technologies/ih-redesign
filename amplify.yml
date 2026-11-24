@@ -6,9 +6,11 @@ frontend:
     phases:
         preBuild:
             commands:
-                # Reuse the image's Node 22 if present; only install as a fallback.
-                - nvm use 22 2>/dev/null || nvm install 22
-                - npm install --no-audit --no-fund --prefer-offline
+                # Reuse the image's Node 26 if present; only install as a fallback.
+                - nvm use 26 2>/dev/null || nvm install 26
+                # Strict install from the lockfile. Backend tooling lives in
+                # amplify/package.json and is not installed here.
+                - npm ci --cache .npm --prefer-offline --no-audit --no-fund
         build:
             commands:
                 - npm run build
@@ -18,5 +20,5 @@ frontend:
             - "**/*"
     cache:
         paths:
-            - node_modules/**/*
+            # npm ci wipes node_modules, so cache npm's download cache instead.
             - .npm/**/*
