@@ -6,6 +6,8 @@ frontend:
     phases:
         preBuild:
             commands:
+                # Node 26 binaries need libatomic, which the default Amplify image lacks.
+                - dnf install -y -q libatomic || yum install -y -q libatomic
                 # Reuse the image's Node 26 if present; only install as a fallback.
                 - nvm use 26 2>/dev/null || nvm install 26
                 # Strict install from the lockfile. Backend tooling lives in
