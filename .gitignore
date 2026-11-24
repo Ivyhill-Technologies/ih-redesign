@@ -55,10 +55,5 @@ coverage/
 # Playwright screenshots
 screenshots/
 
-# amplify
-.amplify
-amplify_outputs*
-amplifyconfiguration*
-
 # npm download cache used by Amplify builds (npm ci --cache .npm)
 .npm/

@@ -68,17 +68,12 @@ npm run dev         # http://localhost:5173
 | `npm run preview` | Serve the production build locally |
 | `npm run check` | Biome lint + format check |
 | `npm run lint:fix` | Apply Biome fixes |
-| `npm run backend:install` | Install backend tooling into `amplify/` |
-| `npm run ampx -- <cmd>` | Run the Amplify CLI, e.g. `npm run ampx -- sandbox` |
 
-### Backend (Amplify Gen 2)
+### Contact form backend
 
-Backend tooling (`@aws-amplify/backend`, `backend-cli`, `aws-cdk-lib`, etc.)
-lives in `amplify/package.json`, not the root. The Amplify Hosting build only
-installs and builds the frontend (`npm ci`), and the backend is deployed from
-a dev machine. AWS's backend packages ship bundled dependencies that `npm ci`
-rejects, so keeping them out of the root keeps the frontend install strict.
-Use `npm install` (not `ci`) inside `amplify/`.
+The contact form posts to one AWS Lambda function that emails submissions
+to info@ivyhilltech.com via SES. It's defined in `infra/` with Terraform
+(state in S3). To change it: edit `infra/`, then `cd infra && terraform apply`.
 
 ---
 
@@ -109,7 +104,6 @@ src/
     HomePage.jsx, ContractsPage.jsx, NotFoundPage.jsx
   App.jsx           # router
   main.jsx          # entry
-_design-source/     # the original design bundle (chats + prototype JSX) — reference only
 ```
 
 ---
@@ -137,20 +131,17 @@ HQ in Hyattsville/College Park, MD.
 </tr>
 </table>
 
-The complete brand brief, voice rules, and visual foundations live in
-[`_design-source/project/README.md`](_design-source/project/README.md).
 
 ---
 
 ## Notes
 
+- **Contributing:** `main` is protected. Make changes on a branch and open a
+  pull request; see `AGENTS.md` for the full workflow.
+
 - The single `Header` component is consumed by `SiteShell`, so every page
   renders the same header — homepage spacing is the golden thumb.
-- `_design-source/` is kept for reference. It contains the original design
-  bundle from claude.ai/design, including the chat transcripts that document
-  why specific decisions were made.
-- Agency seals and the Lucide icon CDN are not bundled — production sourcing
-  is documented in the design source README.
+- Agency seals and the Lucide icon CDN are not bundled.
 - A `.env` file is reserved for future configuration (API endpoints, feature
   flags). It is git-ignored; commit a `.env.example` if/when shared variables
   are needed.

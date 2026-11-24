@@ -1,14 +1,8 @@
 import { useForm } from "@tanstack/react-form";
-import { generateClient } from "aws-amplify/data";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Icon } from "../../components/Icons.jsx";
-
-let client;
-const getClient = () => {
-    if (!client) client = generateClient();
-    return client;
-};
+import { CONTACT_URL } from "../../config.js";
 
 const INITIAL = {
     firstName: "",
@@ -71,14 +65,21 @@ export function ContactForm() {
             if (value.website) return;
 
             try {
-                const { errors: apiErrors } = await getClient().models.ContactSubmission.create({
-                    firstName: value.firstName.trim(),
-                    lastName: value.lastName.trim(),
-                    email: value.email.trim(),
-                    subject: value.subject.trim(),
-                    message: value.message.trim(),
+                const res = await fetch(CONTACT_URL, {
+                    method: "POST",
+                    headers: { "content-type": "application/json" },
+                    body: JSON.stringify({
+                        firstName: value.firstName.trim(),
+                        lastName: value.lastName.trim(),
+                        email: value.email.trim(),
+                        subject: value.subject.trim(),
+                        message: value.message.trim(),
+                    }),
                 });
-                if (apiErrors?.length) throw new Error(apiErrors[0].message);
+                if (!res.ok) {
+                    const body = await res.json().catch(() => ({}));
+                    throw new Error(body.error ?? "Something went wrong. Please try again.");
+                }
                 setStatus("success");
                 setSubmitError(null);
                 formApi.reset();

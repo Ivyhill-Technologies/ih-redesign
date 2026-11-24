@@ -1,7 +1,6 @@
 version: 1
-# Amplify CI builds the FRONTEND only. The backend (under amplify/) is deployed
-# out-of-band from a dev machine via ampx, and amplify_outputs.json is committed
-# to the repo. There is intentionally no backend phase here — it never ran in CI.
+# Amplify Hosting builds and serves the static site only. The contact form
+# backend is a Lambda managed by Terraform in infra/ (not deployed here).
 frontend:
     phases:
         preBuild:
@@ -10,8 +9,7 @@ frontend:
                 - sudo -n dnf install -y -q libatomic
                 # Reuse the image's Node 26 if present; only install as a fallback.
                 - nvm use 26 2>/dev/null || nvm install 26
-                # Strict install from the lockfile. Backend tooling lives in
-                # amplify/package.json and is not installed here.
+                # Strict install from the lockfile.
                 - npm ci --cache .npm --prefer-offline --no-audit --no-fund
         build:
             commands:
