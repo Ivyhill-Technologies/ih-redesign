@@ -143,6 +143,27 @@ enforced by CI, so fix it locally with the command above.
 - Use `log.error()` for failures we should hear about, not for user mistakes
   (validation, 400/429). Never put form contents or personal details in a report.
 - If `LOG_URL` changes, update `connect-src` in `customHttp.yml` too.
+- Browser errors alarm: a metric filter counts reports, and the alarm
+  `ih-site-client-errors` (1+ in 5 min) notifies SNS topic `ih-site-errors`,
+  which goes only to the health Lambda (Teams), not email. The card lists the
+  latest errors (read from the log group).
+
+## Jira tickets from Teams
+
+- Teams cards for firing alarms and failing daily checks have a "Create Jira
+  ticket" button: a link to the `ih-jira-ticket` Lambda (`infra/jira-ticket.tf`,
+  code in `infra/jira-ticket/index.mjs`), signed by the health Lambda
+  (HMAC, SSM `/ih-redesign/jira-link-secret`) and valid 30 days. GET shows a
+  preview; POST creates a Bug in project IW and redirects to it. One ticket
+  per link (dedupe rows `jira#<sig>` in the rate limit table).
+- Jira auth: SSM `/ih-redesign/jira-token` = `email:token`, a scoped
+  Atlassian token (`write:jira-work`) on Evan's account, called via
+  `api.atlassian.com/ex/jira/<cloudId>`. Site, cloud ID, project and issue
+  type IDs are in `local.jira` in `jira-ticket.tf`. Commands to set both
+  secrets are in that file's header.
+- **The token expires** (see `local.jira` once the renewal check exists).
+  If Jira returns 401, the token lapsed: make a new one and store it in SSM.
+
 
 ## Gotchas
 

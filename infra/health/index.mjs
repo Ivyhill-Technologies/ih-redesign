@@ -1,16 +1,26 @@
 // Site health reporter for Teams.
 // - Scheduled run (EventBridge Scheduler, 7 AM Eastern): checks the site and
 //   posts a summary card.
-// - SNS event (contact form alarms): posts the alarm right away.
+// - SNS event (contact form and browser error alarms): posts the alarm right
+//   away. Browser error cards include the latest errors' details.
+// Problem cards get a "Create Jira ticket" button: a signed, expiring link to
+// the ih-jira-ticket Lambda (infra/jira-ticket).
 // The Teams Workflows webhook URL lives in SSM (WEBHOOK_PARAM), never in code.
+import { createHmac } from "node:crypto";
 import { connect } from "node:tls";
 import { AmplifyClient, ListJobsCommand } from "@aws-sdk/client-amplify";
 import { CloudWatchClient, DescribeAlarmsCommand } from "@aws-sdk/client-cloudwatch";
+import { CloudWatchLogsClient, FilterLogEventsCommand } from "@aws-sdk/client-cloudwatch-logs";
 import { GetParameterCommand, SSMClient } from "@aws-sdk/client-ssm";
 
 const SITE = "https://www.ivyhilltech.com";
 const APEX = "https://ivyhilltech.com";
-const { WEBHOOK_PARAM, CONTACT_URL, AMPLIFY_APP_ID, ALARM_PREFIX } = process.env;
+const { WEBHOOK_PARAM, CONTACT_URL, AMPLIFY_APP_ID, ALARM_PREFIX, CLIENT_LOG_GROUP, JIRA_LINK_URL, LINK_SECRET_PARAM } =
+    process.env;
+const LINK_TTL_DAYS = Number(process.env.LINK_TTL_DAYS || 30);
+const CLIENT_ERRORS_ALARM = "ih-site-client-errors";
+const logsUrl = (group) =>
+    `https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#logsV2:log-groups/log-group/${encodeURIComponent(encodeURIComponent(group)).replace(/%/g, "$")}`;
 const DRY_RUN = process.env.DRY_RUN === "1"; // print the card instead of posting
 
 const PAGES = [
@@ -102,7 +112,7 @@ const checkContact = () =>
     });
 
 const checkAlarms = () =>
-    check("Form alarms", async () => {
+    check("Alarms", async () => {
         const { MetricAlarms } = await new CloudWatchClient({}).send(new DescribeAlarmsCommand({ AlarmNamePrefix: ALARM_PREFIX }));
         const firing = MetricAlarms.filter((a) => a.StateValue === "ALARM").map((a) => a.AlarmName);
         return firing.length
@@ -124,7 +134,7 @@ const checkDeploy = () =>
 
 const icon = (c) => (!c.ok ? "❌" : c.warn ? "⚠️" : "✅");
 
-const card = (title, color, facts, footer) => ({
+const card = (title, color, facts, footer, actions = []) => ({
     type: "message",
     attachments: [
         {
@@ -138,18 +148,30 @@ const card = (title, color, facts, footer) => ({
                     { type: "FactSet", facts },
                     ...(footer ? [{ type: "TextBlock", text: footer, isSubtle: true, size: "Small", wrap: true }] : []),
                 ],
-                actions: [{ type: "Action.OpenUrl", title: "Open site", url: SITE }],
+                actions: [{ type: "Action.OpenUrl", title: "Open site", url: SITE }, ...actions],
             },
         },
     ],
 });
 
+const ssm = new SSMClient({});
+const ssmParam = async (name) =>
+    (await ssm.send(new GetParameterCommand({ Name: name, WithDecryption: true }))).Parameter.Value;
+
+// A "Create Jira ticket" button. The payload rides in the link, signed so the
+// Jira Lambda only acts on links made here. p: { summary, facts, stack?, link?, priority? }
+let linkSecret;
+const jiraButton = async (p) => {
+    linkSecret ??= await ssmParam(LINK_SECRET_PARAM);
+    const d = Buffer.from(JSON.stringify({ ...p, exp: Date.now() + LINK_TTL_DAYS * 86400000 })).toString("base64url");
+    const s = createHmac("sha256", linkSecret).update(d).digest("hex");
+    return { type: "Action.OpenUrl", title: "Create Jira ticket", url: `${JIRA_LINK_URL}?d=${d}&s=${s}` };
+};
+
 let webhookUrl;
 const post = async (payload) => {
     if (DRY_RUN) return console.log(JSON.stringify(payload, null, 2));
-    webhookUrl ??= (
-        await new SSMClient({}).send(new GetParameterCommand({ Name: WEBHOOK_PARAM, WithDecryption: true }))
-    ).Parameter.Value;
+    webhookUrl ??= await ssmParam(WEBHOOK_PARAM);
     const r = await fetch(webhookUrl, {
         method: "POST",
         headers: { "content-type": "application/json" },
@@ -172,21 +194,95 @@ const dailyReport = async () => {
     const failed = results.filter((c) => !c.ok).length;
     const title = failed ? `❌ ivyhilltech.com: ${failed} check${failed > 1 ? "s" : ""} failing` : "✅ ivyhilltech.com is healthy";
     const facts = results.map((c) => ({ title: `${icon(c)} ${c.name}`, value: c.detail }));
-    await post(card(title, failed ? "Attention" : "Good", facts, "Daily check · infra/health in the ih-redesign repo"));
+    const actions = failed
+        ? [
+              await jiraButton({
+                  summary: `Daily health check: ${results
+                      .filter((c) => !c.ok)
+                      .map((c) => c.name)
+                      .join(", ")} failing`,
+                  facts: results.filter((c) => !c.ok).map((c) => [c.name, c.detail]),
+              }),
+          ]
+        : [];
+    await post(card(title, failed ? "Attention" : "Good", facts, "Daily check · infra/health in the ih-redesign repo", actions));
     return { failed, results };
 };
+
+// Recent browser error reports from the client log (written by infra/client-log).
+const recentClientErrors = async (minutes = 15) => {
+    const { events = [] } = await new CloudWatchLogsClient({}).send(
+        new FilterLogEventsCommand({
+            logGroupName: CLIENT_LOG_GROUP,
+            startTime: Date.now() - minutes * 60000,
+            filterPattern: '{ $.source = "client" && $.level = "error" }',
+            limit: 50,
+        }),
+    );
+    return events.map((e) => ({ time: e.timestamp, ...JSON.parse(e.message) })).sort((a, b) => b.time - a.time);
+};
+
+const when = (ms) => new Date(ms).toLocaleString("en-US", { timeZone: "America/New_York", dateStyle: "medium", timeStyle: "medium" });
 
 // CloudWatch alarm → SNS → here.
 const alarmPost = async (record) => {
     const m = JSON.parse(record.Sns.Message);
     const firing = m.NewStateValue === "ALARM";
+    const clientErrors = m.AlarmName === CLIENT_ERRORS_ALARM;
+    const logGroup = clientErrors ? CLIENT_LOG_GROUP : "/aws/lambda/ih-contact-form";
     const title = firing ? `🚨 ${m.AlarmName} is firing` : `✅ ${m.AlarmName} recovered`;
     const facts = [
         { title: "What", value: m.AlarmDescription ?? "" },
         { title: "State", value: `${m.OldStateValue} → ${m.NewStateValue}` },
-        { title: "Why", value: m.NewStateReason ?? "" },
     ];
-    await post(card(title, firing ? "Attention" : "Good", facts, "Logs: CloudWatch → /aws/lambda/ih-contact-form"));
+    let ticket = {
+        summary: `Site alarm: ${m.AlarmName}`,
+        facts: [
+            ["What", m.AlarmDescription],
+            ["Why", m.NewStateReason],
+            ["When", when(Date.parse(m.StateChangeTime) || Date.now())],
+        ],
+        link: { title: `CloudWatch logs: ${logGroup}`, url: logsUrl(logGroup) },
+    };
+
+    if (clientErrors && firing) {
+        const errors = await recentClientErrors().catch((err) => {
+            console.error("Reading client errors failed", err);
+            return [];
+        });
+        const e = errors[0];
+        if (e) {
+            const pages = [...new Set(errors.map((x) => x.page))].join(", ");
+            facts.push(
+                { title: "Errors (15 min)", value: String(errors.length) },
+                { title: "Latest", value: e.message },
+                { title: "Page", value: `${e.host ?? ""}${e.page ?? ""}` },
+                { title: "Pages affected", value: pages },
+                { title: "Build", value: e.commit ?? "" },
+                { title: "Browser", value: e.userAgent ?? "" },
+            );
+            ticket = {
+                summary: `Site error: ${e.message} on ${e.page}`,
+                facts: [
+                    ["Error", e.message],
+                    ["Page", `${e.host ?? ""}${e.page ?? ""}`],
+                    ["When", when(e.time)],
+                    ["Errors in 15 min", errors.length],
+                    ["Pages affected", pages],
+                    ["Build", e.commit],
+                    ["Browser", e.userAgent],
+                    ...(e.data && !e.data.stack ? [["Details", JSON.stringify(e.data)]] : []),
+                ],
+                stack: e.data?.stack?.slice(0, 1500),
+                link: ticket.link,
+            };
+        }
+    } else {
+        facts.push({ title: "Why", value: m.NewStateReason ?? "" });
+    }
+
+    const actions = firing ? [await jiraButton(ticket)] : [];
+    await post(card(title, firing ? "Attention" : "Good", facts, `Logs: CloudWatch → ${logGroup}`, actions));
 };
 
 export const handler = async (event) => {

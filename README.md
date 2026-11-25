@@ -137,6 +137,9 @@ terraform apply
   Logs (`/aws/lambda/ih-client-log`). Uncaught browser errors are reported
   automatically. To see debug output on the live site, run
   `localStorage.setItem("ih-debug", "1")` in the browser console.
+- **Jira tickets from Teams:** alarm and failing-check cards in Teams have a
+  "Create Jira ticket" button that previews, then creates, a Bug in the IW
+  project with the error details filled in.
 - **Health report:** a Lambda posts a site check (pages, redirects, headers,
   SSL, contact form, alarms, last deploy) to a Teams channel every day at
   7 AM Eastern, and posts contact form alarms there as they fire. Run it
@@ -147,10 +150,11 @@ terraform apply
 ## Layout
 
 ```
-infra/              Terraform: contact form, health report, client log, CI role, redirects
+infra/              Terraform: contact form, health report, client log, Jira button, CI role, redirects
   lambda/           contact form handler
   health/           health report handler
   client-log/       client log handler
+  jira-ticket/      Jira ticket button handler
 public/             static files: assets/, documents/, fonts/, og-image.png
 scripts/            og-image.html (source for the link preview image)
 src/

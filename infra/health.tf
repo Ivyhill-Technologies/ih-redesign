@@ -34,7 +34,16 @@ resource "aws_iam_role_policy" "health" {
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
-      { Effect = "Allow", Action = "ssm:GetParameter", Resource = "arn:aws:ssm:us-east-1:860184462664:parameter${local.webhook_param}" },
+      {
+        Effect = "Allow"
+        Action = "ssm:GetParameter"
+        Resource = [
+          "arn:aws:ssm:us-east-1:860184462664:parameter${local.webhook_param}",
+          "arn:aws:ssm:us-east-1:860184462664:parameter${local.jira.secret_param}",
+        ]
+      },
+      # Reads recent browser errors to put their details on the alarm card.
+      { Effect = "Allow", Action = "logs:FilterLogEvents", Resource = "${aws_cloudwatch_log_group.client_log.arn}:*" },
       { Effect = "Allow", Action = "cloudwatch:DescribeAlarms", Resource = "*" },
       { Effect = "Allow", Action = "amplify:ListJobs", Resource = "arn:aws:amplify:us-east-1:860184462664:apps/${local.amplify_app_id}/*" },
     ]
@@ -58,10 +67,14 @@ resource "aws_lambda_function" "health" {
 
   environment {
     variables = {
-      WEBHOOK_PARAM  = local.webhook_param
-      CONTACT_URL    = aws_lambda_function_url.contact.function_url
-      AMPLIFY_APP_ID = local.amplify_app_id
-      ALARM_PREFIX   = "ih-contact-form"
+      WEBHOOK_PARAM     = local.webhook_param
+      CONTACT_URL       = aws_lambda_function_url.contact.function_url
+      AMPLIFY_APP_ID    = local.amplify_app_id
+      ALARM_PREFIX      = "ih-"
+      CLIENT_LOG_GROUP  = aws_cloudwatch_log_group.client_log.name
+      JIRA_LINK_URL     = aws_lambda_function_url.jira_ticket.function_url
+      LINK_SECRET_PARAM = local.jira.secret_param
+      LINK_TTL_DAYS     = local.jira.link_ttl_days
     }
   }
 

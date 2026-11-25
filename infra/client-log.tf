@@ -94,3 +94,53 @@ output "client_log_url" {
   description = "Put this in src/config.js as LOG_URL and in connect-src in customHttp.yml."
   value       = aws_lambda_function_url.client_log.function_url
 }
+
+# --- Alert Teams when browser errors are reported ----------------------------
+
+# Count each client report as a metric data point.
+resource "aws_cloudwatch_log_metric_filter" "client_errors" {
+  name           = "client-errors"
+  log_group_name = aws_cloudwatch_log_group.client_log.name
+  pattern        = "{ $.source = \"client\" && $.level = \"error\" }"
+
+  metric_transformation {
+    name          = "ClientErrors"
+    namespace     = "IvyhillSite"
+    value         = "1"
+    default_value = "0"
+  }
+}
+
+# Its own topic, wired only to Teams, so browser errors don't email info@.
+resource "aws_sns_topic" "site_errors" {
+  name = "ih-site-errors"
+}
+
+resource "aws_cloudwatch_metric_alarm" "client_errors" {
+  alarm_name          = "ih-site-client-errors"
+  alarm_description   = "Visitors' browsers reported errors on the site."
+  namespace           = "IvyhillSite"
+  metric_name         = "ClientErrors"
+  statistic           = "Sum"
+  period              = 300
+  evaluation_periods  = 1
+  threshold           = 1
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  treat_missing_data  = "notBreaching"
+  alarm_actions       = [aws_sns_topic.site_errors.arn]
+  ok_actions          = [aws_sns_topic.site_errors.arn]
+}
+
+resource "aws_sns_topic_subscription" "site_errors_teams" {
+  topic_arn = aws_sns_topic.site_errors.arn
+  protocol  = "lambda"
+  endpoint  = aws_lambda_function.health.arn
+}
+
+resource "aws_lambda_permission" "health_site_errors" {
+  statement_id  = "AllowSiteErrorsTopic"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.health.function_name
+  principal     = "sns.amazonaws.com"
+  source_arn    = aws_sns_topic.site_errors.arn
+}
