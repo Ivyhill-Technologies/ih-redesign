@@ -17,10 +17,14 @@
     "linter": {
         "enabled": true,
         "rules": {
-            "recommended": true
+            "recommended": true,
+            "correctness": {
+                "noUndeclaredVariables": "error"
+            }
         }
     },
     "javascript": {
+        "globals": ["__COMMIT__", "__BUILD_DATE__"],
         "formatter": {
             "quoteStyle": "double"
         }
