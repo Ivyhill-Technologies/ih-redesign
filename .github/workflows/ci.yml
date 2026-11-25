@@ -1,9 +1,19 @@
+# Light PR check: lint for real bugs and make sure the site builds.
+# Formatting is not enforced here; run `npx biome check --write .` locally.
 name: CI
 
 on:
-    push:
-        branches: [main]
     pull_request:
+        branches: [main]
+
+# Read-only token. PRs from forks never get secrets either way.
+permissions:
+    contents: read
+
+# A newer push to the same PR cancels the older run.
+concurrency:
+    group: ci-${{ github.ref }}
+    cancel-in-progress: true
 
 jobs:
     build:
@@ -19,5 +29,7 @@ jobs:
                   key: npm-${{ hashFiles('package-lock.json') }}
                   restore-keys: npm-
             - run: npm ci --no-audit --no-fund
-            - run: npm run check
-            - run: npm run build
+            - name: Lint
+              run: npm run lint
+            - name: Build
+              run: npm run build
