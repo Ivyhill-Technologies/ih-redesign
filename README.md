@@ -31,7 +31,7 @@ addresses contracting officers, not casual visitors.
 
 | | Old site | This site |
 |---|---|---|
-| Platform | WordPress + theme | React 18 + Vite 6, prerendered |
+| Platform | WordPress + theme | React 19 + Vite 6, prerendered |
 | Content | Plugin/page builder | Component-driven JSX, version-controlled |
 | Tone | Friendly consultancy | Federal contract-vehicle register |
 | Imagery | Stock illustrations, recolored | Brand mark + line iconography only |

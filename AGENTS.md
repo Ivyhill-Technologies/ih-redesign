@@ -4,7 +4,7 @@ Guide for AI agents (Claude, others) working in this repo. Humans: see README.md
 
 ## What this is
 
-Marketing site for Ivyhill Technologies (ivyhilltech.com). React 18 + Vite 6,
+Marketing site for Ivyhill Technologies (ivyhilltech.com). React 19 + Vite 6,
 prerendered to static HTML with `vite-react-ssg`, styled with Tailwind 4.
 Hosted on AWS Amplify Hosting. The only dynamic piece is the contact form
 (a small Lambda, see below).
