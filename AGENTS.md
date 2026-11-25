@@ -93,7 +93,10 @@ enforced by CI, so fix it locally with the command above.
 - Node 26 is required (`engines`, `.mise.toml`, `amplify.yml` must agree).
   Use mise's Node and npm (11.x), not a system npm (Arch ships npm 12, which
   blocks some installs).
-- Amplify's default build image lacks `libatomic`, which Node 26 needs.
-  `amplify.yml` installs it with `sudo dnf`. Don't remove that line.
+- Amplify builds in a custom image, `public.ecr.aws/docker/library/node:26-trixie`,
+  set by the `_CUSTOM_IMAGE` environment variable in the Amplify console (not
+  in the repo). It provides Node 26 and the `libatomic` it needs. To move to a
+  new Node major, change that variable, `.mise.toml`, `engines` and the guard
+  in `amplify.yml` together.
 - `vite-react-ssg` is a beta and sets which Vite majors are allowed. Check its
   peer deps before bumping Vite or React.

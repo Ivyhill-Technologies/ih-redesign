@@ -5,10 +5,10 @@ frontend:
     phases:
         preBuild:
             commands:
-                # Node 26 binaries need libatomic, which the default Amplify image lacks.
-                - sudo -n dnf install -y -q libatomic
-                # Reuse the image's Node 26 if present; only install as a fallback.
-                - nvm use 26 2>/dev/null || nvm install 26
+                # Node 26 (with libatomic) comes from the custom build image,
+                # public.ecr.aws/docker/library/node:26-trixie, set by the
+                # _CUSTOM_IMAGE env var in the Amplify console. Fail fast if not.
+                - 'node -v | grep -q "^v26\." || { echo "Expected Node 26 from the custom build image (_CUSTOM_IMAGE)"; exit 1; }'
                 # Strict install from the lockfile.
                 - npm ci --cache .npm --prefer-offline --no-audit --no-fund
         build:
