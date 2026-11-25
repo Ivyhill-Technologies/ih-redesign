@@ -100,6 +100,13 @@ enforced by CI, so fix it locally with the command above.
   `ih-redesign-tfstate-860184462664`). It is **not** deployed by Amplify or CI.
   Changes require `cd infra && terraform plan`, then `terraform apply`, run by a
   human with AWS access. Ask before applying.
+- Site health in Teams (`infra/health.tf`, code in `infra/health/index.mjs`):
+  a Lambda posts a check card (pages, redirects, headers, SSL, contact
+  endpoint, alarms, last deploy) to a Teams channel every day at 7 AM
+  Eastern, and posts contact form alarms there as they fire. The Teams
+  Workflows webhook URL is the SSM SecureString `/ih-redesign/teams-webhook`,
+  set by hand (command in `health.tf`), never in the repo. Run it on demand:
+  `aws lambda invoke --function-name ih-site-health /dev/stdout`.
 - PRs touching `infra/` run `terraform plan` in CI
   (`.github/workflows/terraform.yml`) using a read-only role assumed via
   GitHub OIDC (`infra/ci.tf`). Read the plan in the job summary before you

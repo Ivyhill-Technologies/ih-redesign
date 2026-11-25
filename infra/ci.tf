@@ -44,6 +44,7 @@ resource "aws_iam_role_policy" "terraform_plan" {
           "logs:Describe*", "logs:List*",
           "cloudwatch:Describe*", "cloudwatch:List*",
           "sns:Get*", "sns:List*",
+          "scheduler:Get*", "scheduler:List*",
         ]
         Resource = "*"
       },
