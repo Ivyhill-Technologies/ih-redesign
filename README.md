@@ -12,6 +12,10 @@
 [![Tailwind](https://img.shields.io/badge/tailwind-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![AWS Amplify](https://img.shields.io/badge/aws_amplify-FF9900?logo=awsamplify&logoColor=white)](https://aws.amazon.com/amplify/hosting/)
 
+**Live: [www.ivyhilltech.com](https://www.ivyhilltech.com)**
+
+<img src="docs/images/home.png" alt="The ivyhilltech.com homepage" width="800" />
+
 </div>
 
 ---
@@ -74,6 +78,7 @@ npm run dev         # http://localhost:5173
 | `npm run build` | Prerendered production build → `dist/` |
 | `npm run preview` | Serve the production build locally |
 | `npm run lint` | Biome lint (what CI runs) |
+| `npm test` | Unit tests (`node --test`, no extra dependencies) |
 | `npm run check` | Biome lint + format check |
 | `npx biome check --write .` | Auto-fix formatting and safe lint issues |
 
@@ -85,8 +90,8 @@ npm run dev         # http://localhost:5173
 not even by admins. Every change goes through a pull request.
 
 1. Branch from `main`, make the change, and run
-   `npx biome check --write . && npm run build`.
-2. Push the branch and open a PR into `main`. CI (lint + build) must pass.
+   `npx biome check --write . && npm test && npm run build`.
+2. Push the branch and open a PR into `main`. CI (lint, tests, build) must pass.
 3. Merge. Amplify deploys `main` to ivyhilltech.com automatically.
 
 **Risky changes** (dependencies, Node version, `amplify.yml`,
@@ -175,6 +180,7 @@ Store, never in this repo. See [Security](docs/05-security.md).
 
 ```
 docs/               project documentation (start at docs/README.md)
+test/               unit tests: contact form rules and contact Lambda (AWS SDK stubbed)
 infra/              Terraform: contact form, health report, client log, Jira button, CI role, redirects
   lambda/           contact form handler
   health/           health report handler

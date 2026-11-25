@@ -13,7 +13,8 @@
         "preview": "vite preview",
         "lint": "biome lint .",
         "lint:fix": "biome lint --write .",
-        "check": "biome check ."
+        "check": "biome check .",
+        "test": "node --test \"test/**/*.test.mjs\""
     },
     "dependencies": {
         "@radix-ui/react-navigation-menu": "^1.2.14",

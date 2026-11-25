@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { Icon } from "../../components/Icons.jsx";
 import { CONTACT_URL } from "../../config.js";
 import { log } from "../../log.js";
+import { EMAIL_MAX, MESSAGE_MAX, NAME_MAX, required, SUBJECT_MAX, validateEmail, validateMessage } from "./validation.js";
 
 const INITIAL = {
     firstName: "",
@@ -21,38 +22,6 @@ const FIELD_OK = "border-line-2 focus:border-ivy-green-500 focus:ring-ivy-green-
 const FIELD_ERR = "border-status-danger focus:border-status-danger focus:ring-status-danger/20";
 
 const LABEL = "block text-[12px] font-semibold tracking-[0.04em] uppercase text-fg-2 mb-1.5";
-
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const NAME_MAX = 100;
-const EMAIL_MAX = 254;
-const SUBJECT_MAX = 200;
-const MESSAGE_MIN = 10;
-const MESSAGE_MAX = 5000;
-
-const required =
-    (label, max) =>
-    ({ value }) => {
-        const v = value.trim();
-        if (!v) return `${label} is required.`;
-        if (max && v.length > max) return `${label} must be ${max} characters or fewer.`;
-        return undefined;
-    };
-
-const validateEmail = ({ value }) => {
-    const v = value.trim();
-    if (!v) return "Email is required.";
-    if (v.length > EMAIL_MAX) return `Email must be ${EMAIL_MAX} characters or fewer.`;
-    if (!EMAIL_RE.test(v)) return "Enter a valid email address.";
-    return undefined;
-};
-
-const validateMessage = ({ value }) => {
-    const v = value.trim();
-    if (!v) return "Message is required.";
-    if (v.length < MESSAGE_MIN) return `Please add a few more details (${MESSAGE_MIN}+ characters).`;
-    if (v.length > MESSAGE_MAX) return `Message must be ${MESSAGE_MAX} characters or fewer.`;
-    return undefined;
-};
 
 export function ContactForm() {
     const [status, setStatus] = useState("idle");

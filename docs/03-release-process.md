@@ -20,7 +20,7 @@ Merging into a branch deploys it automatically (AWS Amplify, about 3 minutes).
 2. Make the change; preview locally.
 3. Run the pre-commit checks: `npx biome check --write .` and `npm run build`.
 4. Push the branch and open a pull request into `main`.
-5. CI must pass (lint and build).
+5. CI must pass (lint, unit tests and build).
 6. Merge. Production deploys automatically.
 
 ## Higher-risk change (staging first)
@@ -69,7 +69,7 @@ the code.
 
 | Check | Runs on | What it does |
 |---|---|---|
-| `build` | Every pull request into `main` | Installs exact dependencies, runs Biome lint, builds the site. Required to merge. |
+| `build` | Every pull request into `main` | Installs exact dependencies, runs Biome lint and the unit tests, builds the site. Required to merge. |
 | `plan` | Every pull request into `main` (skips in seconds if `infra/` is untouched) | `terraform fmt` check, `validate`, and `plan` with a read-only role, posted to the job summary so reviewers see exactly what the PR would do to AWS |
 | Drift check | Hourly on `main` (and on demand) | Compares AWS with `infra/`; alerts on drift or unapplied changes ([runbook](04-operations-runbook.md#responding-to-a-drift-alert)) |
 
