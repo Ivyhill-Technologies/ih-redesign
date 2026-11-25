@@ -106,6 +106,11 @@ daily health report watches the watcher.
 `infra/` PR); auto-apply to fix drift (needs CI write access to AWS and
 would silently undo legitimate emergency fixes); AWS Config (more cost and
 setup per project).
+**Classification:** clean when the full plan has no changes; drift when
+it would change a resource the refresh-only plan saw modified outside
+Terraform; otherwise pending. A refresh-only difference alone isn't drift,
+because computed values such as an IAM role's last-used time change by
+themselves (this caused one false positive on the first run).
 **Why:** any change outside Terraform is visible within an hour, with an
 audit trail, while a person still decides and applies. The pattern is
 self-contained (one workflow, one script, one role), so it can be reused

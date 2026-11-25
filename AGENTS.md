@@ -123,8 +123,11 @@ enforced by CI, so fix it locally with the command above.
 - **Drift check** (`.github/workflows/drift.yml`, script
   `.github/scripts/drift-alert.sh`): hourly on `main`, read-only role
   `ih-redesign-terraform-drift` (`infra/ci.tf`, trusted only for
-  `refs/heads/main`). Refresh-only plan = changed outside Terraform; full
-  plan = unapplied. Problems open one GitHub issue labeled `drift` + a Teams
+  `refs/heads/main`). Clean = the full plan has no changes. Drift = the full
+  plan would change a resource the refresh-only plan saw changed or deleted
+  outside Terraform. Pending = full-plan changes with no such match
+  (unapplied code). Refresh-only alone isn't drift: computed values change by
+  themselves (an IAM role's last-used time showed up as a false positive). Problems open one GitHub issue labeled `drift` + a Teams
   card, remind daily at 13:00 UTC, auto-close on a clean run. The health
   report's "Infrastructure drift" check watches it (GitHub disables
   schedules after 60 days of inactivity in public repos). Never change
