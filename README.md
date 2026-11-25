@@ -132,6 +132,11 @@ terraform apply
   info@ivyhilltech.com via SES, with Reply-To set to the visitor. Nothing is
   stored. Spam controls: a hidden honeypot field, validation, and a per-IP
   limit of 5 messages per hour. Failures email alerts.
+- **Client logging:** `src/log.js` has `log.debug()` (browser console only)
+  and `log.error()`, which also reports to a Lambda that writes to CloudWatch
+  Logs (`/aws/lambda/ih-client-log`). Uncaught browser errors are reported
+  automatically. To see debug output on the live site, run
+  `localStorage.setItem("ih-debug", "1")` in the browser console.
 - **Health report:** a Lambda posts a site check (pages, redirects, headers,
   SSL, contact form, alarms, last deploy) to a Teams channel every day at
   7 AM Eastern, and posts contact form alarms there as they fire. Run it
@@ -142,15 +147,17 @@ terraform apply
 ## Layout
 
 ```
-infra/              Terraform: contact form, health report, CI role, redirects
+infra/              Terraform: contact form, health report, client log, CI role, redirects
   lambda/           contact form handler
   health/           health report handler
+  client-log/       client log handler
 public/             static files: assets/, documents/, fonts/, og-image.png
 scripts/            og-image.html (source for the link preview image)
 src/
   main.jsx          entry (vite-react-ssg)
   App.jsx           routes
-  config.js         contact form endpoint
+  config.js         contact form and client log endpoints
+  log.js            logger: log.debug(), log.error()
   components/       shared UI: SiteShell, Header, Footer, Icons, Logo, ...
   pages/            one file per route (capabilities/ for the five capability pages)
   sections/         page sections, grouped by page (home/, about/, ...)

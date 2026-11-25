@@ -124,6 +124,26 @@ enforced by CI, so fix it locally with the command above.
   out. If you change that log message, update the filter. New addresses must
   click the SNS confirmation email.
 
+## Client logging
+
+- `src/log.js` has two levels. `log.debug()` prints to the browser console
+  only: on in dev, and in production only after
+  `localStorage.setItem("ih-debug", "1")` in that browser. `log.error()` also
+  sends a report (production builds only, max 10 per page load) via
+  `sendBeacon` to `LOG_URL` (`src/config.js`).
+- `installErrorHandlers()` (called from `src/main.jsx`, client only) reports
+  uncaught errors and unhandled promise rejections.
+- The receiver is the `ih-client-log` Lambda (`infra/client-log.tf`, code in
+  `infra/client-log/index.mjs`). It caps size, rate limits per IP (30/hour,
+  sharing the contact form's DynamoDB table with a `log#` key prefix), and
+  writes one JSON line per report to `/aws/lambda/ih-client-log` (30 days).
+  It always answers 204.
+- Query in CloudWatch Logs Insights on that log group, e.g.
+  `fields @timestamp, message, page, host, commit, data.stack | filter source = "client" | sort @timestamp desc`.
+- Use `log.error()` for failures we should hear about, not for user mistakes
+  (validation, 400/429). Never put form contents or personal details in a report.
+- If `LOG_URL` changes, update `connect-src` in `customHttp.yml` too.
+
 ## Gotchas
 
 - Node 26 is required (`engines`, `.mise.toml`, `amplify.yml` must agree).
