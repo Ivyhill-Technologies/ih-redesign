@@ -31,6 +31,10 @@ locals {
   domain = "ivyhilltech.com"
   email  = "info@ivyhilltech.com"
 
+  # Who gets emailed when the contact form breaks. Each address must click
+  # the SNS confirmation link once after apply.
+  alert_emails = ["info@ivyhilltech.com", "evan.hoefling@ivyhilltech.com"]
+
   # Sites allowed to call the form endpoint from a browser.
   allowed_origins = [
     "https://ivyhilltech.com",
@@ -157,6 +161,66 @@ resource "aws_lambda_function_url" "contact" {
     allow_headers = ["content-type"]
     max_age       = 3600
   }
+}
+
+# --- Alerts: email if the form stops working --------------------------------
+
+resource "aws_sns_topic" "alerts" {
+  name = "ih-contact-form-alerts"
+}
+
+resource "aws_sns_topic_subscription" "alerts" {
+  for_each  = toset(local.alert_emails)
+  topic_arn = aws_sns_topic.alerts.arn
+  protocol  = "email"
+  endpoint  = each.value
+}
+
+# The handler catches SES errors and returns a 500, so Lambda's own Errors
+# metric never sees them. Count the log line instead.
+resource "aws_cloudwatch_log_metric_filter" "ses_failed" {
+  name           = "ses-send-failed"
+  log_group_name = aws_cloudwatch_log_group.contact.name
+  pattern        = "\"SES send failed\""
+
+  metric_transformation {
+    name          = "SesSendFailed"
+    namespace     = "IvyhillContactForm"
+    value         = "1"
+    default_value = "0"
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "ses_failed" {
+  alarm_name          = "ih-contact-form-ses-failed"
+  alarm_description   = "Contact form could not send email via SES. Visitors are seeing an error."
+  namespace           = "IvyhillContactForm"
+  metric_name         = "SesSendFailed"
+  statistic           = "Sum"
+  period              = 300
+  evaluation_periods  = 1
+  threshold           = 1
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  treat_missing_data  = "notBreaching"
+  alarm_actions       = [aws_sns_topic.alerts.arn]
+  ok_actions          = [aws_sns_topic.alerts.arn]
+}
+
+# Crashes and timeouts (uncaught errors) in the handler.
+resource "aws_cloudwatch_metric_alarm" "lambda_errors" {
+  alarm_name          = "ih-contact-form-lambda-errors"
+  alarm_description   = "Contact form Lambda crashed or timed out."
+  namespace           = "AWS/Lambda"
+  metric_name         = "Errors"
+  dimensions          = { FunctionName = aws_lambda_function.contact.function_name }
+  statistic           = "Sum"
+  period              = 300
+  evaluation_periods  = 1
+  threshold           = 1
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  treat_missing_data  = "notBreaching"
+  alarm_actions       = [aws_sns_topic.alerts.arn]
+  ok_actions          = [aws_sns_topic.alerts.arn]
 }
 
 output "contact_url" {

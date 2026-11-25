@@ -92,6 +92,11 @@ enforced by CI, so fix it locally with the command above.
   reserved concurrency of 2, and a per-IP limit of 5 sends per hour
   (DynamoDB table `ih-contact-rate-limit`, IPs stored hashed, rows expire via
   TTL). Over the limit returns 429. If DynamoDB fails, requests are allowed.
+- Alerts: CloudWatch alarms email `alert_emails` (in `infra/main.tf`) via SNS
+  when SES sends fail (log metric filter on `SES send failed`, since the
+  handler returns 500 rather than throwing) or the Lambda crashes or times
+  out. If you change that log message, update the filter. New addresses must
+  click the SNS confirmation email.
 
 ## Gotchas
 
