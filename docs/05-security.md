@@ -267,7 +267,6 @@ addressed by this site's design:
 | `'unsafe-inline'` scripts in CSP | Weakens XSS protection if an injection point existed (none known; no user content) | Revisit if `vite-react-ssg` supports nonces/hashes |
 | Some settings live only in consoles (Amplify build image, domain, staging password, GitHub rulesets) | Could drift or be lost | Documented in [Architecture](02-architecture.md#configuration-that-lives-outside-the-repo); consider codifying |
 | Jira token belongs to a person's account | Tied to one employee's access | Move to a dedicated service account |
-| Previous WordPress server still running | Unpatched legacy software is an attack surface | Decommission after confirming nothing depends on it |
 | No web application firewall on Amplify or function URLs | Volumetric abuse relies on built-in limits | Acceptable at current exposure; Amplify WAF integration available if needed |
 | Account-level controls not documented here (MFA, CloudTrail, access reviews) | Outside this repo's scope | Verify at the AWS account level and record in a future review |
 

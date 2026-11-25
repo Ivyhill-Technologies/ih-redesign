@@ -42,7 +42,7 @@ practices for clients and contract evaluations.
 | Contact form | **Live** (AWS Lambda + SES) |
 | Monitoring and alerts | **Live**: daily health report, alarms and error cards in Teams |
 | Jira integration | **Live**: "Create Jira ticket" from Teams cards, project IW |
-| Old WordPress server | Superseded; decommissioning is a follow-up ([roadmap](09-known-issues-and-roadmap.md)) |
+| Previous WordPress site | Retired; replaced by this site |
 
 ## Roles
 

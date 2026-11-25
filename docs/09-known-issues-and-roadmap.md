@@ -15,7 +15,7 @@
 
 | Priority | Item | Why |
 |---|---|---|
-| High | Decommission the old WordPress server | Removes legacy attack surface and cost |
+| High | Retire remaining legacy hosting from the previous site | Less to maintain and pay for |
 | High | Move the Jira integration to a service account | Not tied to one person's Atlassian account |
 | Medium | Evaluate Vite 8 / plugin-react 6 on staging | Stay on supported versions |
 | Medium | Codify console-only settings (Amplify app, rulesets) | Less drift; faster disaster recovery |
