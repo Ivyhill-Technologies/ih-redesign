@@ -159,6 +159,10 @@ terraform apply
 - **Jira token renewal:** the token expires 2027-02-08 (`local.jira` in
   `infra/jira-ticket.tf`). The health report opens a Highest-priority
   renewal ticket 14 days before. Steps: [runbook](docs/04-operations-runbook.md#renew-the-jira-api-token).
+- **Drift detection:** every hour, GitHub Actions checks that AWS still
+  matches `infra/`. If anything was changed outside Terraform (or merged but
+  not applied), it opens a GitHub issue labeled `drift` and alerts Teams.
+  Fix with `terraform apply` or a pull request; the issue closes itself.
 - **Try it:** `scripts/demo-site-error.sh` sends a test error through the
   whole path (`--now N` posts N cards immediately).
 

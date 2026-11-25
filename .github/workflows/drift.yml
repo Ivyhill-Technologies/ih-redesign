@@ -1,0 +1,83 @@
+# Hourly drift check: does AWS still match infra/ on main?
+# - "drift":   something was changed outside Terraform (console, CLI, another tool)
+# - "pending": main has infra/ changes nobody applied yet
+# Alerts via a GitHub issue (label "drift") and Teams; see .github/scripts/drift-alert.sh.
+# Read-only: it never changes AWS. A person decides and runs terraform apply.
+#
+# Gotcha: GitHub disables scheduled workflows in public repos after 60 days
+# without repo activity. The daily health report flags a stale drift check;
+# re-enable it under Actions → Drift check.
+name: Drift check
+
+on:
+    schedule:
+        - cron: "17 * * * *" # hourly, off the top of the hour (GitHub is busiest at :00)
+    workflow_dispatch: # "Run workflow" button for an on-demand check
+
+permissions:
+    contents: read
+    id-token: write # assume the read-only AWS role via OIDC
+    issues: write # open/close the drift issue
+
+concurrency:
+    group: drift
+    cancel-in-progress: false
+
+jobs:
+    drift:
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: infra
+        steps:
+            - uses: actions/checkout@v7
+            - uses: hashicorp/setup-terraform@v4
+              with:
+                  terraform_version: "~1.15"
+                  terraform_wrapper: false
+            - uses: aws-actions/configure-aws-credentials@v6
+              with:
+                  role-to-assume: arn:aws:iam::860184462664:role/ih-redesign-terraform-drift
+                  aws-region: us-east-1
+
+            # -detailed-exitcode: 0 = no changes, 1 = error, 2 = changes.
+            # -lock=false: the role can't write the lock file, and plans don't change state.
+            - name: Check
+              id: check
+              run: |
+                  set +e
+                  terraform init -input=false -no-color > init.txt 2>&1; i=$?
+                  d=1; p=1
+                  if [ $i -eq 0 ]; then
+                      terraform plan -refresh-only -detailed-exitcode -input=false -lock=false -no-color > drift.txt 2>&1; d=$?
+                      terraform plan -detailed-exitcode -input=false -lock=false -no-color > plan.txt 2>&1; p=$?
+                  else
+                      cp init.txt plan.txt
+                  fi
+                  set -e
+                  if   [ $d -eq 1 ] || [ $p -eq 1 ]; then status=error
+                  elif [ $d -eq 2 ]; then status=drift
+                  elif [ $p -eq 2 ]; then status=pending
+                  else status=clean; fi
+                  echo "status=$status" >> "$GITHUB_OUTPUT"
+                  {
+                      echo "## Drift check: \`$status\`"
+                      echo '### Changed outside Terraform (refresh-only plan)'
+                      echo '```'; tail -c 30000 drift.txt 2>/dev/null; echo '```'
+                      echo '### Full plan (what terraform apply would do)'
+                      echo '```'; tail -c 30000 plan.txt; echo '```'
+                  } >> "$GITHUB_STEP_SUMMARY"
+
+            - name: Alert
+              if: always() && steps.check.outputs.status != ''
+              env:
+                  GH_TOKEN: ${{ github.token }}
+                  STATUS: ${{ steps.check.outputs.status }}
+                  RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+              run: bash ../.github/scripts/drift-alert.sh
+
+            # Fail the run only when the check itself couldn't run, so a broken
+            # check is visible in Actions. Drift is reported via the issue.
+            - name: Fail if the check errored
+              if: steps.check.outputs.status == 'error'
+              run: exit 1

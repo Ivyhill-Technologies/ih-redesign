@@ -35,6 +35,13 @@ Releases to production, newest first. Numbers are GitHub pull requests.
 - Footer company and legal links restored (#21)
 - Footer build stamp linked to the commit on GitHub (#8)
 
+**Infrastructure integrity**
+- Hourly drift detection: GitHub issue + Teams alert when AWS doesn't match
+  `infra/`, daily reminders, auto-resolve; daily health report watches it
+- `plan` runs on every pull request (skips when `infra/` is untouched) so it
+  can be a required check; CODEOWNERS review on infra, CI, build and
+  dependency changes
+
 **Documentation**
 - README and AGENTS.md refreshed (#7, #23)
 - Project documentation in `docs/`

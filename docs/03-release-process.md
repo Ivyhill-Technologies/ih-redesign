@@ -51,6 +51,17 @@ AWS resources are defined in Terraform and are **never applied by CI**.
    "add / change / destroy" counts).
 4. Merge the pull request so the code matches what's deployed.
 
+If an `infra/` change is merged but not applied, the hourly drift check
+reports it ("infra/ on main isn't applied") until it is.
+
+**Review:** `.github/CODEOWNERS` automatically requests the site owner's
+review on any pull request touching `infra/`, CI workflows, security
+headers, build configuration, or dependencies.
+
+**AWS is changed only through Terraform.** No console or CLI changes to
+resources defined in `infra/`. Anything changed outside Terraform is
+detected within the hour.
+
 `terraform plan` showing "No changes" after a release confirms AWS matches
 the code.
 
@@ -59,7 +70,8 @@ the code.
 | Check | Runs on | What it does |
 |---|---|---|
 | `build` | Every pull request into `main` | Installs exact dependencies, runs Biome lint, builds the site. Required to merge. |
-| `plan` | Pull requests touching `infra/` | `terraform fmt` check, `validate`, and `plan` with a read-only role |
+| `plan` | Every pull request into `main` (skips in seconds if `infra/` is untouched) | `terraform fmt` check, `validate`, and `plan` with a read-only role, posted to the job summary so reviewers see exactly what the PR would do to AWS |
+| Drift check | Hourly on `main` (and on demand) | Compares AWS with `infra/`; alerts on drift or unapplied changes ([runbook](04-operations-runbook.md#responding-to-a-drift-alert)) |
 
 ## Dependency updates (Dependabot)
 

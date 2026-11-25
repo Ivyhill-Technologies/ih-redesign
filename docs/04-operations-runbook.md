@@ -12,6 +12,8 @@ How the site is monitored, what each alert means, and what to do about it.
 | Contact form crashes or timeouts | Teams card + alert email | Within ~5 minutes |
 | Health reporter itself failing | Alert email | Within ~5 minutes |
 | Jira token nearing expiry | Jira ticket (Highest) at 14 days; daily ❌ from 7 days | Daily check |
+| AWS changed outside Terraform, or `infra/` not applied | GitHub issue (label `drift`) + Teams card; daily reminder while open | Within ~1 hour |
+| Drift check not running | Daily health report ❌ | Daily |
 | Dependency updates available | GitHub pull requests from Dependabot | Weekly / monthly |
 
 ## The daily health report
@@ -29,6 +31,7 @@ Every check, and what a ❌ means:
 | Last production deploy | Most recent `main` build failed | Amplify console → `main` → build logs. The site keeps serving the previous build. |
 | Jira token | Under 7 days to expiry, expired, or reminder ticket failed | Renew the token (below) |
 | Browser errors (24h) | (⚠️ only) Errors were reported, listed by page | Check the pages; create a Jira ticket if real |
+| Infrastructure drift | An open drift issue, a failed drift run, or no run in 3+ hours | See [Responding to a drift alert](#responding-to-a-drift-alert) |
 
 Every failing report has a **Create Jira ticket** button.
 
@@ -55,6 +58,28 @@ For security incidents, see also [Security → Incident response](05-security.md
 6. **Confirm** the alarm recovers and the next health report is green.
 7. **Record.** Note the cause and fix on the Jira ticket. Update this
    runbook if the response was unclear.
+
+## Responding to a drift alert
+
+The hourly drift check (`.github/workflows/drift.yml`) opens a GitHub issue
+labeled `drift` and posts to Teams. The issue and the run's **Summary** show
+the plan.
+
+| Issue title | Meaning | Do this |
+|---|---|---|
+| **AWS changed outside Terraform (drift)** | Someone changed a resource in the console, CLI, or another tool | Find out who and why. **Mistake or unauthorized:** `cd infra && terraform plan` (confirm it only reverts that change), then `terraform apply`. **Should stay:** update `infra/` to match in a pull request, then apply. If unexplained, treat as a [security incident](05-security.md#incident-response). |
+| **infra/ on main isn't applied to AWS** | A merged `infra/` change was never applied | `cd infra && terraform plan`, review, `terraform apply` |
+| **Drift check failed** | The check couldn't run (credentials, Terraform error) | Open the run, read the error, fix. Until then, drift can't be ruled out |
+
+The issue closes itself and Teams gets ✅ on the next clean hourly check.
+Run it on demand: GitHub → Actions → **Drift check** → **Run workflow**.
+
+**If the health report says the drift check hasn't run:** GitHub disables
+scheduled workflows in public repositories after 60 days without activity.
+Re-enable it: GitHub → Actions → Drift check → **Enable workflow**.
+
+**Never** fix drift by changing the console back by hand: apply from
+Terraform, so the code stays the single source of truth.
 
 ## Finding logs
 

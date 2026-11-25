@@ -94,3 +94,19 @@ working on the site, without a flood of pull requests.
 
 **Decision:** Biome instead of Prettier + ESLint.
 **Why:** one fast tool, one config; CI runs its linter.
+
+### D12. Hourly drift detection with tracked alerts
+
+**Decision:** a scheduled GitHub Actions job (hourly) runs a refresh-only
+plan (changes made outside Terraform) and a full plan (unapplied code) with
+a dedicated read-only role. Problems open one GitHub issue (label `drift`)
+and post to Teams; a daily reminder while open; auto-close on recovery. The
+daily health report watches the watcher.
+**Alternatives:** PR-time plans only (drift invisible until the next
+`infra/` PR); auto-apply to fix drift (needs CI write access to AWS and
+would silently undo legitimate emergency fixes); AWS Config (more cost and
+setup per project).
+**Why:** any change outside Terraform is visible within an hour, with an
+audit trail, while a person still decides and applies. The pattern is
+self-contained (one workflow, one script, one role), so it can be reused
+across future projects.

@@ -174,6 +174,40 @@ const checkJiraToken = () =>
         return { ok: days > 7, warn: days <= 14, detail };
     });
 
+// Watches the hourly drift check (.github/workflows/drift.yml) from outside
+// GitHub: an open "drift" issue, a failed run, or a stale schedule (GitHub
+// disables schedules in public repos after 60 days without activity) all show
+// here. Public GitHub API, no token needed.
+const REPO = "Ivyhill-Technologies/ih-redesign";
+const checkDrift = () =>
+    check("Infrastructure drift", async () => {
+        const gh = (path) =>
+            fetch(`https://api.github.com/repos/${REPO}${path}`, {
+                headers: { accept: "application/vnd.github+json", "user-agent": "ih-site-health" },
+                signal: AbortSignal.timeout(10000),
+            });
+        const [runsRes, issuesRes] = await Promise.all([
+            gh("/actions/workflows/drift.yml/runs?per_page=1&exclude_pull_requests=true"),
+            gh("/issues?labels=drift&state=open&per_page=5"),
+        ]);
+        if ([403, 429].includes(runsRes.status) || [403, 429].includes(issuesRes.status)) {
+            return { ok: true, warn: true, detail: "GitHub API rate limit; couldn't check this time" };
+        }
+        if (!runsRes.ok || !issuesRes.ok) throw new Error(`GitHub API ${runsRes.status}/${issuesRes.status}`);
+        const issues = await issuesRes.json();
+        if (issues.length) return { ok: false, detail: `${issues[0].title} (GitHub issue #${issues[0].number})` };
+        const run = (await runsRes.json()).workflow_runs?.[0];
+        if (!run) return { ok: false, detail: "The drift check has never run" };
+        const hours = (Date.now() - Date.parse(run.created_at)) / 3600000;
+        if (hours > 3) {
+            return { ok: false, detail: `Last ran ${Math.round(hours)} h ago. Schedule may be disabled: GitHub → Actions → Drift check → Enable` };
+        }
+        if (run.status === "completed" && run.conclusion !== "success") {
+            return { ok: false, detail: `Last run ${run.conclusion}; drift can't be ruled out` };
+        }
+        return { ok: true, detail: `AWS matches infra/ (checked ${Math.max(1, Math.round(hours * 60))} min ago)` };
+    });
+
 const checkClientErrors = () =>
     check("Browser errors (24h)", async () => {
         const errors = await recentClientErrors(24 * 60, 2000);
@@ -249,6 +283,7 @@ const dailyReport = async () => {
         checkDeploy(),
         checkJiraToken(),
         checkClientErrors(),
+        checkDrift(),
     ]);
     const failed = results.filter((c) => !c.ok).length;
     const title = failed ? `❌ ivyhilltech.com: ${failed} check${failed > 1 ? "s" : ""} failing` : "✅ ivyhilltech.com is healthy";

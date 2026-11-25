@@ -57,7 +57,7 @@ flowchart LR
 | CloudWatch alarms | Contact form send failures and crashes; browser errors; health reporter failures | `infra/main.tf`, `infra/client-log.tf`, `infra/health.tf` |
 | SNS topics | `ih-contact-form-alerts` (email + Teams), `ih-site-errors` (Teams only) | same |
 | EventBridge Scheduler | Runs the health report at 7:00 AM Eastern daily | `infra/health.tf` |
-| GitHub OIDC role | Read-only AWS role for `terraform plan` in CI | `infra/ci.tf` |
+| GitHub OIDC roles | Read-only AWS roles: `ih-redesign-terraform-plan` (PR previews) and `ih-redesign-terraform-drift` (hourly drift check on `main`; can also read the Teams webhook to alert) | `infra/ci.tf` |
 
 Terraform state is stored in a versioned, private S3 bucket. Infrastructure
 changes are applied by a person, never by CI ([Release process](03-release-process.md)).
@@ -66,7 +66,7 @@ changes are applied by a person, never by CI ([Release process](03-release-proce
 
 | Service | Used for |
 |---|---|
-| GitHub | Source code, pull requests, CI (GitHub Actions), Dependabot |
+| GitHub | Source code, pull requests, CI (GitHub Actions), hourly drift check, Dependabot |
 | Microsoft Teams (Workflows webhook) | Health reports and alert cards |
 | Jira Cloud (project IW) | Issues created from Teams cards; token renewal reminders |
 | Route 53 | DNS for ivyhilltech.com |
@@ -104,6 +104,12 @@ with the latest errors and a Jira button.
 verifies the signature and shows a preview → POST creates the Bug via the
 Jira REST API → redirect to the new issue. Repeat clicks redirect to the
 same issue.
+
+**Drift check (hourly):** GitHub Actions on `main` → read-only role → two
+`terraform plan`s (refresh-only for changes made outside Terraform; full for
+unapplied code) → on a problem, a GitHub issue labeled `drift` plus a Teams
+card; daily reminder while open; closes itself and posts ✅ when AWS matches
+again. The daily health report also verifies the drift check ran recently.
 
 **Daily health report:** EventBridge Scheduler, 7 AM Eastern →
 `ih-site-health` → checks pages, redirects, headers, certificate, contact

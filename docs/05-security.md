@@ -36,6 +36,7 @@ problems to the team.
 | **Defense in depth on public endpoints** | Rate limits, size caps, concurrency caps, origin checks, signed links. |
 | **Browser hardening** | Content Security Policy, HSTS, anti-framing, no-sniff, strict referrer and permissions policies on every response. |
 | **Monitored** | Alarms and a daily health report in Teams; failures of the monitoring itself alert by email. |
+| **Configuration integrity** | AWS is compared with the code every hour; any change made outside Terraform raises a GitHub issue and a Teams alert. |
 
 ## Attack surface
 
@@ -116,6 +117,16 @@ Everything reachable from the internet, and what protects it:
 - **Encrypted secrets**: Parameter Store `SecureString` (AWS KMS).
 - **Terraform state** in a private, versioned S3 bucket with locking.
 - **Log retention** of 30 days on every log group.
+- **Hourly drift detection**: a scheduled GitHub Actions job compares live
+  AWS with `infra/` on `main` using a read-only role. Changes made outside
+  Terraform (console, CLI, other tools) and merged-but-unapplied changes
+  open a tracked GitHub issue and a Teams alert, with a daily reminder until
+  resolved. The daily health report independently verifies the check is
+  running, so a disabled schedule can't hide drift.
+- **Change review**: `CODEOWNERS` requests the site owner's review on every
+  pull request touching infrastructure, CI, security headers, build
+  configuration or dependencies; the `plan` check shows each one's exact
+  AWS impact.
 
 ### Source code and supply chain
 
@@ -149,6 +160,8 @@ Everything reachable from the internet, and what protects it:
 | Vulnerable dependency | Known CVE in a library | Dependabot updates; CI-tested; static output limits exploitability | Low |
 | Compromised CI | Malicious workflow change | Read-only tokens; read-only AWS role; workflow changes go through protected PRs | Low |
 | Accidental production break | Bad change merged | Required checks, staging for risky changes, fast rollback, daily health checks | Low |
+| Unauthorized or accidental AWS change | Console edit to a Lambda, IAM role, or alarm | Hourly drift detection with tracked issue and Teams alert; Terraform restores the defined state | Low; detected within ~1 hour |
+| Infra change slipped through review | PR that deletes or replaces a resource | `plan` on every PR shows destroys/replacements; CODEOWNERS review; humans apply | Low |
 | Expired integration credential | Jira token lapses silently | Expiry tracked; Highest-priority reminder ticket at 14 days; daily ❌ at 7 days | Very low |
 
 ## Secrets inventory and rotation
@@ -209,6 +222,7 @@ commit secrets, ask before applying infrastructure).
 | Alarms | CloudWatch → Teams and email | Alarm history in CloudWatch |
 | Daily security-relevant checks | Teams: security headers present, certificate expiry, redirects, alarms | Teams channel history |
 | Code and configuration changes | GitHub pull requests and commit history | Permanent |
+| Drift findings | GitHub issues labeled `drift` (opened, reminded, closed automatically) + Teams | Permanent (issues) |
 | Infrastructure changes | Pull requests + Terraform plans in CI job summaries | Permanent (PRs); state versioned in S3 |
 
 Monitoring is self-checking: if the health reporter fails, an alarm emails
@@ -224,6 +238,10 @@ endpoints, or a reported vulnerability.
 1. **Contain**
    - Credential exposed → rotate it immediately ([secrets table](#secrets-inventory-and-rotation)).
      For the Jira token, also revoke it at id.atlassian.com.
+   - Unexplained drift (AWS changed outside Terraform) → identify the change
+     from the drift issue, check who made it (AWS CloudTrail, if enabled),
+     restore with `terraform apply`, and rotate any credentials that could
+     have been used.
    - Unexpected site content → roll back to the last known-good build
      (Amplify redeploy, or revert the pull request), then investigate.
    - Endpoint abuse → limits already cap impact; if needed, temporarily
@@ -250,14 +268,14 @@ addressed by this site's design:
 | **AC** Access Control | AC-3, AC-6 (least privilege) | Per-function IAM roles scoped to resources; read-only CI role; protected branches |
 | **AU** Audit and Accountability | AU-2, AU-6, AU-11 | CloudWatch logs for all functions; 30-day retention; PR and commit history for all changes |
 | **CA** Assessment, Authorization and Monitoring | CA-7 (continuous monitoring) | Daily automated health report; alarms; error reporting |
-| **CM** Configuration Management | CM-2, CM-3, CM-5, CM-8 | Infrastructure as code; baseline in git; changes via PR with CI; restricted change rights on `main`; component inventory in [Architecture](02-architecture.md) |
+| **CM** Configuration Management | CM-2, CM-3, CM-5, CM-6, CM-8 | Infrastructure as code; baseline in git; changes via PR with CI and plan preview; CODEOWNERS review; restricted change rights on `main`; hourly detection of deviations from the baseline; component inventory in [Architecture](02-architecture.md) |
 | **CP** Contingency Planning | CP-9, CP-10 | Code in GitHub, versioned Terraform state; documented rebuild ([DR](06-disaster-recovery.md)) |
 | **IA** Identification and Authentication | IA-5 (authenticator management) | Secrets in Parameter Store; tracked expiry and rotation; scoped tokens; OIDC short-lived credentials for CI |
 | **IR** Incident Response | IR-4, IR-5, IR-6 | Documented procedure; alert-to-ticket workflow; incident tracking in Jira |
 | **RA** Risk Assessment | RA-3, RA-5 | Threat model (above); Dependabot vulnerability updates |
 | **SA** System and Services Acquisition | SA-8, SA-10, SA-11 | Secure-by-design architecture; developer configuration management; CI testing |
 | **SC** System and Communications Protection | SC-5, SC-7, SC-8, SC-13, SC-28 | Rate and concurrency limits; minimal boundary; TLS/HSTS; HMAC signing; encryption at rest |
-| **SI** System and Information Integrity | SI-2, SI-4, SI-10 | Dependency patching; monitoring and alerting; input validation on all endpoints |
+| **SI** System and Information Integrity | SI-2, SI-4, SI-7, SI-10 | Dependency patching; monitoring and alerting; hourly configuration integrity check (drift); input validation on all endpoints |
 | **SR** Supply Chain Risk Management | SR-3 | Lockfile installs; pinned build image; dependency updates reviewed through CI |
 
 ## Residual risks and open items

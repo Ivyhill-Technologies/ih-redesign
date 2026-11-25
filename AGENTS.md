@@ -120,6 +120,20 @@ enforced by CI, so fix it locally with the command above.
   GitHub OIDC (`infra/ci.tf`). Read the plan in the job summary before you
   apply. CI never applies. If infra/ starts using a new AWS service, add its
   read actions to that role's policy, or the plan fails with AccessDenied.
+- **Drift check** (`.github/workflows/drift.yml`, script
+  `.github/scripts/drift-alert.sh`): hourly on `main`, read-only role
+  `ih-redesign-terraform-drift` (`infra/ci.tf`, trusted only for
+  `refs/heads/main`). Refresh-only plan = changed outside Terraform; full
+  plan = unapplied. Problems open one GitHub issue labeled `drift` + a Teams
+  card, remind daily at 13:00 UTC, auto-close on a clean run. The health
+  report's "Infrastructure drift" check watches it (GitHub disables
+  schedules after 60 days of inactivity in public repos). Never change
+  `infra/`-managed resources in the console; fix drift with `terraform apply`
+  or a PR. Both CI roles share `local.terraform_read_statements`: add read
+  actions there when infra/ uses a new AWS service.
+- The `plan` PR check runs on every PR into `main` and skips its steps when
+  `infra/` is untouched, so it can be a required check. `.github/CODEOWNERS`
+  requests Evan's review on infra, CI, build and dependency paths.
 - CORS only allows the production, Amplify branch, and localhost origins listed
   in `infra/main.tf`. A new domain must be added there.
 - Spam controls: hidden `website` honeypot field, server-side validation,
