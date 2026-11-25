@@ -28,6 +28,7 @@ Hosted on AWS Amplify Hosting. The only dynamic piece is the contact form
   Actions) and monthly (Terraform providers). Minor/patch groups can merge
   once CI passes. Major bumps count as risky: test them on `staging` first.
   `react-router-dom` majors are ignored because `vite-react-ssg` needs v6.
+  React and Vite/Tailwind packages are grouped so they move together.
 - **Keep `staging` identical to `main`.** After any merge into `main`, run
   `git checkout staging && git pull && git merge --ff-only origin/main && git push`.
   `staging` accepts direct pushes but can't be deleted or force-pushed.

@@ -8,7 +8,13 @@ updates:
           interval: weekly
           day: monday
       open-pull-requests-limit: 5
+      # Packages that must move together get one PR per set, including majors
+      # (a lone react or vite major bump can't build). First matching group wins.
       groups:
+          react:
+              patterns: [react, react-dom]
+          vite:
+              patterns: [vite, "@vitejs/*", "@tailwindcss/vite", tailwindcss]
           npm-minor-patch:
               update-types: [minor, patch]
       # vite-react-ssg only supports react-router-dom 6.
