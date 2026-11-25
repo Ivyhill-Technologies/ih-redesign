@@ -60,3 +60,6 @@ screenshots/
 
 # Editor settings (personal, not shared)
 .zed/
+
+# Personal notes (meeting prep, demos). Not part of the site.
+notes/

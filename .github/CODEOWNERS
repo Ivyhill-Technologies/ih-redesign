@@ -1,0 +1,11 @@
+# Changes to these paths can affect AWS, CI, or how the site is built and
+# secured, so GitHub automatically requests Evan's review on any pull request
+# that touches them. (Review isn't a required check yet: GitHub doesn't let
+# authors approve their own pull requests, and Evan authors most of them.)
+/infra/            @evanh1393
+/.github/          @evanh1393
+/customHttp.yml    @evanh1393
+/amplify.yml       @evanh1393
+/vite.config.js    @evanh1393
+/package.json      @evanh1393
+/package-lock.json @evanh1393
