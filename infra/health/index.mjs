@@ -260,6 +260,16 @@ const recentClientErrors = async (minutes = 15) => {
     return events.map((e) => ({ time: e.timestamp, ...JSON.parse(e.message) })).sort((a, b) => b.time - a.time);
 };
 
+// Report fields come from anyone who can POST to the public log endpoint, and
+// Teams renders markdown in cards. Strip link syntax and defang URLs so a fake
+// report can't put a clickable (phishing) link in the channel. Also cap length.
+const untrusted = (v, max = 300) =>
+    String(v ?? "")
+        .replace(/[[\]<>]/g, "")
+        .replace(/\bhttp(s?):\/\//gi, "hxxp$1://")
+        .replace(/\bwww\./gi, "www[.]")
+        .slice(0, max);
+
 const when = (ms) => new Date(ms).toLocaleString("en-US", { timeZone: "America/New_York", dateStyle: "medium", timeStyle: "medium" });
 
 // CloudWatch alarm → SNS → here.
@@ -293,11 +303,11 @@ const alarmPost = async (record) => {
             const pages = [...new Set(errors.map((x) => x.page))].join(", ");
             facts.push(
                 { title: "Errors (15 min)", value: String(errors.length) },
-                { title: "Latest", value: e.message },
-                { title: "Page", value: `${e.host ?? ""}${e.page ?? ""}` },
-                { title: "Pages affected", value: pages },
-                { title: "Build", value: e.commit ?? "" },
-                { title: "Browser", value: e.userAgent ?? "" },
+                { title: "Latest", value: untrusted(e.message) },
+                { title: "Page", value: untrusted(`${e.host ?? ""}${e.page ?? ""}`) },
+                { title: "Pages affected", value: untrusted(pages) },
+                { title: "Build", value: untrusted(e.commit, 20) },
+                { title: "Browser", value: untrusted(e.userAgent) },
             );
             ticket = {
                 summary: `Site error: ${e.message} on ${e.page}`,
