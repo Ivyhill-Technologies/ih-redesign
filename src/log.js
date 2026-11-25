@@ -55,7 +55,8 @@ export const installErrorHandlers = () => {
     if (installed || typeof window === "undefined") return;
     installed = true;
     window.addEventListener("error", (e) =>
-        log.error(`Uncaught: ${e.message}`, e.error ?? { source: e.filename, line: e.lineno }),
+        // Browsers already prefix the message ("Uncaught Error: ..."), so no prefix here.
+        log.error(e.message || "Uncaught error", e.error ?? { source: e.filename, line: e.lineno }),
     );
     window.addEventListener("unhandledrejection", (e) => log.error("Unhandled promise rejection", e.reason));
 };
