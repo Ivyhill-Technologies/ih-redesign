@@ -124,6 +124,58 @@ enforced by CI, so fix it locally with the command above.
   out. If you change that log message, update the filter. New addresses must
   click the SNS confirmation email.
 
+## Client logging
+
+- `src/log.js` has two levels. `log.debug()` prints to the browser console
+  only: on in dev, and in production only after
+  `localStorage.setItem("ih-debug", "1")` in that browser. `log.error()` also
+  sends a report (production builds only, max 10 per page load) via
+  `sendBeacon` to `LOG_URL` (`src/config.js`).
+- `installErrorHandlers()` (called from `src/main.jsx`, client only) reports
+  uncaught errors and unhandled promise rejections.
+- The receiver is the `ih-client-log` Lambda (`infra/client-log.tf`, code in
+  `infra/client-log/index.mjs`). It caps size, rate limits per IP (30/hour,
+  sharing the contact form's DynamoDB table with a `log#` key prefix), and
+  writes one JSON line per report to `/aws/lambda/ih-client-log` (30 days).
+  It always answers 204.
+- Query in CloudWatch Logs Insights on that log group, e.g.
+  `fields @timestamp, message, page, host, commit, data.stack | filter source = "client" | sort @timestamp desc`.
+- Use `log.error()` for failures we should hear about, not for user mistakes
+  (validation, 400/429). Never put form contents or personal details in a report.
+- If `LOG_URL` changes, update `connect-src` in `customHttp.yml` too.
+- Browser errors alarm: a metric filter counts reports, and the alarm
+  `ih-site-client-errors` (1+ in 5 min) notifies SNS topic `ih-site-errors`,
+  which goes only to the health Lambda (Teams), not email. The card lists the
+  latest errors (read from the log group). Because anyone can send fake
+  reports: at most one browser-error card per hour (DynamoDB row
+  `card#client-errors`), no "recovered" card, and the daily card shows
+  "Browser errors (24h)" by page. The Lambda also drops reports whose
+  `Origin` isn't in `local.allowed_origins` (a filter, not a lock: curl can
+  fake it). The demo script sets `Demo: true` to skip the cap.
+
+## Jira tickets from Teams
+
+- Demo/test: `scripts/demo-site-error.sh` sends a TEST error report; `--now N`
+  also posts N alarm cards immediately (each with its own Jira button).
+- Teams cards for firing alarms and failing daily checks have a "Create Jira
+  ticket" button: a link to the `ih-jira-ticket` Lambda (`infra/jira-ticket.tf`,
+  code in `infra/jira-ticket/index.mjs`), signed by the health Lambda
+  (HMAC, SSM `/ih-redesign/jira-link-secret`) and valid 30 days. GET shows a
+  preview; POST creates a Bug in project IW and redirects to it. One ticket
+  per link (dedupe rows `jira#<sig>` in the rate limit table).
+- Jira auth: SSM `/ih-redesign/jira-token` = `email:token`, a scoped
+  Atlassian token (`write:jira-work`) on Evan's account, called via
+  `api.atlassian.com/ex/jira/<cloudId>`. Site, cloud ID, project and issue
+  type IDs are in `local.jira` in `jira-ticket.tf`. Commands to set both
+  secrets are in that file's header.
+- **The token expires** on `local.jira.token_expires` (2027-02-08). The daily
+  health check "Jira token" invokes the Jira Lambda directly 14 days before
+  to open a Highest priority renewal Bug in IW (once per expiry date), and
+  fails (❌ in Teams) every day from 7 days before. To renew: new scoped
+  token → SSM (command in `jira-ticket.tf`) → update `token_expires` → PR →
+  `terraform apply` → revoke the old token. If Jira returns 401, it lapsed.
+
+
 ## Gotchas
 
 - Node 26 is required (`engines`, `.mise.toml`, `amplify.yml` must agree).

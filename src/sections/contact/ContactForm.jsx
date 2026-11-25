@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Icon } from "../../components/Icons.jsx";
 import { CONTACT_URL } from "../../config.js";
+import { log } from "../../log.js";
 
 const INITIAL = {
     firstName: "",
@@ -78,12 +79,16 @@ export function ContactForm() {
                 });
                 if (!res.ok) {
                     const body = await res.json().catch(() => ({}));
+                    // 400/429 are the visitor's to fix; anything else is ours.
+                    if (res.status >= 500) log.error("Contact form submit failed", { status: res.status });
                     throw new Error(body.error ?? "Something went wrong. Please try again.");
                 }
                 setStatus("success");
                 setSubmitError(null);
                 formApi.reset();
             } catch (err) {
+                // fetch() itself rejects on network/CORS failures (no response at all).
+                if (err instanceof TypeError) log.error("Contact form request failed", err);
                 setStatus("error");
                 setSubmitError(err?.message ?? "Something went wrong. Please try again.");
             }

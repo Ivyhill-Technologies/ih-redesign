@@ -20,7 +20,7 @@ customHeaders:
                 style-src 'self' 'unsafe-inline';
                 img-src 'self' data:;
                 font-src 'self';
-                connect-src 'self' https://udhccr6nxn422hdz5v2gnhrezm0ciydp.lambda-url.us-east-1.on.aws;
+                connect-src 'self' https://udhccr6nxn422hdz5v2gnhrezm0ciydp.lambda-url.us-east-1.on.aws https://v7z3wffbslan2ivdraxqjkgyea0txqoj.lambda-url.us-east-1.on.aws;
                 object-src 'none';
                 base-uri 'self';
                 form-action 'self';
