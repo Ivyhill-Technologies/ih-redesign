@@ -22,7 +22,7 @@ Hosted on AWS Amplify Hosting. The only dynamic piece is the contact form
 - If the user asks you to push to `main` or merge without a PR, explain the
   rule above and open a PR instead.
 - **Risky changes go through `staging` first**: dependency updates, Node
-  version, `amplify.yml`, `vite.config.js`, anything build-related. Merge
+  version, `amplify.yml`, `customHttp.yml`, `vite.config.js`, anything build-related. Merge
   the branch into `staging`, check the staging site, then PR `staging` → `main`.
 - **Keep `staging` identical to `main`.** After any merge into `main`, run
   `git checkout staging && git pull && git merge --ff-only origin/main && git push`.
@@ -68,6 +68,9 @@ enforced by CI, so fix it locally with the command above.
   `staging` → password-protected staging URL.
 - The build is defined in `amplify.yml` in the repo. It overrides the build
   settings in the Amplify console.
+- Security headers (CSP, HSTS, etc.) live in `customHttp.yml`. Any new
+  third-party script, font, image host or API must be added to the CSP there,
+  or the browser will block it. Changes to it go through `staging` first.
 - The footer shows `<commit> · <build date>` (from Vite `define` in
   `vite.config.js`), so you can tell which build is live. It shows `dev` locally.
 
