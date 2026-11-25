@@ -6,8 +6,8 @@
 
 **A migration from a WordPress marketing site to a modern, federal-IT-grade web application.**
 
-[![Node](https://img.shields.io/badge/node-22-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
-[![Vite](https://img.shields.io/badge/vite-5-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Node](https://img.shields.io/badge/node-26-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Vite](https://img.shields.io/badge/vite-6-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
 [![React](https://img.shields.io/badge/react-18-61DAFB?logo=react&logoColor=black)](https://react.dev/)
 [![Biome](https://img.shields.io/badge/biome-2.4-60A5FA?logo=biome&logoColor=white)](https://biomejs.dev/)
 [![Brand](https://img.shields.io/badge/Ivyhill_Green-%2380B941-80B941)](#brand)
@@ -42,9 +42,9 @@ addresses contracting officers, not casual visitors.
 
 ## Stack
 
-- **Node 22** — pinned via `.mise.toml`, so `mise install` provisions the
+- **Node 26** — pinned via `.mise.toml`, so `mise install` provisions the
   exact version on a fresh machine.
-- **Vite 5** + **React 18** + **React Router 6** — single-page app, two
+- **Vite 6** + **React 18** + **React Router 6** — single-page app, two
   routes today (`/`, `/contracts`), wired for more.
 - **Inter Variable** + design tokens — every color, font size, spacing step,
   radius, shadow, and motion curve lives in `src/styles/tokens.css`.
@@ -56,8 +56,8 @@ addresses contracting officers, not casual visitors.
 ## Run it
 
 ```sh
-mise install        # first time only — picks up Node 22 from .mise.toml
-npm install
+mise install        # first time only — picks up Node 26 from .mise.toml
+npm ci
 npm run dev         # http://localhost:5173
 ```
 
@@ -68,6 +68,12 @@ npm run dev         # http://localhost:5173
 | `npm run preview` | Serve the production build locally |
 | `npm run check` | Biome lint + format check |
 | `npm run lint:fix` | Apply Biome fixes |
+
+### Contact form backend
+
+The contact form posts to one AWS Lambda function that emails submissions
+to info@ivyhilltech.com via SES. It's defined in `infra/` with Terraform
+(state in S3). To change it: edit `infra/`, then `cd infra && terraform apply`.
 
 ---
 
@@ -98,7 +104,6 @@ src/
     HomePage.jsx, ContractsPage.jsx, NotFoundPage.jsx
   App.jsx           # router
   main.jsx          # entry
-_design-source/     # the original design bundle (chats + prototype JSX) — reference only
 ```
 
 ---
@@ -126,20 +131,17 @@ HQ in Hyattsville/College Park, MD.
 </tr>
 </table>
 
-The complete brand brief, voice rules, and visual foundations live in
-[`_design-source/project/README.md`](_design-source/project/README.md).
 
 ---
 
 ## Notes
 
+- **Contributing:** `main` is protected. Make changes on a branch and open a
+  pull request; see `AGENTS.md` for the full workflow.
+
 - The single `Header` component is consumed by `SiteShell`, so every page
   renders the same header — homepage spacing is the golden thumb.
-- `_design-source/` is kept for reference. It contains the original design
-  bundle from claude.ai/design, including the chat transcripts that document
-  why specific decisions were made.
-- Agency seals and the Lucide icon CDN are not bundled — production sourcing
-  is documented in the design source README.
+- Agency seals and the Lucide icon CDN are not bundled.
 - A `.env` file is reserved for future configuration (API endpoints, feature
   flags). It is git-ignored; commit a `.env.example` if/when shared variables
   are needed.

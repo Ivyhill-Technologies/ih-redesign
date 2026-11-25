@@ -69,11 +69,10 @@ export function Hero() {
                             </span>
                         </p>
                         <p className="text-[16px] md:text-[18px] leading-[1.55] text-ink-300 max-w-[620px] m-0 mb-9">
-                            Ivyhill Technologies is an Enterprise Information Management service provider. 
-                            We offer cost-effective solutions and quality staffing to commercial businesses, 
-                            and Federal, State, & Local Government Agencies. Committed to excellence in an 
-                            ever-changing business climate, Ivyhill Technologies partners with its customers 
-                            to meet their objectives while exceeding their expectations.
+                            Ivyhill Technologies is an Enterprise Information Management service provider. We offer cost-effective
+                            solutions and quality staffing to commercial businesses, and Federal, State, & Local Government
+                            Agencies. Committed to excellence in an ever-changing business climate, Ivyhill Technologies partners
+                            with its customers to meet their objectives while exceeding their expectations.
                         </p>
                         <div className="flex gap-3 flex-wrap items-center">
                             <a

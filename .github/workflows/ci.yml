@@ -20,6 +20,4 @@ jobs:
                   restore-keys: npm-
             - run: npm ci --no-audit --no-fund
             - run: npm run check
-            - name: Stub amplify_outputs.json for CI build
-              run: echo '{}' > amplify_outputs.json
             - run: npm run build

@@ -22,7 +22,7 @@ const SERVICES = [
         slug: "information-management",
         desc: "Creation/capture of information Classification and metadata tagging, Storage and archiving",
         icon: Icon.Archive,
-    },    
+    },
     {
         name: "Records Management",
         slug: "records-management",
