@@ -11,6 +11,7 @@ import { connect } from "node:tls";
 import { AmplifyClient, ListJobsCommand } from "@aws-sdk/client-amplify";
 import { CloudWatchClient, DescribeAlarmsCommand } from "@aws-sdk/client-cloudwatch";
 import { CloudWatchLogsClient, FilterLogEventsCommand } from "@aws-sdk/client-cloudwatch-logs";
+import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
 import { GetParameterCommand, SSMClient } from "@aws-sdk/client-ssm";
 
 const SITE = "https://www.ivyhilltech.com";
@@ -18,6 +19,7 @@ const APEX = "https://ivyhilltech.com";
 const { WEBHOOK_PARAM, CONTACT_URL, AMPLIFY_APP_ID, ALARM_PREFIX, CLIENT_LOG_GROUP, JIRA_LINK_URL, LINK_SECRET_PARAM } =
     process.env;
 const LINK_TTL_DAYS = Number(process.env.LINK_TTL_DAYS || 30);
+const { JIRA_FUNCTION, JIRA_TOKEN_EXPIRES } = process.env; // expiry: YYYY-MM-DD
 const CLIENT_ERRORS_ALARM = "ih-site-client-errors";
 const logsUrl = (group) =>
     `https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#logsV2:log-groups/log-group/${encodeURIComponent(encodeURIComponent(group)).replace(/%/g, "$")}`;
@@ -132,6 +134,41 @@ const checkDeploy = () =>
         return { ok, detail: `${j.status} · ${when} · ${j.commitId.slice(0, 7)}` };
     });
 
+// The Jira API token expires and the API can't tell us when, so the date is
+// kept in Terraform (local.jira.token_expires). 14 days out: a Highest
+// priority Jira ticket, created once. 7 days out: this check fails daily.
+const checkJiraToken = () =>
+    check("Jira token", async () => {
+        const days = Math.floor((Date.parse(`${JIRA_TOKEN_EXPIRES}T00:00:00-05:00`) - Date.now()) / 86400000);
+        if (Number.isNaN(days)) return { ok: false, detail: `Bad JIRA_TOKEN_EXPIRES: ${JIRA_TOKEN_EXPIRES}` };
+        let detail = days >= 0 ? `Expires ${JIRA_TOKEN_EXPIRES} (${days} days)` : `EXPIRED ${JIRA_TOKEN_EXPIRES}: Jira buttons are broken`;
+        if (days <= 14) {
+            const r = await new LambdaClient({}).send(
+                new InvokeCommand({
+                    FunctionName: JIRA_FUNCTION,
+                    Payload: JSON.stringify({
+                        id: `renewal#${JIRA_TOKEN_EXPIRES}`,
+                        ticket: {
+                            summary: `Renew the ih-site-health Jira API token (expires ${JIRA_TOKEN_EXPIRES})`,
+                            priority: "Highest",
+                            facts: [
+                                ["Expires", JIRA_TOKEN_EXPIRES],
+                                ["Breaks", "Create Jira ticket buttons on the Teams cards, and this reminder"],
+                                ["1", "id.atlassian.com → Security → API tokens → Create API token with scopes: Jira, write:jira-work"],
+                                ["2", "Store it: see the header of infra/jira-ticket.tf (SSM /ih-redesign/jira-token, email:token)"],
+                                ["3", "Set local.jira.token_expires in infra/jira-ticket.tf to the new date; PR, then terraform apply"],
+                                ["4", "Revoke the old token"],
+                            ],
+                        },
+                    }),
+                }),
+            );
+            const out = JSON.parse(Buffer.from(r.Payload ?? []).toString() || "{}");
+            detail += r.FunctionError ? ` · renewal ticket FAILED: ${out.errorMessage ?? "unknown"}` : ` · renewal ticket ${out.key}`;
+        }
+        return { ok: days > 7, warn: days <= 14, detail };
+    });
+
 const icon = (c) => (!c.ok ? "❌" : c.warn ? "⚠️" : "✅");
 
 const card = (title, color, facts, footer, actions = []) => ({
@@ -190,6 +227,7 @@ const dailyReport = async () => {
         checkContact(),
         checkAlarms(),
         checkDeploy(),
+        checkJiraToken(),
     ]);
     const failed = results.filter((c) => !c.ok).length;
     const title = failed ? `❌ ivyhilltech.com: ${failed} check${failed > 1 ? "s" : ""} failing` : "✅ ivyhilltech.com is healthy";

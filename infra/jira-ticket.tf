@@ -21,6 +21,11 @@ locals {
     token_param   = "/ih-redesign/jira-token"
     secret_param  = "/ih-redesign/jira-link-secret"
     link_ttl_days = 30
+
+    # When the token in jira-token expires (shown on id.atlassian.com). The
+    # daily health check opens a Highest priority renewal ticket 14 days
+    # before and fails every day from 7 days before. Update after renewing.
+    token_expires = "2027-02-08"
   }
 }
 

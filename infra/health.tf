@@ -42,6 +42,8 @@ resource "aws_iam_role_policy" "health" {
           "arn:aws:ssm:us-east-1:860184462664:parameter${local.jira.secret_param}",
         ]
       },
+      # Opens the Jira token renewal ticket (daily check, 14 days before expiry).
+      { Effect = "Allow", Action = "lambda:InvokeFunction", Resource = aws_lambda_function.jira_ticket.arn },
       # Reads recent browser errors to put their details on the alarm card.
       { Effect = "Allow", Action = "logs:FilterLogEvents", Resource = "${aws_cloudwatch_log_group.client_log.arn}:*" },
       { Effect = "Allow", Action = "cloudwatch:DescribeAlarms", Resource = "*" },
@@ -67,14 +69,16 @@ resource "aws_lambda_function" "health" {
 
   environment {
     variables = {
-      WEBHOOK_PARAM     = local.webhook_param
-      CONTACT_URL       = aws_lambda_function_url.contact.function_url
-      AMPLIFY_APP_ID    = local.amplify_app_id
-      ALARM_PREFIX      = "ih-"
-      CLIENT_LOG_GROUP  = aws_cloudwatch_log_group.client_log.name
-      JIRA_LINK_URL     = aws_lambda_function_url.jira_ticket.function_url
-      LINK_SECRET_PARAM = local.jira.secret_param
-      LINK_TTL_DAYS     = local.jira.link_ttl_days
+      WEBHOOK_PARAM      = local.webhook_param
+      CONTACT_URL        = aws_lambda_function_url.contact.function_url
+      AMPLIFY_APP_ID     = local.amplify_app_id
+      ALARM_PREFIX       = "ih-"
+      CLIENT_LOG_GROUP   = aws_cloudwatch_log_group.client_log.name
+      JIRA_LINK_URL      = aws_lambda_function_url.jira_ticket.function_url
+      LINK_SECRET_PARAM  = local.jira.secret_param
+      LINK_TTL_DAYS      = local.jira.link_ttl_days
+      JIRA_FUNCTION      = aws_lambda_function.jira_ticket.function_name
+      JIRA_TOKEN_EXPIRES = local.jira.token_expires
     }
   }
 

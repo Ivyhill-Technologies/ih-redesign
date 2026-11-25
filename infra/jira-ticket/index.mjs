@@ -5,6 +5,8 @@
 // expiry, so only links we generated can create tickets. The preview step
 // stops link scanners from creating tickets just by opening the URL. A link
 // creates at most one ticket: later clicks redirect to the first one.
+// Direct invoke (health Lambda only, by IAM): { id, ticket } creates the
+// ticket once per id and returns { key }. Used for the token renewal reminder.
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { DeleteItemCommand, DynamoDBClient, GetItemCommand, PutItemCommand, UpdateItemCommand } from "@aws-sdk/client-dynamodb";
 import { GetParameterCommand, SSMClient } from "@aws-sdk/client-ssm";
@@ -36,9 +38,10 @@ const verify = async (d, s) => {
 };
 
 // --- One ticket per link ----------------------------------------------------
-// Rows live in the shared rate limit table under "jira#<sig>" and expire via TTL.
+// Rows live in the shared rate limit table under "jira#<id>" (id = the link's
+// signature, or a caller-chosen id for direct invokes) and expire via TTL.
 
-const dedupeKey = (s) => ({ pk: { S: `jira#${s}` } });
+const dedupeKey = (id) => ({ pk: { S: `jira#${id}` } });
 
 const existingIssue = async (s) => {
     const { Item } = await db.send(new GetItemCommand({ TableName: DEDUPE_TABLE, Key: dedupeKey(s), ConsistentRead: true }));
@@ -153,7 +156,26 @@ ${p.stack ? `<pre>${esc(p.stack)}</pre>` : ""}
 
 // --- Handler ----------------------------------------------------------------
 
+// Direct invoke: create once per id, return the key. Throws so the caller sees failures.
+const createOnce = async ({ id, ticket, keepDays = 60 }) => {
+    const existing = await existingIssue(id);
+    if (existing && existing !== "pending") return { key: existing, created: false };
+    if (!(await claim(id, Date.now() + keepDays * 86400000))) throw new Error(`Ticket ${id} is already being created`);
+    try {
+        const key = await createIssue(ticket);
+        await record(id, key);
+        console.log(JSON.stringify({ source: "jira-ticket", created: key, summary: ticket.summary }));
+        return { key, created: true };
+    } catch (err) {
+        await db.send(new DeleteItemCommand({ TableName: DEDUPE_TABLE, Key: dedupeKey(id) })).catch(() => {});
+        throw err;
+    }
+};
+
 export const handler = async (event) => {
+    // Function URL events always have requestContext.http; direct invokes don't.
+    if (!event.requestContext?.http) return createOnce(event);
+
     const method = event.requestContext?.http?.method;
     const { d, s } = event.queryStringParameters ?? {};
     const p = await verify(d, s);

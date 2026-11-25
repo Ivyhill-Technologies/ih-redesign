@@ -161,8 +161,12 @@ enforced by CI, so fix it locally with the command above.
   `api.atlassian.com/ex/jira/<cloudId>`. Site, cloud ID, project and issue
   type IDs are in `local.jira` in `jira-ticket.tf`. Commands to set both
   secrets are in that file's header.
-- **The token expires** (see `local.jira` once the renewal check exists).
-  If Jira returns 401, the token lapsed: make a new one and store it in SSM.
+- **The token expires** on `local.jira.token_expires` (2027-02-08). The daily
+  health check "Jira token" invokes the Jira Lambda directly 14 days before
+  to open a Highest priority renewal Bug in IW (once per expiry date), and
+  fails (❌ in Teams) every day from 7 days before. To renew: new scoped
+  token → SSM (command in `jira-ticket.tf`) → update `token_expires` → PR →
+  `terraform apply` → revoke the old token. If Jira returns 401, it lapsed.
 
 
 ## Gotchas
