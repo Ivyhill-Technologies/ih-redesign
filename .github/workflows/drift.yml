@@ -55,10 +55,21 @@ jobs:
                       cp init.txt plan.txt
                   fi
                   set -e
+                  # The refresh-only plan also reports computed values that change on
+                  # their own (e.g. an IAM role's "last used" time), so it alone isn't
+                  # drift. Drift = the full plan wants to change a resource that the
+                  # refresh-only plan saw changed or deleted outside Terraform.
+                  : > drifted.txt
+                  if [ -f drift.txt ]; then
+                      grep -oE '^  # [^ ]+ has (changed|been deleted)' drift.txt | awk '{print $2}' | sort -u |
+                      while read -r r; do
+                          if grep -qF "  # $r will be" plan.txt || grep -qF "  # $r must be" plan.txt; then echo "$r" >> drifted.txt; fi
+                      done
+                  fi
                   if   [ $d -eq 1 ] || [ $p -eq 1 ]; then status=error
-                  elif [ $d -eq 2 ]; then status=drift
-                  elif [ $p -eq 2 ]; then status=pending
-                  else status=clean; fi
+                  elif [ $p -eq 0 ]; then status=clean
+                  elif [ -s drifted.txt ]; then status=drift
+                  else status=pending; fi
                   echo "status=$status" >> "$GITHUB_OUTPUT"
                   {
                       echo "## Drift check: \`$status\`"

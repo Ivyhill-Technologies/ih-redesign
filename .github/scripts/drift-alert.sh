@@ -62,9 +62,12 @@ pending)
     what="The drift check couldn't run terraform plan, so drift can't be ruled out." ;;
 esac
 
-# The interesting plan lines: what changed and the totals.
-summary=$(grep -hE '^  # |^Plan:|^Error:|No changes' drift.txt plan.txt 2>/dev/null |
-    sed -E 's/^ *# //' | awk '!seen[$0]++' | head -25 || true)
+# The interesting lines: what the full plan would do (and its totals), plus
+# which resources were changed outside Terraform (drifted.txt, from drift.yml).
+summary=$({
+    [[ -s drifted.txt ]] && sed 's/^/Changed outside Terraform: /' drifted.txt
+    grep -hE '^  # |^Plan:|^Error:' plan.txt 2>/dev/null | sed -E 's/^ *# //'
+} | awk '!seen[$0]++' | head -25 || true)
 [[ -n "$summary" ]] || summary="(no plan output; see the run)"
 bullets=$(sed 's/^/- /' <<<"$summary")
 
