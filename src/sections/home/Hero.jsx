@@ -15,7 +15,9 @@ const AUDIENCES = ["agencies and enterprises", "federal missions", "program offi
 export function Hero() {
     const [index, setIndex] = useState(0);
     const [isVisible, setVisible] = useState(true);
-    // simple comment
+    const [reduceMotion, setReduceMotion] = useState(false);
+
+    // Pause the rotation while the tab is hidden.
     useEffect(() => {
         setVisible(!document.hidden);
         const onChange = () => setVisible(!document.hidden);
@@ -23,13 +25,22 @@ export function Hero() {
         return () => document.removeEventListener("visibilitychange", onChange);
     }, []);
 
+    // Respect the OS "reduce motion" setting: show the first audience and don't rotate.
     useEffect(() => {
-        if (!isVisible) return;
+        const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+        setReduceMotion(mq.matches);
+        const onChange = () => setReduceMotion(mq.matches);
+        mq.addEventListener("change", onChange);
+        return () => mq.removeEventListener("change", onChange);
+    }, []);
+
+    useEffect(() => {
+        if (!isVisible || reduceMotion) return;
         const id = setInterval(() => {
             setIndex((i) => (i + 1) % AUDIENCES.length);
         }, 4000);
         return () => clearInterval(id);
-    }, [isVisible]);
+    }, [isVisible, reduceMotion]);
 
     return (
         <section className="relative overflow-hidden bg-steel-900">
@@ -58,7 +69,7 @@ export function Hero() {
                                 {AUDIENCES.map((a, i) => (
                                     <span
                                         key={a}
-                                        className={`col-start-1 row-start-1 transition-opacity duration-500 ${
+                                        className={`col-start-1 row-start-1 transition-opacity duration-500 motion-reduce:transition-none ${
                                             i === index ? "opacity-100" : "opacity-0"
                                         }`}
                                         aria-hidden={i !== index}

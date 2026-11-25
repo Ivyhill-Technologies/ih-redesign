@@ -1,4 +1,4 @@
-# Light PR check: lint for real bugs and make sure the site builds.
+# Light PR check: lint for real bugs, run unit tests, and make sure the site builds.
 # Formatting is not enforced here; run `npx biome check --write .` locally.
 name: CI
 
@@ -31,5 +31,7 @@ jobs:
             - run: npm ci --no-audit --no-fund
             - name: Lint
               run: npm run lint
+            - name: Test
+              run: npm test
             - name: Build
               run: npm run build

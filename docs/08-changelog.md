@@ -2,6 +2,12 @@
 
 Releases to production, newest first. Numbers are GitHub pull requests.
 
+## Unreleased
+
+- Unit tests for the contact form rules and the contact Lambda, run in CI
+- Hero's rotating text respects the OS "reduce motion" setting
+- README: live link and screenshot
+
 ## 2026-11-25: Monitoring, Jira integration, security hardening
 
 **Error logging and alerting**

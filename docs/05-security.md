@@ -79,7 +79,10 @@ Everything reachable from the internet, and what protects it:
 - Email sent only from the verified ivyhilltech.com SES identity, with DKIM
   signing, so messages pass DMARC (domain policy `p=reject`).
 - Per-visitor rate limit; IPs stored only as SHA-256 hashes with automatic
-  expiry. Fails open (a DynamoDB outage doesn't block legitimate messages).
+  expiry. Fails open: a DynamoDB outage doesn't block legitimate messages.
+  We chose this because a lost sales enquiry costs more than a short burst of
+  spam, and abuse during an outage is still bounded by the reserved
+  concurrency below and SES sending quotas.
 - Reserved concurrency of 2 caps the cost and impact of floods.
 
 ### Error reporting and alerting

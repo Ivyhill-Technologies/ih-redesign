@@ -42,11 +42,12 @@ Hosted on AWS Amplify Hosting. The only dynamic piece is the contact form
 
 ```sh
 npx biome check --write .   # auto-fix formatting and safe lint issues
+npm test                    # unit tests must pass
 npm run build               # must succeed
 ```
 
-CI (`.github/workflows/ci.yml`, job `build`) runs `npm ci`, Biome **lint**, and
-the build on every PR into `main`. It is a required check. Formatting is not
+CI (`.github/workflows/ci.yml`, job `build`) runs `npm ci`, Biome **lint**, `npm test`
+and the build on every PR into `main`. It is a required check. Formatting is not
 enforced by CI, so fix it locally with the command above.
 
 ## Commands
@@ -58,6 +59,7 @@ enforced by CI, so fix it locally with the command above.
 | `npm run dev` | Dev server at http://localhost:5173 |
 | `npm run build` | Prerendered build into `dist/` |
 | `npm run check` | Biome lint + format check |
+| `npm test` | Unit tests in `test/` (Node's built-in runner) |
 
 ## Structure and conventions
 
@@ -74,6 +76,11 @@ enforced by CI, so fix it locally with the command above.
 - Styling is Tailwind utility classes plus tokens in `src/styles/`.
 - Biome is the formatter and linter (4-space indent). Don't add Prettier or ESLint.
 - Plain JSX, not TypeScript.
+- Tests: `test/*.test.mjs`, Node's built-in `node:test`, no test framework
+  dependency. Lambda tests stub `@aws-sdk/*` with a resolve hook
+  (`test/stubs/aws-sdk.mjs`), so the SDK needn't be installed. Contact form
+  rules live in `src/sections/contact/validation.js`; keep them in step with
+  `LIMITS` in `infra/lambda/index.mjs`.
 
 ## Deploys and environments
 
