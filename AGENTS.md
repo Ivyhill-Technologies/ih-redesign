@@ -80,6 +80,10 @@ enforced by CI, so fix it locally with the command above.
   `aws amplify update-app --app-id d36xm0r0jv6mrj --custom-rules file://infra/amplify-redirects.json`.
   Order matters (first match wins), and the `404-200` catch-all must stay last.
   Never delete or rename a file in `public/documents/`: old links point there.
+- Link previews: Open Graph/Twitter tags in `SiteShell`, image
+  `public/og-image.png` (1200×630), rendered from `scripts/og-image.html`
+  (the regenerate command is in that file). LinkedIn caches previews; refresh
+  them at linkedin.com/post-inspector after changing the image.
 - Security headers (CSP, HSTS, etc.) live in `customHttp.yml`. Any new
   third-party script, font, image host or API must be added to the CSP there,
   or the browser will block it. Changes to it go through `staging` first.

@@ -34,6 +34,20 @@ export function SiteShell({ children, title, description }) {
                 <title>{fullTitle}</title>
                 <meta name="description" content={fullDescription} />
                 <link rel="canonical" href={canonical} />
+                {/* Link preview card (LinkedIn, Teams, Slack, iMessage, X). Image source: scripts/og-image.html */}
+                <meta property="og:type" content="website" />
+                <meta property="og:site_name" content="Ivyhill Technologies" />
+                <meta property="og:title" content={fullTitle} />
+                <meta property="og:description" content={fullDescription} />
+                <meta property="og:url" content={canonical} />
+                <meta property="og:image" content={`${SITE_URL}/og-image.png`} />
+                <meta property="og:image:width" content="1200" />
+                <meta property="og:image:height" content="630" />
+                <meta
+                    property="og:image:alt"
+                    content="Ivyhill Technologies — Enterprise Information Management for federal missions"
+                />
+                <meta name="twitter:card" content="summary_large_image" />
             </Head>
             <Header />
             <main>{children}</main>
