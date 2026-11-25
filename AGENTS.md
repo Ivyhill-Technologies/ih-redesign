@@ -24,6 +24,10 @@ Hosted on AWS Amplify Hosting. The only dynamic piece is the contact form
 - **Risky changes go through `staging` first**: dependency updates, Node
   version, `amplify.yml`, `customHttp.yml`, `vite.config.js`, anything build-related. Merge
   the branch into `staging`, check the staging site, then PR `staging` → `main`.
+- **Dependabot** (`.github/dependabot.yml`) opens grouped PRs weekly (npm,
+  Actions) and monthly (Terraform providers). Minor/patch groups can merge
+  once CI passes. Major bumps count as risky: test them on `staging` first.
+  `react-router-dom` majors are ignored because `vite-react-ssg` needs v6.
 - **Keep `staging` identical to `main`.** After any merge into `main`, run
   `git checkout staging && git pull && git merge --ff-only origin/main && git push`.
   `staging` accepts direct pushes but can't be deleted or force-pushed.
@@ -84,12 +88,22 @@ enforced by CI, so fix it locally with the command above.
   `ih-redesign-tfstate-860184462664`). It is **not** deployed by Amplify or CI.
   Changes require `cd infra && terraform plan`, then `terraform apply`, run by a
   human with AWS access. Ask before applying.
+- PRs touching `infra/` run `terraform plan` in CI
+  (`.github/workflows/terraform.yml`) using a read-only role assumed via
+  GitHub OIDC (`infra/ci.tf`). Read the plan in the job summary before you
+  apply. CI never applies. If infra/ starts using a new AWS service, add its
+  read actions to that role's policy, or the plan fails with AccessDenied.
 - CORS only allows the production, Amplify branch, and localhost origins listed
   in `infra/main.tf`. A new domain must be added there.
 - Spam controls: hidden `website` honeypot field, server-side validation,
   reserved concurrency of 2, and a per-IP limit of 5 sends per hour
   (DynamoDB table `ih-contact-rate-limit`, IPs stored hashed, rows expire via
   TTL). Over the limit returns 429. If DynamoDB fails, requests are allowed.
+- Alerts: CloudWatch alarms email `alert_emails` (in `infra/main.tf`) via SNS
+  when SES sends fail (log metric filter on `SES send failed`, since the
+  handler returns 500 rather than throwing) or the Lambda crashes or times
+  out. If you change that log message, update the filter. New addresses must
+  click the SNS confirmation email.
 
 ## Gotchas
 

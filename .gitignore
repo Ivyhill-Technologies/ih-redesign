@@ -57,3 +57,6 @@ screenshots/
 
 # npm download cache used by Amplify builds (npm ci --cache .npm)
 .npm/
+
+# Editor settings (personal, not shared)
+.zed/
