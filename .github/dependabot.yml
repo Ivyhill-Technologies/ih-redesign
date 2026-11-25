@@ -1,0 +1,31 @@
+# Weekly dependency PRs, grouped so there are only a few to review.
+# Majors come as their own PRs so they can go through staging first.
+version: 2
+updates:
+    - package-ecosystem: npm
+      directory: /
+      schedule:
+          interval: weekly
+          day: monday
+      open-pull-requests-limit: 5
+      groups:
+          npm-minor-patch:
+              update-types: [minor, patch]
+      # vite-react-ssg only supports react-router-dom 6.
+      ignore:
+          - dependency-name: react-router-dom
+            update-types: [version-update:semver-major]
+
+    - package-ecosystem: github-actions
+      directory: /
+      schedule:
+          interval: weekly
+          day: monday
+      groups:
+          actions:
+              patterns: ["*"]
+
+    - package-ecosystem: terraform
+      directory: /infra
+      schedule:
+          interval: monthly

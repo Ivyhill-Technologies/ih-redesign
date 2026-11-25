@@ -24,6 +24,10 @@ Hosted on AWS Amplify Hosting. The only dynamic piece is the contact form
 - **Risky changes go through `staging` first**: dependency updates, Node
   version, `amplify.yml`, `vite.config.js`, anything build-related. Merge
   the branch into `staging`, check the staging site, then PR `staging` → `main`.
+- **Dependabot** (`.github/dependabot.yml`) opens grouped PRs weekly (npm,
+  Actions) and monthly (Terraform providers). Minor/patch groups can merge
+  once CI passes. Major bumps count as risky: test them on `staging` first.
+  `react-router-dom` majors are ignored because `vite-react-ssg` needs v6.
 - **Keep `staging` identical to `main`.** After any merge into `main`, run
   `git checkout staging && git pull && git merge --ff-only origin/main && git push`.
   `staging` accepts direct pushes but can't be deleted or force-pushed.
