@@ -70,7 +70,7 @@ the code.
 | Check | Runs on | What it does |
 |---|---|---|
 | `build` | Every pull request into `main` | Installs exact dependencies, runs Biome lint and the unit tests, builds the site. Required to merge. |
-| `plan` | Every pull request into `main` (skips in seconds if `infra/` is untouched) | `terraform fmt` check, `validate`, and `plan` with a read-only role, posted to the job summary so reviewers see exactly what the PR would do to AWS |
+| `plan` | Every pull request into `main` (skips in seconds if `infra/` is untouched) | `terraform fmt` check, `validate`, and `plan` with a read-only role, posted to the job summary so reviewers see exactly what the PR would do to AWS. Required to merge. |
 | Drift check | Hourly on `main` (and on demand) | Compares AWS with `infra/`; alerts on drift or unapplied changes ([runbook](04-operations-runbook.md#responding-to-a-drift-alert)) |
 
 ## Dependency updates (Dependabot)
@@ -79,6 +79,10 @@ Dependabot opens pull requests on a schedule: npm packages and GitHub
 Actions weekly (Mondays), Terraform providers monthly. Updates are grouped
 to keep the number of pull requests small, and packages that must move
 together (React; Vite with Tailwind) are always updated together.
+
+Dependabot security updates are also on: when GitHub learns of a
+vulnerability in one of our dependencies, it opens a pull request right
+away rather than waiting for the schedule.
 
 - **Minor and patch groups:** merge once CI passes.
 - **Major versions:** higher-risk; staging first.
