@@ -41,7 +41,7 @@ practices for clients and contract evaluations.
 | Site | **Live** at https://www.ivyhilltech.com, served from AWS Amplify |
 | Contact form | **Live** (AWS Lambda + SES) |
 | Monitoring and alerts | **Live**: daily health report, alarms and error cards in Teams |
-| Jira integration | **Live**: "Create Jira ticket" from Teams cards, project IW |
+| Jira integration | **Live**: "Create Jira ticket" from Teams cards |
 | Previous WordPress site | Retired; replaced by this site |
 
 ## Roles

@@ -108,7 +108,7 @@ From a terminal: `aws logs tail /aws/lambda/ih-client-log --follow --format shor
 | Merge Dependabot minor/patch updates | Merge when CI is green | Weekly |
 | Review Dependabot major updates | Staging first, then merge | As they arrive |
 | Read the daily health report | Teams | Daily |
-| Apply redirect changes | `aws amplify update-app --app-id d36xm0r0jv6mrj --custom-rules file://infra/amplify-redirects.json` | After editing the redirects file |
+| Apply redirect changes | `aws amplify update-app --app-id "$(aws amplify list-apps --query "apps[?name=='ih-redesign'].appId" --output text)" --custom-rules file://infra/amplify-redirects.json` | After editing the redirects file |
 | Run the health report on demand | `aws lambda invoke --function-name ih-site-health /dev/stdout` | Any time |
 | Simulate an error end to end | `scripts/demo-site-error.sh` (or `--now N` for instant cards) | Testing, demos |
 | Refresh LinkedIn's preview cache | linkedin.com/post-inspector | After changing `public/og-image.png` |
@@ -118,7 +118,7 @@ From a terminal: `aws logs tail /aws/lambda/ih-client-log --follow --format shor
 
 | Item | Expires / renews | Automated? | Action |
 |---|---|---|---|
-| Jira API token (Teams → Jira button) | **2027-02-08** | Reminder ticket at 14 days; daily ❌ at 7 days | Renew (below) |
+| Jira API token (Teams → Jira button) | `local.jira.token_expires` in `infra/jira-ticket.tf` | Reminder ticket at 14 days; daily ❌ at 7 days | Renew (below) |
 | SSL/TLS certificate | Rolling | Amplify auto-renews; daily check warns at 30 days | None unless the check warns |
 | Domain registration | Annual | Registrar auto-renew | Keep payment method current |
 | Teams webhook | Until the Teams workflow is changed | Failures alarm by email | Re-create and store (below) |

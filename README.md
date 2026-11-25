@@ -115,7 +115,7 @@ AI agents: see `AGENTS.md`.
 - **Redirects aren't deployed automatically.** Old WordPress URLs and the
   bare domain → `www` redirects live in `infra/amplify-redirects.json`. After
   editing it, apply it by hand:
-  `aws amplify update-app --app-id d36xm0r0jv6mrj --custom-rules file://infra/amplify-redirects.json`.
+  `aws amplify update-app --app-id "$(aws amplify list-apps --query "apps[?name=='ih-redesign'].appId" --output text)" --custom-rules file://infra/amplify-redirects.json`.
   First match wins, and the `404-200` catch-all must stay last.
 - **Never rename or delete files in `public/documents/`.** Old links and
   redirects point to them.
@@ -151,8 +151,8 @@ terraform apply
   automatically. To see debug output on the live site, run
   `localStorage.setItem("ih-debug", "1")` in the browser console.
 - **Jira tickets from Teams:** alarm and failing-check cards in Teams have a
-  "Create Jira ticket" button that previews, then creates, a Bug in the IW
-  project with the error details filled in.
+  "Create Jira ticket" button that previews, then creates, a Bug in the
+  website's Jira project with the error details filled in.
 - **Browser error alerts:** an alarm on those reports posts a Teams card with
   the latest errors (at most one card per hour, since anyone can send fake
   reports).
@@ -161,8 +161,8 @@ terraform apply
   by page) to a Teams channel every day at 7 AM Eastern, and posts contact
   form alarms there as they fire. Run it now with
   `aws lambda invoke --function-name ih-site-health /dev/stdout`.
-- **Jira token renewal:** the token expires 2027-02-08 (`local.jira` in
-  `infra/jira-ticket.tf`). The health report opens a Highest-priority
+- **Jira token renewal:** the token's expiry date is
+  `local.jira.token_expires` in `infra/jira-ticket.tf`. The health report opens a Highest-priority
   renewal ticket 14 days before. Steps: [runbook](docs/04-operations-runbook.md#renew-the-jira-api-token).
 - **Drift detection:** every hour, GitHub Actions checks that AWS still
   matches `infra/`. If anything was changed outside Terraform (or merged but
