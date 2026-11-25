@@ -29,6 +29,8 @@ Hosted on AWS Amplify Hosting. The only dynamic piece is the contact form
   once CI passes. Major bumps count as risky: test them on `staging` first.
   `react-router-dom` majors are ignored because `vite-react-ssg` needs v6.
   React and Vite/Tailwind packages are grouped so they move together.
+  Dependabot security updates are also on: GitHub opens a PR right away
+  when a dependency has a known vulnerability. Treat it like any other update.
 - **Keep `staging` identical to `main`.** After any merge into `main`, run
   `git checkout staging && git pull && git merge --ff-only origin/main && git push`.
   `staging` accepts direct pushes but can't be deleted or force-pushed.
@@ -146,7 +148,7 @@ enforced by CI, so fix it locally with the command above.
   or a PR. Both CI roles share `local.terraform_read_statements`: add read
   actions there when infra/ uses a new AWS service.
 - The `plan` PR check runs on every PR into `main` and skips its steps when
-  `infra/` is untouched, so it can be a required check. `.github/CODEOWNERS`
+  `infra/` is untouched. Both `build` and `plan` are required checks. `.github/CODEOWNERS`
   requests Evan's review on infra, CI, build and dependency paths.
 - CORS only allows the production, Amplify branch, and localhost origins listed
   in `infra/main.tf`. A new domain must be added there.

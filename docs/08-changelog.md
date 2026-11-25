@@ -9,6 +9,7 @@ Releases to production, newest first. Numbers are GitHub pull requests.
 - README: live link and screenshot
 - Docs point to where account details live instead of repeating them
 - Lint fails on undeclared variables (Biome `noUndeclaredVariables`)
+- `plan` is now a required check on `main`; Dependabot security updates on
 
 ## 2026-11-25: Monitoring, Jira integration, security hardening
 

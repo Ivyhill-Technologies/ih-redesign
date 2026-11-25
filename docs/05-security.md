@@ -139,8 +139,9 @@ Everything reachable from the internet, and what protects it:
 - GitHub **secret scanning with push protection** blocks commits containing
   recognizable credentials.
 - **Dependabot** proposes dependency and GitHub Actions updates weekly and
-  Terraform provider updates monthly, so security fixes arrive promptly and
-  are tested by CI.
+  Terraform provider updates monthly, and Dependabot security updates open a
+  pull request as soon as a dependency has a known vulnerability. All are
+  tested by CI.
 - Exact dependency versions are installed from the lockfile (`npm ci`) in CI
   and in production builds.
 - The production build image is pinned (Node 26 official image).
