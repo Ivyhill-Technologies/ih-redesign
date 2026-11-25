@@ -24,8 +24,9 @@ edited in wp-admin.
 
 This repo replaces it with a modern, serverless site. Every page is
 prerendered to static HTML at build time and served by AWS Amplify Hosting.
-There is no server or database to run. The only backend is one small Lambda
-function for the contact form.
+There is no server or database to run. The only backend pieces are a few
+small AWS Lambda functions: the contact form, browser error logging, a daily
+health report in Teams, and "Create Jira ticket" buttons on its alerts.
 
 | | Old site | This site |
 |---|---|---|
@@ -35,6 +36,11 @@ function for the contact form.
 | Forms | Plugin | One Lambda function sending through SES |
 | Deploys | Edit live | Merge a PR; Amplify builds and deploys |
 | Upkeep | Core, theme and plugin updates | Dependabot PRs, checked by CI |
+| Monitoring | None | Daily health report, alarms and error cards in Teams, one-click Jira tickets |
+| Security | Plugin patching | Static files, security headers, protected releases, no stored visitor data |
+
+**Project documentation** (architecture, release process, runbook,
+security, disaster recovery, decisions, changelog) is in [`docs/`](docs/).
 
 ---
 
@@ -48,7 +54,9 @@ function for the contact form.
 - **Inter Variable** font, self-hosted in `public/fonts/`.
 - **Biome** as formatter and linter.
 - **AWS**: Amplify Hosting for the site; Lambda, SES and DynamoDB for the
-  contact form; Terraform for everything outside Amplify.
+  contact form; CloudWatch, SNS and EventBridge Scheduler for logging,
+  alarms and the daily report; Parameter Store for secrets; Terraform for
+  everything outside Amplify.
 
 ---
 
@@ -140,23 +148,36 @@ terraform apply
 - **Jira tickets from Teams:** alarm and failing-check cards in Teams have a
   "Create Jira ticket" button that previews, then creates, a Bug in the IW
   project with the error details filled in.
+- **Browser error alerts:** an alarm on those reports posts a Teams card with
+  the latest errors (at most one card per hour, since anyone can send fake
+  reports).
 - **Health report:** a Lambda posts a site check (pages, redirects, headers,
-  SSL, contact form, alarms, last deploy) to a Teams channel every day at
-  7 AM Eastern, and posts contact form alarms there as they fire. Run it
-  now with `aws lambda invoke --function-name ih-site-health /dev/stdout`.
+  SSL, contact form, alarms, last deploy, Jira token expiry, browser errors
+  by page) to a Teams channel every day at 7 AM Eastern, and posts contact
+  form alarms there as they fire. Run it now with
+  `aws lambda invoke --function-name ih-site-health /dev/stdout`.
+- **Jira token renewal:** the token expires 2027-02-08 (`local.jira` in
+  `infra/jira-ticket.tf`). The health report opens a Highest-priority
+  renewal ticket 14 days before. Steps: [runbook](docs/04-operations-runbook.md#renew-the-jira-api-token).
+- **Try it:** `scripts/demo-site-error.sh` sends a test error through the
+  whole path (`--now N` posts N cards immediately).
+
+Secrets (Teams webhook, Jira token, link-signing key) are in AWS Parameter
+Store, never in this repo. See [Security](docs/05-security.md).
 
 ---
 
 ## Layout
 
 ```
+docs/               project documentation (start at docs/README.md)
 infra/              Terraform: contact form, health report, client log, Jira button, CI role, redirects
   lambda/           contact form handler
   health/           health report handler
   client-log/       client log handler
   jira-ticket/      Jira ticket button handler
 public/             static files: assets/, documents/, fonts/, og-image.png
-scripts/            og-image.html (source for the link preview image)
+scripts/            og-image.html (link preview image source), demo-site-error.sh
 src/
   main.jsx          entry (vite-react-ssg)
   App.jsx           routes

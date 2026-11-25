@@ -61,6 +61,14 @@ enforced by CI, so fix it locally with the command above.
 
 ## Structure and conventions
 
+- `docs/` is the project documentation for managers and maintainers
+  (architecture, release process, runbook, security, DR, decisions,
+  changelog, roadmap). When a change alters how the site is built,
+  released, monitored or secured, update the matching doc in the same PR,
+  and add a changelog entry (`docs/08-changelog.md`) for each release.
+  Security posture lives in `docs/05-security.md`: keep its secrets
+  inventory, attack surface and threat model current.
+- `notes/` is git-ignored personal scratch space. Never commit it.
 - `src/pages/` routes, `src/sections/` page sections, `src/components/`
   shared UI (`SiteShell`, `Header`, `Footer`, `Icons`).
 - Styling is Tailwind utility classes plus tokens in `src/styles/`.
