@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { Icon } from "./Icons.jsx";
 
 const REPO_URL = "https://github.com/Ivyhill-Technologies/ih-redesign";
@@ -25,6 +26,21 @@ const COLS = [
             { label: "NAICS codes", href: "/#naics" },
         ],
     },
+    {
+        h: "Company",
+        items: [
+            { label: "Careers", href: "https://apply.workable.com/ivyhill-technologies-llc/", external: true },
+            { label: "Employment application", href: "/documents/Ivyhill-Employment-Application.pdf", external: true },
+            { label: "Customer support", href: "https://support.ivyhilltech.com/", external: true },
+            { label: "Employee portal", href: "https://emp.ivyhilltech.com", external: true },
+        ],
+    },
+];
+
+// Shown in the bottom bar. Same documents the old WordPress footer linked.
+const LEGAL = [
+    { label: "Privacy statement", href: "/documents/privacy_statement.pdf" },
+    { label: "EEO is the Law", href: "/documents/EEOC2009.pdf" },
 ];
 
 export function Footer() {
@@ -64,7 +80,7 @@ export function Footer() {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 gap-10 md:gap-12 mb-12 md:mb-14 sm:grid-cols-2 md:grid-cols-[1.5fr_1fr_1fr]">
+                <div className="grid grid-cols-1 gap-10 md:gap-12 mb-12 md:mb-14 sm:grid-cols-2 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
                     <div>
                         <img src="/assets/logo-horizontal-2c.png" alt="Ivyhill" className="h-8 block mb-5 brightness-0 invert" />
                         <p className="m-0 mb-5 text-[13px] leading-[1.6] text-white/60 max-w-[340px]">
@@ -116,12 +132,24 @@ export function Footer() {
                     ))}
                 </div>
 
-                <div className="pt-6 border-t border-white/[0.12] flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-2 text-[11px] font-mono tracking-[0.04em] text-white/50">
+                <div className="pt-6 border-t border-white/[0.12] flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-4 sm:gap-y-2 text-[11px] font-mono tracking-[0.04em] text-white/50">
                     <span>© {new Date().getFullYear()} Ivyhill Technologies, LLC</span>
                     <span className="hidden sm:inline text-white/25">·</span>
                     <span>Federal · State · Local · Commercial</span>
                     <span className="hidden sm:inline text-white/25">·</span>
-                    <span>Hyattsville, Maryland</span>
+                    {LEGAL.map((l, i) => (
+                        <Fragment key={l.label}>
+                            {i > 0 && <span className="hidden sm:inline text-white/25">·</span>}
+                            <a
+                                href={l.href}
+                                target="_blank"
+                                rel="noopener"
+                                className="text-white/55 no-underline hover:text-white transition-colors"
+                            >
+                                {l.label}
+                            </a>
+                        </Fragment>
+                    ))}
                     <span className="hidden sm:inline text-white/25">·</span>
                     <a
                         href={__COMMIT__ === "dev" ? REPO_URL : `${REPO_URL}/commit/${__COMMIT__}`}
