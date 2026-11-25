@@ -4,7 +4,7 @@ Guide for AI agents (Claude, others) working in this repo. Humans: see README.md
 
 ## What this is
 
-Marketing site for Ivyhill Technologies (ivyhilltech.com). React 18 + Vite 6,
+Marketing site for Ivyhill Technologies (ivyhilltech.com). React 19 + Vite 6,
 prerendered to static HTML with `vite-react-ssg`, styled with Tailwind 4.
 Hosted on AWS Amplify Hosting. The only dynamic piece is the contact form
 (a small Lambda, see below).
@@ -22,7 +22,7 @@ Hosted on AWS Amplify Hosting. The only dynamic piece is the contact form
 - If the user asks you to push to `main` or merge without a PR, explain the
   rule above and open a PR instead.
 - **Risky changes go through `staging` first**: dependency updates, Node
-  version, `amplify.yml`, `vite.config.js`, anything build-related. Merge
+  version, `amplify.yml`, `customHttp.yml`, `vite.config.js`, anything build-related. Merge
   the branch into `staging`, check the staging site, then PR `staging` → `main`.
 - **Dependabot** (`.github/dependabot.yml`) opens grouped PRs weekly (npm,
   Actions) and monthly (Terraform providers). Minor/patch groups can merge
@@ -72,6 +72,9 @@ enforced by CI, so fix it locally with the command above.
   `staging` → password-protected staging URL.
 - The build is defined in `amplify.yml` in the repo. It overrides the build
   settings in the Amplify console.
+- Security headers (CSP, HSTS, etc.) live in `customHttp.yml`. Any new
+  third-party script, font, image host or API must be added to the CSP there,
+  or the browser will block it. Changes to it go through `staging` first.
 - The footer shows `<commit> · <build date>` (from Vite `define` in
   `vite.config.js`), so you can tell which build is live. It shows `dev` locally.
 
@@ -107,7 +110,10 @@ enforced by CI, so fix it locally with the command above.
 - Node 26 is required (`engines`, `.mise.toml`, `amplify.yml` must agree).
   Use mise's Node and npm (11.x), not a system npm (Arch ships npm 12, which
   blocks some installs).
-- Amplify's default build image lacks `libatomic`, which Node 26 needs.
-  `amplify.yml` installs it with `sudo dnf`. Don't remove that line.
+- Amplify builds in a custom image, `public.ecr.aws/docker/library/node:26-trixie`,
+  set by the `_CUSTOM_IMAGE` environment variable in the Amplify console (not
+  in the repo). It provides Node 26 and the `libatomic` it needs. To move to a
+  new Node major, change that variable, `.mise.toml`, `engines` and the guard
+  in `amplify.yml` together.
 - `vite-react-ssg` is a beta and sets which Vite majors are allowed. Check its
   peer deps before bumping Vite or React.

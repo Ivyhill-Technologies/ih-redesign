@@ -31,7 +31,7 @@ addresses contracting officers, not casual visitors.
 
 | | Old site | This site |
 |---|---|---|
-| Platform | WordPress + theme | React 18 + Vite 6, prerendered |
+| Platform | WordPress + theme | React 19 + Vite 6, prerendered |
 | Content | Plugin/page builder | Component-driven JSX, version-controlled |
 | Tone | Friendly consultancy | Federal contract-vehicle register |
 | Imagery | Stock illustrations, recolored | Brand mark + line iconography only |
@@ -44,7 +44,7 @@ addresses contracting officers, not casual visitors.
 ## Stack
 
 - **Node 26**, pinned in `.mise.toml` (`mise install` sets it up).
-- **React 18 + React Router 6**, built by **Vite 6** and prerendered to static
+- **React 19 + React Router 6**, built by **Vite 6** and prerendered to static
   HTML per route with `vite-react-ssg`.
 - **Tailwind 4** for styling, plus design tokens (color, type, spacing, radii,
   shadow, motion) in `src/styles/tokens.css`.
