@@ -1,5 +1,7 @@
 import { Icon } from "./Icons.jsx";
 
+const REPO_URL = "https://github.com/Ivyhill-Technologies/ih-redesign";
+
 const COLS = [
     {
         h: "Capabilities",
@@ -121,9 +123,15 @@ export function Footer() {
                     <span className="hidden sm:inline text-white/25">·</span>
                     <span>Hyattsville, Maryland</span>
                     <span className="hidden sm:inline text-white/25">·</span>
-                    <span className="text-white/30" title="Site version (commit · build date)">
+                    <a
+                        href={__COMMIT__ === "dev" ? REPO_URL : `${REPO_URL}/commit/${__COMMIT__}`}
+                        target="_blank"
+                        rel="noopener"
+                        className="text-white/30 no-underline hover:text-white/60 transition-colors"
+                        title="Site version (commit · build date). View this commit on GitHub."
+                    >
                         {__COMMIT__} · {__BUILD_DATE__}
-                    </span>
+                    </a>
                     <span className="sm:flex-1" />
                     <a
                         href="#top"
