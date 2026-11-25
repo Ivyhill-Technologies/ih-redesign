@@ -51,7 +51,8 @@ resource "aws_lambda_function" "client_log" {
 
   environment {
     variables = {
-      RATE_TABLE = aws_dynamodb_table.rate_limit.name
+      RATE_TABLE      = aws_dynamodb_table.rate_limit.name
+      ALLOWED_ORIGINS = join(",", local.allowed_origins)
     }
   }
 

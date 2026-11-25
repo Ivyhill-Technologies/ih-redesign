@@ -146,7 +146,12 @@ enforced by CI, so fix it locally with the command above.
 - Browser errors alarm: a metric filter counts reports, and the alarm
   `ih-site-client-errors` (1+ in 5 min) notifies SNS topic `ih-site-errors`,
   which goes only to the health Lambda (Teams), not email. The card lists the
-  latest errors (read from the log group).
+  latest errors (read from the log group). Because anyone can send fake
+  reports: at most one browser-error card per hour (DynamoDB row
+  `card#client-errors`), no "recovered" card, and the daily card shows
+  "Browser errors (24h)" by page. The Lambda also drops reports whose
+  `Origin` isn't in `local.allowed_origins` (a filter, not a lock: curl can
+  fake it). The demo script sets `Demo: true` to skip the cap.
 
 ## Jira tickets from Teams
 

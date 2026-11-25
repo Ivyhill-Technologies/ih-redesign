@@ -44,6 +44,8 @@ resource "aws_iam_role_policy" "health" {
       },
       # Opens the Jira token renewal ticket (daily check, 14 days before expiry).
       { Effect = "Allow", Action = "lambda:InvokeFunction", Resource = aws_lambda_function.jira_ticket.arn },
+      # Browser-error card cooldown (one row, "card#client-errors").
+      { Effect = "Allow", Action = "dynamodb:PutItem", Resource = aws_dynamodb_table.rate_limit.arn },
       # Reads recent browser errors to put their details on the alarm card.
       { Effect = "Allow", Action = "logs:FilterLogEvents", Resource = "${aws_cloudwatch_log_group.client_log.arn}:*" },
       { Effect = "Allow", Action = "cloudwatch:DescribeAlarms", Resource = "*" },
@@ -79,6 +81,7 @@ resource "aws_lambda_function" "health" {
       LINK_TTL_DAYS      = local.jira.link_ttl_days
       JIRA_FUNCTION      = aws_lambda_function.jira_ticket.function_name
       JIRA_TOKEN_EXPIRES = local.jira.token_expires
+      RATE_TABLE         = aws_dynamodb_table.rate_limit.name
     }
   }
 

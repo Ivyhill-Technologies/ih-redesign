@@ -2,12 +2,15 @@
 // each one is written as a single JSON line to CloudWatch Logs
 // (/aws/lambda/ih-client-log), where Logs Insights can query its fields.
 // Public endpoint, so: size cap, field caps, per-IP rate limit, and reserved
-// concurrency (in Terraform). It always answers 204 so callers learn nothing.
+// concurrency (in Terraform), and the Origin header must be one of our sites.
+// Browsers set Origin themselves, so this drops bots and scanners; curl can
+// fake it, so it is a filter, not a lock. Always answers 204.
 import { createHash } from "node:crypto";
 import { DynamoDBClient, UpdateItemCommand } from "@aws-sdk/client-dynamodb";
 
 const db = new DynamoDBClient({});
 const RATE_TABLE = process.env.RATE_TABLE;
+const ALLOWED_ORIGINS = new Set((process.env.ALLOWED_ORIGINS ?? "").split(",").filter(Boolean));
 
 const MAX_BODY = 8000; // bytes
 const MAX_PER_WINDOW = 30; // reports per IP per hour
@@ -47,6 +50,7 @@ const done = { statusCode: 204 };
 
 export const handler = async (event) => {
     if (event.requestContext?.http?.method !== "POST") return { statusCode: 405 };
+    if (!ALLOWED_ORIGINS.has(event.headers?.origin)) return done;
 
     const raw = event.isBase64Encoded ? Buffer.from(event.body ?? "", "base64").toString() : (event.body ?? "");
     if (!raw || raw.length > MAX_BODY) return done;

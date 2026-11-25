@@ -11,6 +11,7 @@ import { connect } from "node:tls";
 import { AmplifyClient, ListJobsCommand } from "@aws-sdk/client-amplify";
 import { CloudWatchClient, DescribeAlarmsCommand } from "@aws-sdk/client-cloudwatch";
 import { CloudWatchLogsClient, FilterLogEventsCommand } from "@aws-sdk/client-cloudwatch-logs";
+import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
 import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
 import { GetParameterCommand, SSMClient } from "@aws-sdk/client-ssm";
 
@@ -19,7 +20,11 @@ const APEX = "https://ivyhilltech.com";
 const { WEBHOOK_PARAM, CONTACT_URL, AMPLIFY_APP_ID, ALARM_PREFIX, CLIENT_LOG_GROUP, JIRA_LINK_URL, LINK_SECRET_PARAM } =
     process.env;
 const LINK_TTL_DAYS = Number(process.env.LINK_TTL_DAYS || 30);
-const { JIRA_FUNCTION, JIRA_TOKEN_EXPIRES } = process.env; // expiry: YYYY-MM-DD
+const { JIRA_FUNCTION, JIRA_TOKEN_EXPIRES, RATE_TABLE } = process.env; // expiry: YYYY-MM-DD
+// Browser error reports can be faked by anyone, so their Teams cards are
+// capped: at most one per CARD_COOLDOWN_MINUTES, and no "recovered" card.
+// The daily card counts the last 24 hours by page, so nothing is missed.
+const CARD_COOLDOWN_MINUTES = 60;
 const CLIENT_ERRORS_ALARM = "ih-site-client-errors";
 const logsUrl = (group) =>
     `https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#logsV2:log-groups/log-group/${encodeURIComponent(encodeURIComponent(group)).replace(/%/g, "$")}`;
@@ -169,6 +174,21 @@ const checkJiraToken = () =>
         return { ok: days > 7, warn: days <= 14, detail };
     });
 
+const checkClientErrors = () =>
+    check("Browser errors (24h)", async () => {
+        const errors = await recentClientErrors(24 * 60, 2000);
+        if (!errors.length) return { ok: true, detail: "None reported" };
+        const byPage = {};
+        for (const e of errors) byPage[e.page] = (byPage[e.page] ?? 0) + 1;
+        const top = Object.entries(byPage)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 5)
+            .map(([page, n]) => `${untrusted(page, 60)} (${n})`)
+            .join(", ");
+        const more = Object.keys(byPage).length > 5 ? ", ..." : "";
+        return { ok: true, warn: true, detail: `${errors.length}${errors.length >= 2000 ? "+" : ""}: ${top}${more}` };
+    });
+
 const icon = (c) => (!c.ok ? "❌" : c.warn ? "⚠️" : "✅");
 
 const card = (title, color, facts, footer, actions = []) => ({
@@ -228,6 +248,7 @@ const dailyReport = async () => {
         checkAlarms(),
         checkDeploy(),
         checkJiraToken(),
+        checkClientErrors(),
     ]);
     const failed = results.filter((c) => !c.ok).length;
     const title = failed ? `❌ ivyhilltech.com: ${failed} check${failed > 1 ? "s" : ""} failing` : "✅ ivyhilltech.com is healthy";
@@ -248,16 +269,45 @@ const dailyReport = async () => {
 };
 
 // Recent browser error reports from the client log (written by infra/client-log).
-const recentClientErrors = async (minutes = 15) => {
-    const { events = [] } = await new CloudWatchLogsClient({}).send(
-        new FilterLogEventsCommand({
-            logGroupName: CLIENT_LOG_GROUP,
-            startTime: Date.now() - minutes * 60000,
-            filterPattern: '{ $.source = "client" && $.level = "error" }',
-            limit: 50,
-        }),
-    );
+const recentClientErrors = async (minutes = 15, max = 50) => {
+    const logs = new CloudWatchLogsClient({});
+    const events = [];
+    let nextToken;
+    do {
+        const r = await logs.send(
+            new FilterLogEventsCommand({
+                logGroupName: CLIENT_LOG_GROUP,
+                startTime: Date.now() - minutes * 60000,
+                filterPattern: '{ $.source = "client" && $.level = "error" }',
+                limit: Math.min(max - events.length, 1000),
+                nextToken,
+            }),
+        );
+        events.push(...(r.events ?? []));
+        nextToken = r.nextToken;
+    } while (nextToken && events.length < max);
     return events.map((e) => ({ time: e.timestamp, ...JSON.parse(e.message) })).sort((a, b) => b.time - a.time);
+};
+
+// Claims the browser-error card slot for the next CARD_COOLDOWN_MINUTES.
+// Returns false if a card already went out in that window. Fails open.
+const claimCardSlot = async () => {
+    const now = Math.floor(Date.now() / 1000);
+    try {
+        await new DynamoDBClient({}).send(
+            new PutItemCommand({
+                TableName: RATE_TABLE,
+                Item: { pk: { S: "card#client-errors" }, expiresAt: { N: String(now + CARD_COOLDOWN_MINUTES * 60) } },
+                ConditionExpression: "attribute_not_exists(pk) OR expiresAt < :now",
+                ExpressionAttributeValues: { ":now": { N: String(now) } },
+            }),
+        );
+        return true;
+    } catch (err) {
+        if (err.name === "ConditionalCheckFailedException") return false;
+        console.error("Card cooldown check failed; posting anyway", err);
+        return true;
+    }
 };
 
 // Report fields come from anyone who can POST to the public log endpoint, and
@@ -277,6 +327,15 @@ const alarmPost = async (record) => {
     const m = JSON.parse(record.Sns.Message);
     const firing = m.NewStateValue === "ALARM";
     const clientErrors = m.AlarmName === CLIENT_ERRORS_ALARM;
+    if (clientErrors) {
+        // m.Demo is set only by scripts/demo-site-error.sh, which invokes this
+        // Lambda directly (IAM-only), so outsiders can't use it to skip the cap.
+        if (!firing) return;
+        if (!m.Demo && !(await claimCardSlot())) {
+            console.log(JSON.stringify({ source: "health", skipped: "client-errors card", reason: "cooldown" }));
+            return;
+        }
+    }
     const logGroup = clientErrors ? CLIENT_LOG_GROUP : "/aws/lambda/ih-contact-form";
     const title = firing ? `🚨 ${m.AlarmName} is firing` : `✅ ${m.AlarmName} recovered`;
     const facts = [
