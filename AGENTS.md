@@ -150,6 +150,8 @@ enforced by CI, so fix it locally with the command above.
 
 ## Jira tickets from Teams
 
+- Demo/test: `scripts/demo-site-error.sh` sends a TEST error report; `--now N`
+  also posts N alarm cards immediately (each with its own Jira button).
 - Teams cards for firing alarms and failing daily checks have a "Create Jira
   ticket" button: a link to the `ih-jira-ticket` Lambda (`infra/jira-ticket.tf`,
   code in `infra/jira-ticket/index.mjs`), signed by the health Lambda
