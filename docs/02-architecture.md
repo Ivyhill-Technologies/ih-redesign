@@ -23,7 +23,7 @@ flowchart LR
     SCHED[EventBridge Scheduler<br/>7 AM daily] --> H
     H --> TEAMS[Microsoft Teams channel]
     TEAMS -->|Create Jira ticket| J[Lambda<br/>ih-jira-ticket]
-    J --> JIRA[Jira IW project]
+    J --> JIRA[Jira project]
     GH[GitHub repo] -->|push to main / staging| AMP
 ```
 
@@ -68,7 +68,7 @@ changes are applied by a person, never by CI ([Release process](03-release-proce
 |---|---|
 | GitHub | Source code, pull requests, CI (GitHub Actions), hourly drift check, Dependabot |
 | Microsoft Teams (Workflows webhook) | Health reports and alert cards |
-| Jira Cloud (project IW) | Issues created from Teams cards; token renewal reminders |
+| Jira Cloud | Issues created from Teams cards; token renewal reminders |
 | Route 53 | DNS for ivyhilltech.com |
 
 ## Data

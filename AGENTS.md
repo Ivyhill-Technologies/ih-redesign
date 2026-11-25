@@ -37,6 +37,10 @@ Hosted on AWS Amplify Hosting. The only dynamic piece is the contact form
   `staging` after a `staging` → `main` PR.
 - **The repo is public.** Never commit secrets (`.env`, keys, AWS
   credentials). GitHub secret scanning with push protection is on.
+- **Keep account details out of docs.** Don't copy AWS account IDs, app IDs,
+  Lambda URLs, Jira keys or expiry dates into Markdown. Point to the file
+  that holds them (e.g. `local.jira` in `infra/jira-ticket.tf`). They're not
+  secrets, but the docs shouldn't read as a map of our setup.
 
 ## Pre-commit checks
 
@@ -92,7 +96,7 @@ enforced by CI, so fix it locally with the command above.
   (the primary host; canonical tags in `SiteShell` use it), old WordPress
   URLs → new pages, and old `/wp-content/uploads/*.pdf` → `/documents/`.
   Amplify doesn't read this file on deploy. Apply it by hand after editing:
-  `aws amplify update-app --app-id d36xm0r0jv6mrj --custom-rules file://infra/amplify-redirects.json`.
+  `aws amplify update-app --app-id "$(aws amplify list-apps --query "apps[?name=='ih-redesign'].appId" --output text)" --custom-rules file://infra/amplify-redirects.json`.
   Order matters (first match wins), and the `404-200` catch-all must stay last.
   Never delete or rename a file in `public/documents/`: old links point there.
 - Link previews: Open Graph/Twitter tags in `SiteShell`, image
@@ -111,8 +115,8 @@ enforced by CI, so fix it locally with the command above.
   (`src/config.js`), a Lambda function URL. The Lambda (`infra/lambda/index.mjs`)
   validates and emails the submission to info@ivyhilltech.com via SES, with
   Reply-To set to the visitor. Nothing is stored.
-- Infra is Terraform in `infra/main.tf` (state in the S3 bucket
-  `ih-redesign-tfstate-860184462664`). It is **not** deployed by Amplify or CI.
+- Infra is Terraform in `infra/main.tf` (state in the S3 bucket named
+  in its `backend "s3"` block). It is **not** deployed by Amplify or CI.
   Changes require `cd infra && terraform plan`, then `terraform apply`, run by a
   human with AWS access. Ask before applying.
 - Site health in Teams (`infra/health.tf`, code in `infra/health/index.mjs`):
@@ -193,16 +197,17 @@ enforced by CI, so fix it locally with the command above.
   ticket" button: a link to the `ih-jira-ticket` Lambda (`infra/jira-ticket.tf`,
   code in `infra/jira-ticket/index.mjs`), signed by the health Lambda
   (HMAC, SSM `/ih-redesign/jira-link-secret`) and valid 30 days. GET shows a
-  preview; POST creates a Bug in project IW and redirects to it. One ticket
+  preview; POST creates a Bug in the Jira project
+  (`local.jira`) and redirects to it. One ticket
   per link (dedupe rows `jira#<sig>` in the rate limit table).
 - Jira auth: SSM `/ih-redesign/jira-token` = `email:token`, a scoped
   Atlassian token (`write:jira-work`) on Evan's account, called via
   `api.atlassian.com/ex/jira/<cloudId>`. Site, cloud ID, project and issue
   type IDs are in `local.jira` in `jira-ticket.tf`. Commands to set both
   secrets are in that file's header.
-- **The token expires** on `local.jira.token_expires` (2027-02-08). The daily
+- **The token expires** on `local.jira.token_expires` (`jira-ticket.tf`). The daily
   health check "Jira token" invokes the Jira Lambda directly 14 days before
-  to open a Highest priority renewal Bug in IW (once per expiry date), and
+  to open a Highest priority renewal Bug (once per expiry date), and
   fails (❌ in Teams) every day from 7 days before. To renew: new scoped
   token → SSM (command in `jira-ticket.tf`) → update `token_expires` → PR →
   `terraform apply` → revoke the old token. If Jira returns 401, it lapsed.

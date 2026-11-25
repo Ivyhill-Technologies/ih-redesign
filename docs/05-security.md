@@ -174,7 +174,7 @@ No secret is stored in the repository, in Terraform state, or in CI.
 | Secret | Stored in | Used by | Rotation | How to rotate |
 |---|---|---|---|---|
 | Teams Workflows webhook URL | Parameter Store `/ih-redesign/teams-webhook` (SecureString) | `ih-site-health` | On suspicion of exposure, or when the Teams workflow changes | [Runbook](04-operations-runbook.md#replace-the-teams-webhook) |
-| Jira API token (scoped `write:jira-work`) | Parameter Store `/ih-redesign/jira-token` (SecureString) | `ih-jira-ticket` | Before expiry (**2027-02-08**); automated reminders | [Runbook](04-operations-runbook.md#renew-the-jira-api-token) |
+| Jira API token (scoped `write:jira-work`) | Parameter Store `/ih-redesign/jira-token` (SecureString) | `ih-jira-ticket` | Before expiry (`local.jira.token_expires`); automated reminders | [Runbook](04-operations-runbook.md#renew-the-jira-api-token) |
 | Link-signing key (256-bit random) | Parameter Store `/ih-redesign/jira-link-secret` (SecureString) | `ih-site-health` (sign), `ih-jira-ticket` (verify) | On suspicion of exposure. Rotating invalidates all existing buttons, which is the intended effect | `aws ssm put-parameter --overwrite --name /ih-redesign/jira-link-secret --type SecureString --value "$(openssl rand -hex 32)"` |
 | Staging site password | Amplify console | People checking staging | When someone with access leaves | Amplify → Access control |
 
