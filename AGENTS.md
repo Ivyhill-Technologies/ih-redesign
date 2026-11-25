@@ -81,6 +81,11 @@ enforced by CI, so fix it locally with the command above.
   `ih-redesign-tfstate-860184462664`). It is **not** deployed by Amplify or CI.
   Changes require `cd infra && terraform plan`, then `terraform apply`, run by a
   human with AWS access. Ask before applying.
+- PRs touching `infra/` run `terraform plan` in CI
+  (`.github/workflows/terraform.yml`) using a read-only role assumed via
+  GitHub OIDC (`infra/ci.tf`). Read the plan in the job summary before you
+  apply. CI never applies. If infra/ starts using a new AWS service, add its
+  read actions to that role's policy, or the plan fails with AccessDenied.
 - CORS only allows the production, Amplify branch, and localhost origins listed
   in `infra/main.tf`. A new domain must be added there.
 - Spam controls: hidden `website` honeypot field, server-side validation,

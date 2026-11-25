@@ -1,0 +1,42 @@
+# Runs `terraform plan` on PRs that touch infra/, so changes are reviewed
+# before a human applies them. CI never applies. Plan output is public
+# (public repo); Terraform masks values marked sensitive.
+name: Terraform plan
+
+on:
+    pull_request:
+        branches: [main]
+        paths: ["infra/**", ".github/workflows/terraform.yml"]
+
+permissions:
+    contents: read
+    id-token: write # to assume the read-only AWS role via OIDC
+
+concurrency:
+    group: tf-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    plan:
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: infra
+        steps:
+            - uses: actions/checkout@v4
+            - uses: hashicorp/setup-terraform@v3
+              with:
+                  terraform_version: "~1.15"
+                  terraform_wrapper: false
+            - uses: aws-actions/configure-aws-credentials@v4
+              with:
+                  role-to-assume: arn:aws:iam::860184462664:role/ih-redesign-terraform-plan
+                  aws-region: us-east-1
+            - run: terraform fmt -check -diff
+            - run: terraform init -input=false
+            - run: terraform validate
+            # -lock=false: the role can't write the S3 lock file, and plan doesn't change state.
+            - name: Plan
+              run: |
+                  terraform plan -input=false -lock=false -no-color | tee plan.txt
+                  { echo '```'; tail -c 60000 plan.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
