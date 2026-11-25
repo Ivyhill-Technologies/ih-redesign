@@ -1,0 +1,47 @@
+<!doctype html>
+<!-- Source for public/og-image.png (link preview card). Regenerate with:
+     chromium --headless --disable-gpu --hide-scrollbars --force-device-scale-factor=1 \
+       --window-size=1200,630 --screenshot=public/og-image.png scripts/og-image.html -->
+<html><head><meta charset="utf-8"><style>
+@font-face { font-family: Inter; src: url("../public/fonts/Inter-VariableFont.ttf"); font-weight: 100 900; }
+* { margin: 0; box-sizing: border-box; }
+html, body { width: 1200px; height: 630px; overflow: hidden; }
+body { font-family: Inter, sans-serif; background: #0e1a2b; color: #fff; position: relative; }
+.grid { position: absolute; inset: 0;
+  background-image: linear-gradient(to right, rgba(255,255,255,.05) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255,255,255,.05) 1px, transparent 1px);
+  background-size: 80px 80px; }
+.glow { position: absolute; right: -200px; top: -160px; width: 900px; height: 900px; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(128,185,65,.22), transparent); }
+.mark-bg { position: absolute; right: -150px; top: 10px; width: 680px; color: #80b941; opacity: .5; }
+.bar { position: absolute; left: 0; right: 0; bottom: 0; height: 6px;
+  background: linear-gradient(to right, #80b941, #9bc966 60%, transparent); }
+.content { position: absolute; left: 80px; top: 128px; width: 760px; }
+.brand { display: flex; align-items: center; gap: 14px; margin-bottom: 54px; }
+.brand svg { width: 48px; height: 48px; color: #80b941; }
+.brand span { font-size: 18px; font-weight: 700; letter-spacing: .22em; color: rgba(255,255,255,.75); }
+.eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
+.eyebrow i { width: 40px; height: 3px; background: #80b941; }
+.eyebrow span { font-size: 18px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #9bc966; }
+h1 { font-size: 76px; font-weight: 800; letter-spacing: -.035em; line-height: 1; margin-bottom: 26px; }
+p { font-size: 32px; font-weight: 600; letter-spacing: -.018em; line-height: 1.2; color: #f3f4f6; }
+p b { color: #80b941; font-weight: 600; }
+.foot { position: absolute; left: 80px; right: 80px; bottom: 52px; display: flex; justify-content: space-between; align-items: center; }
+.chips { display: flex; gap: 10px; }
+.chips span { font-size: 16px; font-weight: 600; padding: 8px 14px; border: 1px solid rgba(255,255,255,.2);
+  border-radius: 6px; color: rgba(255,255,255,.85); background: rgba(14,26,43,.6); }
+.url { font-size: 20px; font-weight: 600; color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,.5); }
+</style></head><body>
+<div class="grid"></div><div class="glow"></div>
+<svg class="mark-bg" viewBox="0 0 720 716" fill-rule="evenodd"><path fill="currentColor" d="M 340.329 31.844 C 335.835 32.205, 331.903 32.757, 331.591 33.071 C 331.279 33.385, 323.152 73.660, 313.530 122.571 C 303.907 171.482, 295.766 212.738, 295.438 214.250 L 294.841 217 476.421 217 C 576.289 217, 658 216.764, 658 216.475 C 658 213.330, 640.546 183.735, 629.980 168.963 C 575.055 92.176, 492.488 43.886, 397.500 32.994 C 386.098 31.687, 351.070 30.982, 340.329 31.844 M 172.075 91.946 C 154.543 104.496, 146.597 111.284, 129.936 127.940 C 100.096 157.772, 77.978 189.807, 61.718 226.742 C 42.643 270.069, 34 311.624, 34 360 C 34 406.118, 42.073 446.616, 59.615 488.500 C 66.897 505.885, 83.114 535.339, 90.514 544.620 L 92.542 547.163 134.966 331.832 C 182.912 88.477, 183.788 84, 183.433 84 C 183.292 84, 178.180 87.576, 172.075 91.946 M 271.495 336.250 C 269.968 342.569, 210 648.513, 210 649.982 C 210 651.200, 213.460 653.327, 221.845 657.264 C 257.726 674.109, 299.684 685.205, 336.637 687.623 C 346.031 688.237, 346.816 688.147, 347.345 686.393 C 347.774 684.971, 413.953 375.806, 421.440 340.250 L 422.756 334 347.397 334 L 272.038 334 271.495 336.250 M 520.187 498.750 C 500.824 589.362, 484.986 663.831, 484.991 664.235 C 485.016 666.220, 512.216 653.227, 529.363 643.040 C 621.641 588.217, 680.844 494.010, 689.953 387.500 C 691.098 374.110, 691.320 347.308, 690.352 339.250 L 689.721 334 622.557 334 L 555.393 334 520.187 498.750"/></svg>
+<div class="content">
+  <div class="eyebrow"><i></i><span>Information Management</span></div>
+  <h1>Ivyhill Technologies</h1>
+  <p>Enterprise Information Management<br>for <b>federal missions</b>.</p>
+</div>
+<div class="foot">
+  <div class="chips"><span>GSA MAS</span><span>SeaPort-NxG</span><span>SBA 8(a)</span><span>ISO certified</span></div>
+  <div class="url">ivyhilltech.com</div>
+</div>
+<div class="bar"></div>
+</body></html>

@@ -1,0 +1,397 @@
+[
+  {
+    "source": "https://ivyhilltech.com",
+    "target": "https://www.ivyhilltech.com",
+    "status": "301"
+  },
+  {
+    "source": "https://ivyhilltech.com/<*>",
+    "target": "https://www.ivyhilltech.com/<*>",
+    "status": "301"
+  },
+  {
+    "source": "/about-us",
+    "target": "/about",
+    "status": "301"
+  },
+  {
+    "source": "/about-us/",
+    "target": "/about",
+    "status": "301"
+  },
+  {
+    "source": "/contact-us",
+    "target": "/contact",
+    "status": "301"
+  },
+  {
+    "source": "/contact-us/",
+    "target": "/contact",
+    "status": "301"
+  },
+  {
+    "source": "/contract-vehicles",
+    "target": "/contracts",
+    "status": "301"
+  },
+  {
+    "source": "/contract-vehicles/",
+    "target": "/contracts",
+    "status": "301"
+  },
+  {
+    "source": "/naics-codes",
+    "target": "/#naics",
+    "status": "301"
+  },
+  {
+    "source": "/naics-codes/",
+    "target": "/#naics",
+    "status": "301"
+  },
+  {
+    "source": "/information-management",
+    "target": "/capabilities/information-management",
+    "status": "301"
+  },
+  {
+    "source": "/information-management/",
+    "target": "/capabilities/information-management",
+    "status": "301"
+  },
+  {
+    "source": "/queue-management",
+    "target": "/capabilities/information-management",
+    "status": "301"
+  },
+  {
+    "source": "/queue-management/",
+    "target": "/capabilities/information-management",
+    "status": "301"
+  },
+  {
+    "source": "/records-management-services",
+    "target": "/capabilities/records-management",
+    "status": "301"
+  },
+  {
+    "source": "/records-management-services/",
+    "target": "/capabilities/records-management",
+    "status": "301"
+  },
+  {
+    "source": "/document-conversion",
+    "target": "/capabilities/records-management",
+    "status": "301"
+  },
+  {
+    "source": "/document-conversion/",
+    "target": "/capabilities/records-management",
+    "status": "301"
+  },
+  {
+    "source": "/application-development",
+    "target": "/capabilities/application-development",
+    "status": "301"
+  },
+  {
+    "source": "/application-development/",
+    "target": "/capabilities/application-development",
+    "status": "301"
+  },
+  {
+    "source": "/data-analytics",
+    "target": "/capabilities/data-analytics",
+    "status": "301"
+  },
+  {
+    "source": "/data-analytics/",
+    "target": "/capabilities/data-analytics",
+    "status": "301"
+  },
+  {
+    "source": "/infrastructure-support",
+    "target": "/capabilities/infrastructure-support",
+    "status": "301"
+  },
+  {
+    "source": "/infrastructure-support/",
+    "target": "/capabilities/infrastructure-support",
+    "status": "301"
+  },
+  {
+    "source": "/infrastructure-support/security",
+    "target": "/#cyber",
+    "status": "301"
+  },
+  {
+    "source": "/infrastructure-support/security/",
+    "target": "/#cyber",
+    "status": "301"
+  },
+  {
+    "source": "/terms-of-use",
+    "target": "/",
+    "status": "301"
+  },
+  {
+    "source": "/terms-of-use/",
+    "target": "/",
+    "status": "301"
+  },
+  {
+    "source": "/homepage-3-0",
+    "target": "/",
+    "status": "301"
+  },
+  {
+    "source": "/homepage-3-0/",
+    "target": "/",
+    "status": "301"
+  },
+  {
+    "source": "/test",
+    "target": "/",
+    "status": "301"
+  },
+  {
+    "source": "/test/",
+    "target": "/",
+    "status": "301"
+  },
+  {
+    "source": "/welcome-to-team-ivyhill",
+    "target": "/about",
+    "status": "301"
+  },
+  {
+    "source": "/welcome-to-team-ivyhill/",
+    "target": "/about",
+    "status": "301"
+  },
+  {
+    "source": "/irmac-kick-off-meeting",
+    "target": "/about",
+    "status": "301"
+  },
+  {
+    "source": "/irmac-kick-off-meeting/",
+    "target": "/about",
+    "status": "301"
+  },
+  {
+    "source": "/ivyhill-technologies-enters-sba-8a-program",
+    "target": "/contracts",
+    "status": "301"
+  },
+  {
+    "source": "/ivyhill-technologies-enters-sba-8a-program/",
+    "target": "/contracts",
+    "status": "301"
+  },
+  {
+    "source": "/capability-counts-2018",
+    "target": "/about",
+    "status": "301"
+  },
+  {
+    "source": "/capability-counts-2018/",
+    "target": "/about",
+    "status": "301"
+  },
+  {
+    "source": "/si-app-development",
+    "target": "/capabilities/application-development",
+    "status": "301"
+  },
+  {
+    "source": "/si-app-development/",
+    "target": "/capabilities/application-development",
+    "status": "301"
+  },
+  {
+    "source": "/business-process-improvement",
+    "target": "/about",
+    "status": "301"
+  },
+  {
+    "source": "/business-process-improvement/",
+    "target": "/about",
+    "status": "301"
+  },
+  {
+    "source": "/operations-management",
+    "target": "/about",
+    "status": "301"
+  },
+  {
+    "source": "/operations-management/",
+    "target": "/about",
+    "status": "301"
+  },
+  {
+    "source": "/ivnv",
+    "target": "/about",
+    "status": "301"
+  },
+  {
+    "source": "/ivnv/",
+    "target": "/about",
+    "status": "301"
+  },
+  {
+    "source": "/about/",
+    "target": "/about",
+    "status": "301"
+  },
+  {
+    "source": "/contact/",
+    "target": "/contact",
+    "status": "301"
+  },
+  {
+    "source": "/contracts/",
+    "target": "/contracts",
+    "status": "301"
+  },
+  {
+    "source": "/ai/",
+    "target": "/ai",
+    "status": "301"
+  },
+  {
+    "source": "/capabilities/application-development/",
+    "target": "/capabilities/application-development",
+    "status": "301"
+  },
+  {
+    "source": "/capabilities/data-analytics/",
+    "target": "/capabilities/data-analytics",
+    "status": "301"
+  },
+  {
+    "source": "/capabilities/information-management/",
+    "target": "/capabilities/information-management",
+    "status": "301"
+  },
+  {
+    "source": "/capabilities/infrastructure-support/",
+    "target": "/capabilities/infrastructure-support",
+    "status": "301"
+  },
+  {
+    "source": "/capabilities/records-management/",
+    "target": "/capabilities/records-management",
+    "status": "301"
+  },
+  {
+    "source": "/wp-content/uploads/Ivyhill-MAS-Schedule.pdf",
+    "target": "/documents/Ivyhill-MAS-Schedule.pdf",
+    "status": "301"
+  },
+  {
+    "source": "/wp-content/uploads/Ivyhill-MAS-Schedule-12-7-21.pdf",
+    "target": "/documents/Ivyhill-MAS-Schedule.pdf",
+    "status": "301"
+  },
+  {
+    "source": "/wp-content/uploads/IvyhillCapStmt.pdf",
+    "target": "/documents/Ivyhill-Capability-Statement-2026.pdf",
+    "status": "301"
+  },
+  {
+    "source": "/wp-content/uploads/Ivyhill-Technologies-Capability-Statement-2024.pdf",
+    "target": "/documents/Ivyhill-Capability-Statement-2026.pdf",
+    "status": "301"
+  },
+  {
+    "source": "/wp-content/uploads/privacy_statement.pdf",
+    "target": "/documents/privacy_statement.pdf",
+    "status": "301"
+  },
+  {
+    "source": "/wp-content/uploads/EULA-Ivyhill-Connect.pdf",
+    "target": "/documents/EULA-Ivyhill-Connect.pdf",
+    "status": "301"
+  },
+  {
+    "source": "/wp-content/uploads/CAMO-Call-Out-Procedure.pdf",
+    "target": "/documents/CAMO-Call-Out-Procedure.pdf",
+    "status": "301"
+  },
+  {
+    "source": "/wp-content/uploads/CAMO-Data-Collection-Form.pdf",
+    "target": "/documents/CAMO-Data-Collection-Form.pdf",
+    "status": "301"
+  },
+  {
+    "source": "/wp-content/uploads/Ivyhill-Employment-Application.pdf",
+    "target": "/documents/Ivyhill-Employment-Application.pdf",
+    "status": "301"
+  },
+  {
+    "source": "/wp-content/uploads/EEOC2009.pdf",
+    "target": "/documents/EEOC2009.pdf",
+    "status": "301"
+  },
+  {
+    "source": "/wp-content/uploads/2018/03/EEOC2009.pdf",
+    "target": "/documents/EEOC2009.pdf",
+    "status": "301"
+  },
+  {
+    "source": "/category/<*>",
+    "target": "/",
+    "status": "301"
+  },
+  {
+    "source": "/author/<*>",
+    "target": "/",
+    "status": "301"
+  },
+  {
+    "source": "/feed",
+    "target": "/",
+    "status": "301"
+  },
+  {
+    "source": "/feed/<*>",
+    "target": "/",
+    "status": "301"
+  },
+  {
+    "source": "/rss",
+    "target": "/",
+    "status": "301"
+  },
+  {
+    "source": "/rss/",
+    "target": "/",
+    "status": "301"
+  },
+  {
+    "source": "/rss2",
+    "target": "/",
+    "status": "301"
+  },
+  {
+    "source": "/rss2/",
+    "target": "/",
+    "status": "301"
+  },
+  {
+    "source": "/atom",
+    "target": "/",
+    "status": "301"
+  },
+  {
+    "source": "/atom/",
+    "target": "/",
+    "status": "301"
+  },
+  {
+    "source": "/<*>",
+    "target": "/index.html",
+    "status": "404-200"
+  }
+]
