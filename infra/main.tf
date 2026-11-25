@@ -61,6 +61,25 @@ resource "aws_route53_record" "dkim" {
   records = ["${aws_sesv2_email_identity.domain.dkim_signing_attributes[0].tokens[count.index]}.dkim.amazonses.com"]
 }
 
+# --- Per-IP rate limit counters ---------------------------------------------
+# One row per (hashed IP, hour). Rows expire automatically via TTL.
+
+resource "aws_dynamodb_table" "rate_limit" {
+  name         = "ih-contact-rate-limit"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "pk"
+
+  attribute {
+    name = "pk"
+    type = "S"
+  }
+
+  ttl {
+    attribute_name = "expiresAt"
+    enabled        = true
+  }
+}
+
 # --- Lambda ------------------------------------------------------------------
 
 data "archive_file" "contact" {
@@ -91,6 +110,14 @@ resource "aws_iam_role_policy" "ses" {
   })
 }
 
+resource "aws_iam_role_policy" "rate_limit" {
+  role = aws_iam_role.contact.id
+  policy = jsonencode({
+    Version   = "2012-10-17"
+    Statement = [{ Effect = "Allow", Action = "dynamodb:UpdateItem", Resource = aws_dynamodb_table.rate_limit.arn }]
+  })
+}
+
 resource "aws_cloudwatch_log_group" "contact" {
   name              = "/aws/lambda/ih-contact-form"
   retention_in_days = 30
@@ -110,7 +137,11 @@ resource "aws_lambda_function" "contact" {
   reserved_concurrent_executions = 2
 
   environment {
-    variables = { TO_ADDRESS = local.email, FROM_ADDRESS = local.email }
+    variables = {
+      TO_ADDRESS   = local.email
+      FROM_ADDRESS = local.email
+      RATE_TABLE   = aws_dynamodb_table.rate_limit.name
+    }
   }
 
   depends_on = [aws_cloudwatch_log_group.contact, aws_iam_role_policy_attachment.logs]

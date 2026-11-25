@@ -73,8 +73,10 @@ CI runs Biome lint and the build on every PR into `main`.
   human with AWS access. Ask before applying.
 - CORS only allows the production, Amplify branch, and localhost origins listed
   in `infra/main.tf`. A new domain must be added there.
-- Spam controls: hidden `website` honeypot field, server-side validation, and
-  reserved concurrency of 2.
+- Spam controls: hidden `website` honeypot field, server-side validation,
+  reserved concurrency of 2, and a per-IP limit of 5 sends per hour
+  (DynamoDB table `ih-contact-rate-limit`, IPs stored hashed, rows expire via
+  TTL). Over the limit returns 429. If DynamoDB fails, requests are allowed.
 
 ## Gotchas
 
