@@ -11,7 +11,8 @@ Hosted on AWS Amplify Hosting. The only dynamic piece is the contact form
 
 ## Rules
 
-- **Never push to `main`.** `main` is production and is protected. Every
+- **Never push to `main`.** `main` is production and is protected by a GitHub
+  ruleset with no bypass (direct pushes are rejected, even for admins). Every
   change goes on a branch and lands through a pull request:
   1. `git checkout main && git pull && git checkout -b <short-topic-name>`
   2. Make the change, then run the pre-commit checks below.
@@ -23,7 +24,14 @@ Hosted on AWS Amplify Hosting. The only dynamic piece is the contact form
 - **Risky changes go through `staging` first**: dependency updates, Node
   version, `amplify.yml`, `vite.config.js`, anything build-related. Merge
   the branch into `staging`, check the staging site, then PR `staging` → `main`.
-- Never commit secrets (`.env`, keys, AWS credentials).
+- **Keep `staging` identical to `main`.** After any merge into `main`, run
+  `git checkout staging && git pull && git merge --ff-only origin/main && git push`.
+  `staging` accepts direct pushes but can't be deleted or force-pushed.
+- Only `main` and `staging` are long-lived. Delete feature branches after their
+  PR merges. Don't enable GitHub's auto-delete of head branches: it would delete
+  `staging` after a `staging` → `main` PR.
+- **The repo is public.** Never commit secrets (`.env`, keys, AWS
+  credentials). GitHub secret scanning with push protection is on.
 
 ## Pre-commit checks
 
@@ -32,7 +40,9 @@ npx biome check --write .   # auto-fix formatting and safe lint issues
 npm run build               # must succeed
 ```
 
-CI runs Biome lint and the build on every PR into `main`.
+CI (`.github/workflows/ci.yml`, job `build`) runs `npm ci`, Biome **lint**, and
+the build on every PR into `main`. It is a required check. Formatting is not
+enforced by CI, so fix it locally with the command above.
 
 ## Commands
 
