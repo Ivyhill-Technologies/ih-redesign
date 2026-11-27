@@ -15,12 +15,23 @@ import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
 import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
 import { GetParameterCommand, SSMClient } from "@aws-sdk/client-ssm";
 
-const SITE = "https://www.ivyhilltech.com";
+import {
+    ALARM_PREFIX,
+    AMPLIFY_APP_ID,
+    CLIENT_LOG_GROUP,
+    CONTACT_URL,
+    DRY_RUN,
+    JIRA_FUNCTION,
+    JIRA_LINK_URL,
+    JIRA_TOKEN_EXPIRES,
+    LINK_SECRET_PARAM,
+    LINK_TTL_DAYS,
+    RATE_TABLE,
+    SITE,
+    WEBHOOK_PARAM,
+} from "./config.mjs";
+
 const APEX = "https://ivyhilltech.com";
-const { WEBHOOK_PARAM, CONTACT_URL, AMPLIFY_APP_ID, ALARM_PREFIX, CLIENT_LOG_GROUP, JIRA_LINK_URL, LINK_SECRET_PARAM } =
-    process.env;
-const LINK_TTL_DAYS = Number(process.env.LINK_TTL_DAYS || 30);
-const { JIRA_FUNCTION, JIRA_TOKEN_EXPIRES, RATE_TABLE } = process.env; // expiry: YYYY-MM-DD
 // Browser error reports can be faked by anyone, so their Teams cards are
 // capped: at most one per CARD_COOLDOWN_MINUTES, and no "recovered" card.
 // The daily card counts the last 24 hours by page, so nothing is missed.
@@ -28,7 +39,6 @@ const CARD_COOLDOWN_MINUTES = 60;
 const CLIENT_ERRORS_ALARM = "ih-site-client-errors";
 const logsUrl = (group) =>
     `https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#logsV2:log-groups/log-group/${encodeURIComponent(encodeURIComponent(group)).replace(/%/g, "$")}`;
-const DRY_RUN = process.env.DRY_RUN === "1"; // print the card instead of posting
 
 const PAGES = [
     "/",

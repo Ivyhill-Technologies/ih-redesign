@@ -12,7 +12,7 @@ locals {
 
 data "archive_file" "health" {
   type        = "zip"
-  source_file = "${path.module}/health/index.mjs"
+  source_dir  = "${path.module}/health" # every .mjs in the folder: index.mjs imports the others
   output_path = "${path.module}/.build/health.zip"
 }
 
