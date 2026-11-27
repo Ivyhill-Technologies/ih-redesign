@@ -76,6 +76,11 @@ enforced by CI, so fix it locally with the command above.
   and add a changelog entry (`docs/08-changelog.md`) for each release.
   Security posture lives in `docs/05-security.md`: keep its secrets
   inventory, attack surface and threat model current.
+- `docs/process/` is git-ignored personal scratch too: Evan's point-in-time
+  walkthroughs, dated at the top and expected to go stale. Never commit it,
+  and don't read it to work out how something works or keep it in step with
+  code. Read the code and the numbered docs. Open it only when Evan names a
+  file there.
 - `notes/` is git-ignored personal scratch space. Never commit it.
 - `src/pages/` routes, `src/sections/` page sections, `src/components/`
   shared UI (`SiteShell`, `Header`, `Footer`, `Icons`).
@@ -84,7 +89,11 @@ enforced by CI, so fix it locally with the command above.
 - Plain JSX, not TypeScript.
 - Tests: `test/*.test.mjs`, Node's built-in `node:test`, no test framework
   dependency. Lambda tests stub `@aws-sdk/*` with a resolve hook
-  (`test/stubs/aws-sdk.mjs`), so the SDK needn't be installed. Contact form
+  (`test/stubs/aws-sdk.mjs`), so the SDK needn't be installed. The health
+  Lambda's tests save every Teams message as a snapshot
+  (`test/health-lambda.test.mjs.snapshot`); a changed card fails the test.
+  After an intended change, review the diff and run
+  `node --test --test-update-snapshots test/health-lambda.test.mjs`. Contact form
   rules live in `src/sections/contact/validation.js`; keep them in step with
   `LIMITS` in `infra/lambda/index.mjs`.
 
@@ -121,8 +130,13 @@ enforced by CI, so fix it locally with the command above.
   in its `backend "s3"` block). It is **not** deployed by Amplify or CI.
   Changes require `cd infra && terraform plan`, then `terraform apply`, run by a
   human with AWS access. Ask before applying.
-- Site health in Teams (`infra/health.tf`, code in `infra/health/index.mjs`):
-  a Lambda posts a check card (pages, redirects, headers, SSL, contact
+- Site health in Teams (`infra/health.tf`, code in `infra/health/`):
+  `index.mjs` is the entry point and only routes: the schedule goes to
+  `daily.mjs` (the checks and the daily card), SNS alarms go to `alarms.mjs`.
+  `teams.mjs` builds and sends messages and Jira buttons, `browser-errors.mjs`
+  reads and sanitizes error reports, `config.mjs` holds the env vars. The zip
+  is the whole folder (`source_dir`), so a new file there ships automatically.
+  A Lambda posts a check card (pages, redirects, headers, SSL, contact
   endpoint, alarms, last deploy) to a Teams channel every day at 7 AM
   Eastern, and posts contact form alarms there as they fire. The Teams
   Workflows webhook URL is the SSM SecureString `/ih-redesign/teams-webhook`,

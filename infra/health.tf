@@ -1,6 +1,6 @@
 # Site health reporter: posts a check summary to a Teams channel every morning,
 # and posts contact form alarms to the same channel as they happen.
-# Code: health/index.mjs. Webhook URL: SSM SecureString, set by hand (not in
+# Code: health/ (entry point index.mjs). Webhook URL: SSM SecureString, set by hand (not in
 # Terraform, so it never lands in state or this public repo):
 #   read -rsp "Webhook URL: " URL && aws ssm put-parameter --overwrite \
 #     --name /ih-redesign/teams-webhook --type SecureString --value "$URL"
@@ -12,7 +12,7 @@ locals {
 
 data "archive_file" "health" {
   type        = "zip"
-  source_file = "${path.module}/health/index.mjs"
+  source_dir  = "${path.module}/health" # every .mjs in the folder: index.mjs imports the others
   output_path = "${path.module}/.build/health.zip"
 }
 

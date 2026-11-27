@@ -63,3 +63,6 @@ screenshots/
 
 # Personal notes (meeting prep, demos). Not part of the site.
 notes/
+
+# Personal walkthroughs (point-in-time, go stale). Not project docs.
+docs/process/
