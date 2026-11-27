@@ -76,6 +76,11 @@ enforced by CI, so fix it locally with the command above.
   and add a changelog entry (`docs/08-changelog.md`) for each release.
   Security posture lives in `docs/05-security.md`: keep its secrets
   inventory, attack surface and threat model current.
+- `docs/process/` is git-ignored personal scratch too: Evan's point-in-time
+  walkthroughs, dated at the top and expected to go stale. Never commit it,
+  and don't read it to work out how something works or keep it in step with
+  code. Read the code and the numbered docs. Open it only when Evan names a
+  file there.
 - `notes/` is git-ignored personal scratch space. Never commit it.
 - `src/pages/` routes, `src/sections/` page sections, `src/components/`
   shared UI (`SiteShell`, `Header`, `Footer`, `Icons`).
