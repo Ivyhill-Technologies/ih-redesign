@@ -10,6 +10,11 @@ Releases to production, newest first. Numbers are GitHub pull requests.
 - Docs point to where account details live instead of repeating them
 - Lint fails on undeclared variables (Biome `noUndeclaredVariables`)
 - `plan` is now a required check on `main`; Dependabot security updates on
+- Biome lint and format now cover `infra/` Lambdas and `test/` (#32)
+- Jira ticket preview page restyled with Ivyhill branding (#33)
+- Health Lambda split into files by job (`daily.mjs`, `alarms.mjs`,
+  `teams.mjs`, ...) for readability; no change to what it posts. Snapshot
+  tests pin every Teams message
 
 ## 2026-11-25: Monitoring, Jira integration, security hardening
 
