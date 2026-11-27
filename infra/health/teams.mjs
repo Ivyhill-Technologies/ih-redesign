@@ -14,7 +14,7 @@ const DAY_MS = 86400000;
 //   facts    two-column rows: [{ title, value }, ...]
 //   footer   small grey line at the bottom (optional)
 //   actions  extra buttons after "Open site", e.g. a Jira button (optional)
-export const teamsMessage = (title, color, facts, footer, actions = []) => ({
+export const buildTeamsMessage = (title, color, facts, footer, actions = []) => ({
     type: "message",
     attachments: [
         {

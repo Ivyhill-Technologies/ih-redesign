@@ -9,10 +9,9 @@
 import { connect } from "node:tls";
 import { AmplifyClient, ListJobsCommand } from "@aws-sdk/client-amplify";
 import { CloudWatchClient, DescribeAlarmsCommand } from "@aws-sdk/client-cloudwatch";
-import { CloudWatchLogsClient, FilterLogEventsCommand } from "@aws-sdk/client-cloudwatch-logs";
 import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
 import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
-
+import { recentClientErrors, untrusted } from "./browser-errors.mjs";
 import {
     ALARM_PREFIX,
     AMPLIFY_APP_ID,
@@ -23,7 +22,7 @@ import {
     RATE_TABLE,
     SITE,
 } from "./config.mjs";
-import { jiraButton, sendToTeams, teamsMessage } from "./teams.mjs";
+import { buildTeamsMessage, jiraButton, sendToTeams } from "./teams.mjs";
 
 const APEX = "https://ivyhilltech.com";
 // Browser error reports can be faked by anyone, so their Teams cards are
@@ -282,30 +281,15 @@ const dailyReport = async () => {
           ]
         : [];
     await sendToTeams(
-        teamsMessage(title, failed ? "Attention" : "Good", facts, "Daily check · infra/health in the ih-redesign repo", actions),
+        buildTeamsMessage(
+            title,
+            failed ? "Attention" : "Good",
+            facts,
+            "Daily check · infra/health in the ih-redesign repo",
+            actions,
+        ),
     );
     return { failed, results };
-};
-
-// Recent browser error reports from the client log (written by infra/client-log).
-const recentClientErrors = async (minutes = 15, max = 50) => {
-    const logs = new CloudWatchLogsClient({});
-    const events = [];
-    let nextToken;
-    do {
-        const r = await logs.send(
-            new FilterLogEventsCommand({
-                logGroupName: CLIENT_LOG_GROUP,
-                startTime: Date.now() - minutes * 60000,
-                filterPattern: '{ $.source = "client" && $.level = "error" }',
-                limit: Math.min(max - events.length, 1000),
-                nextToken,
-            }),
-        );
-        events.push(...(r.events ?? []));
-        nextToken = r.nextToken;
-    } while (nextToken && events.length < max);
-    return events.map((e) => ({ time: e.timestamp, ...JSON.parse(e.message) })).sort((a, b) => b.time - a.time);
 };
 
 // Claims the browser-error card slot for the next CARD_COOLDOWN_MINUTES.
@@ -328,16 +312,6 @@ const claimCardSlot = async () => {
         return true;
     }
 };
-
-// Report fields come from anyone who can POST to the public log endpoint, and
-// Teams renders markdown in cards. Strip link syntax and defang URLs so a fake
-// report can't put a clickable (phishing) link in the channel. Also cap length.
-const untrusted = (v, max = 300) =>
-    String(v ?? "")
-        .replace(/[[\]<>]/g, "")
-        .replace(/\bhttp(s?):\/\//gi, "hxxp$1://")
-        .replace(/\bwww\./gi, "www[.]")
-        .slice(0, max);
 
 const when = (ms) =>
     new Date(ms).toLocaleString("en-US", { timeZone: "America/New_York", dateStyle: "medium", timeStyle: "medium" });
@@ -409,7 +383,7 @@ const alarmPost = async (record) => {
     }
 
     const actions = firing ? [await jiraButton(ticket)] : [];
-    await sendToTeams(teamsMessage(title, firing ? "Attention" : "Good", facts, `Logs: CloudWatch → ${logGroup}`, actions));
+    await sendToTeams(buildTeamsMessage(title, firing ? "Attention" : "Good", facts, `Logs: CloudWatch → ${logGroup}`, actions));
 };
 
 export const handler = async (event) => {
