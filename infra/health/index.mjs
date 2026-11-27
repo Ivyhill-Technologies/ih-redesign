@@ -260,7 +260,7 @@ const jiraButton = async (p) => {
 };
 
 let webhookUrl;
-const post = async (payload) => {
+const sendToTeams = async (payload) => {
     if (DRY_RUN) return console.log(JSON.stringify(payload, null, 2));
     webhookUrl ??= await ssmParam(WEBHOOK_PARAM);
     const r = await fetch(webhookUrl, {
@@ -299,7 +299,7 @@ const dailyReport = async () => {
               }),
           ]
         : [];
-    await post(card(title, failed ? "Attention" : "Good", facts, "Daily check · infra/health in the ih-redesign repo", actions));
+    await sendToTeams(card(title, failed ? "Attention" : "Good", facts, "Daily check · infra/health in the ih-redesign repo", actions));
     return { failed, results };
 };
 
@@ -424,7 +424,7 @@ const alarmPost = async (record) => {
     }
 
     const actions = firing ? [await jiraButton(ticket)] : [];
-    await post(card(title, firing ? "Attention" : "Good", facts, `Logs: CloudWatch → ${logGroup}`, actions));
+    await sendToTeams(card(title, firing ? "Attention" : "Good", facts, `Logs: CloudWatch → ${logGroup}`, actions));
 };
 
 export const handler = async (event) => {
