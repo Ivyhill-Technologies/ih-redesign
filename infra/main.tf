@@ -32,8 +32,12 @@ locals {
   email  = "info@ivyhilltech.com"
 
   # Who gets emailed when the contact form breaks. Each address must click
-  # the SNS confirmation link once after apply.
-  alert_emails = ["info@ivyhilltech.com", "evan.hoefling@ivyhilltech.com"]
+  # the SNS confirmation link within 3 days of apply, or AWS drops it and the
+  # drift check flags it.
+  # info@ivyhilltech.com is out for now: nobody could confirm in time. To add
+  # it back, run scripts/confirm-alert-email.sh while someone can click the
+  # link in that inbox, then follow what it prints (add it here + import).
+  alert_emails = ["evan.hoefling@ivyhilltech.com"]
 
   # Sites allowed to call the form endpoint from a browser.
   allowed_origins = [
