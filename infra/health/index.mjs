@@ -6,30 +6,24 @@
 // Problem cards get a "Create Jira ticket" button: a signed, expiring link to
 // the ih-jira-ticket Lambda (infra/jira-ticket).
 // The Teams Workflows webhook URL lives in SSM (WEBHOOK_PARAM), never in code.
-import { createHmac } from "node:crypto";
 import { connect } from "node:tls";
 import { AmplifyClient, ListJobsCommand } from "@aws-sdk/client-amplify";
 import { CloudWatchClient, DescribeAlarmsCommand } from "@aws-sdk/client-cloudwatch";
 import { CloudWatchLogsClient, FilterLogEventsCommand } from "@aws-sdk/client-cloudwatch-logs";
 import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
 import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
-import { GetParameterCommand, SSMClient } from "@aws-sdk/client-ssm";
 
 import {
     ALARM_PREFIX,
     AMPLIFY_APP_ID,
     CLIENT_LOG_GROUP,
     CONTACT_URL,
-    DRY_RUN,
     JIRA_FUNCTION,
-    JIRA_LINK_URL,
     JIRA_TOKEN_EXPIRES,
-    LINK_SECRET_PARAM,
-    LINK_TTL_DAYS,
     RATE_TABLE,
     SITE,
-    WEBHOOK_PARAM,
 } from "./config.mjs";
+import { jiraButton, sendToTeams, teamsMessage } from "./teams.mjs";
 
 const APEX = "https://ivyhilltech.com";
 // Browser error reports can be faked by anyone, so their Teams cards are
@@ -258,52 +252,6 @@ const checkClientErrors = () =>
 
 const icon = (c) => (!c.ok ? "❌" : c.warn ? "⚠️" : "✅");
 
-const card = (title, color, facts, footer, actions = []) => ({
-    type: "message",
-    attachments: [
-        {
-            contentType: "application/vnd.microsoft.card.adaptive",
-            content: {
-                $schema: "http://adaptivecards.io/schemas/adaptive-card.json",
-                type: "AdaptiveCard",
-                version: "1.4",
-                body: [
-                    { type: "TextBlock", text: title, weight: "Bolder", size: "Medium", color, wrap: true },
-                    { type: "FactSet", facts },
-                    ...(footer ? [{ type: "TextBlock", text: footer, isSubtle: true, size: "Small", wrap: true }] : []),
-                ],
-                actions: [{ type: "Action.OpenUrl", title: "Open site", url: SITE }, ...actions],
-            },
-        },
-    ],
-});
-
-const ssm = new SSMClient({});
-const ssmParam = async (name) => (await ssm.send(new GetParameterCommand({ Name: name, WithDecryption: true }))).Parameter.Value;
-
-// A "Create Jira ticket" button. The payload rides in the link, signed so the
-// Jira Lambda only acts on links made here. p: { summary, facts, stack?, link?, priority? }
-let linkSecret;
-const jiraButton = async (p) => {
-    linkSecret ??= await ssmParam(LINK_SECRET_PARAM);
-    const d = Buffer.from(JSON.stringify({ ...p, exp: Date.now() + LINK_TTL_DAYS * 86400000 })).toString("base64url");
-    const s = createHmac("sha256", linkSecret).update(d).digest("hex");
-    return { type: "Action.OpenUrl", title: "Create Jira ticket", url: `${JIRA_LINK_URL}?d=${d}&s=${s}` };
-};
-
-let webhookUrl;
-const sendToTeams = async (payload) => {
-    if (DRY_RUN) return console.log(JSON.stringify(payload, null, 2));
-    webhookUrl ??= await ssmParam(WEBHOOK_PARAM);
-    const r = await fetch(webhookUrl, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(payload),
-        signal: AbortSignal.timeout(10000),
-    });
-    if (!r.ok) throw new Error(`Teams webhook returned ${r.status}`);
-};
-
 const dailyReport = async () => {
     const results = await Promise.all([
         checkPages(),
@@ -334,7 +282,7 @@ const dailyReport = async () => {
           ]
         : [];
     await sendToTeams(
-        card(title, failed ? "Attention" : "Good", facts, "Daily check · infra/health in the ih-redesign repo", actions),
+        teamsMessage(title, failed ? "Attention" : "Good", facts, "Daily check · infra/health in the ih-redesign repo", actions),
     );
     return { failed, results };
 };
@@ -461,7 +409,7 @@ const alarmPost = async (record) => {
     }
 
     const actions = firing ? [await jiraButton(ticket)] : [];
-    await sendToTeams(card(title, firing ? "Attention" : "Good", facts, `Logs: CloudWatch → ${logGroup}`, actions));
+    await sendToTeams(teamsMessage(title, firing ? "Attention" : "Good", facts, `Logs: CloudWatch → ${logGroup}`, actions));
 };
 
 export const handler = async (event) => {
