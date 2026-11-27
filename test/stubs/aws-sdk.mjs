@@ -18,3 +18,26 @@ export class DynamoDBClient extends Client {
 }
 export class SendEmailCommand extends Command {}
 export class UpdateItemCommand extends Command {}
+
+// Used by the health Lambda (infra/health/index.mjs).
+export class AmplifyClient extends Client {
+    static service = "amplify";
+}
+export class CloudWatchClient extends Client {
+    static service = "cloudwatch";
+}
+export class CloudWatchLogsClient extends Client {
+    static service = "logs";
+}
+export class LambdaClient extends Client {
+    static service = "lambda";
+}
+export class SSMClient extends Client {
+    static service = "ssm";
+}
+export class ListJobsCommand extends Command {}
+export class DescribeAlarmsCommand extends Command {}
+export class FilterLogEventsCommand extends Command {}
+export class PutItemCommand extends Command {}
+export class InvokeCommand extends Command {}
+export class GetParameterCommand extends Command {}

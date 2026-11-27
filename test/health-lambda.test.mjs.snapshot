@@ -1,0 +1,966 @@
+exports[`client errors firing, no reports found: generic card 1`] = `
+{
+  "type": "message",
+  "attachments": [
+    {
+      "contentType": "application/vnd.microsoft.card.adaptive",
+      "content": {
+        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+        "type": "AdaptiveCard",
+        "version": "1.4",
+        "body": [
+          {
+            "type": "TextBlock",
+            "text": "🚨 ih-site-client-errors is firing",
+            "weight": "Bolder",
+            "size": "Medium",
+            "color": "Attention",
+            "wrap": true
+          },
+          {
+            "type": "FactSet",
+            "facts": [
+              {
+                "title": "What",
+                "value": "Browser errors reported"
+              },
+              {
+                "title": "State",
+                "value": "OK → ALARM"
+              }
+            ]
+          },
+          {
+            "type": "TextBlock",
+            "text": "Logs: CloudWatch → /aws/lambda/ih-client-log",
+            "isSubtle": true,
+            "size": "Small",
+            "wrap": true
+          }
+        ],
+        "actions": [
+          {
+            "type": "Action.OpenUrl",
+            "title": "Open site",
+            "url": "https://www.ivyhilltech.com"
+          },
+          {
+            "type": "Action.OpenUrl",
+            "title": "Create Jira ticket",
+            "url": {
+              "link": "https://jira-link.example/",
+              "d": {
+                "summary": "Site alarm: ih-site-client-errors",
+                "facts": [
+                  [
+                    "What",
+                    "Browser errors reported"
+                  ],
+                  [
+                    "Why",
+                    "Threshold Crossed"
+                  ],
+                  [
+                    "When",
+                    "Nov 27, 2026, 6:59:00 AM"
+                  ]
+                ],
+                "link": {
+                  "title": "CloudWatch logs: /aws/lambda/ih-client-log",
+                  "url": "https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#logsV2:log-groups/log-group/$252Faws$252Flambda$252Fih-client-log"
+                },
+                "exp": 1798372800000
+              },
+              "s": "7f41e79d92f71221a3cb1e05cc12f3f5fc09592a88bc7c508c0ea17b2fa7bd17"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
+`;
+
+exports[`client errors firing, reading logs fails: same as no reports 1`] = `
+{
+  "type": "message",
+  "attachments": [
+    {
+      "contentType": "application/vnd.microsoft.card.adaptive",
+      "content": {
+        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+        "type": "AdaptiveCard",
+        "version": "1.4",
+        "body": [
+          {
+            "type": "TextBlock",
+            "text": "🚨 ih-site-client-errors is firing",
+            "weight": "Bolder",
+            "size": "Medium",
+            "color": "Attention",
+            "wrap": true
+          },
+          {
+            "type": "FactSet",
+            "facts": [
+              {
+                "title": "What",
+                "value": "Browser errors reported"
+              },
+              {
+                "title": "State",
+                "value": "OK → ALARM"
+              }
+            ]
+          },
+          {
+            "type": "TextBlock",
+            "text": "Logs: CloudWatch → /aws/lambda/ih-client-log",
+            "isSubtle": true,
+            "size": "Small",
+            "wrap": true
+          }
+        ],
+        "actions": [
+          {
+            "type": "Action.OpenUrl",
+            "title": "Open site",
+            "url": "https://www.ivyhilltech.com"
+          },
+          {
+            "type": "Action.OpenUrl",
+            "title": "Create Jira ticket",
+            "url": {
+              "link": "https://jira-link.example/",
+              "d": {
+                "summary": "Site alarm: ih-site-client-errors",
+                "facts": [
+                  [
+                    "What",
+                    "Browser errors reported"
+                  ],
+                  [
+                    "Why",
+                    "Threshold Crossed"
+                  ],
+                  [
+                    "When",
+                    "Nov 27, 2026, 6:59:00 AM"
+                  ]
+                ],
+                "link": {
+                  "title": "CloudWatch logs: /aws/lambda/ih-client-log",
+                  "url": "https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#logsV2:log-groups/log-group/$252Faws$252Flambda$252Fih-client-log"
+                },
+                "exp": 1798372800000
+              },
+              "s": "7f41e79d92f71221a3cb1e05cc12f3f5fc09592a88bc7c508c0ea17b2fa7bd17"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
+`;
+
+exports[`client errors firing: latest error details, sanitized on the card 1`] = `
+{
+  "type": "message",
+  "attachments": [
+    {
+      "contentType": "application/vnd.microsoft.card.adaptive",
+      "content": {
+        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+        "type": "AdaptiveCard",
+        "version": "1.4",
+        "body": [
+          {
+            "type": "TextBlock",
+            "text": "🚨 ih-site-client-errors is firing",
+            "weight": "Bolder",
+            "size": "Medium",
+            "color": "Attention",
+            "wrap": true
+          },
+          {
+            "type": "FactSet",
+            "facts": [
+              {
+                "title": "What",
+                "value": "Browser errors reported"
+              },
+              {
+                "title": "State",
+                "value": "OK → ALARM"
+              },
+              {
+                "title": "Errors (15 min)",
+                "value": "2"
+              },
+              {
+                "title": "Latest",
+                "value": "Click here(hxxps://evil.example) or www[.]evil.example bnow/b"
+              },
+              {
+                "title": "Page",
+                "value": "www[.]ivyhilltech.com/contact"
+              },
+              {
+                "title": "Pages affected",
+                "value": "/contact, /about"
+              },
+              {
+                "title": "Build",
+                "value": "abc1234"
+              },
+              {
+                "title": "Browser",
+                "value": "Firefox/140"
+              }
+            ]
+          },
+          {
+            "type": "TextBlock",
+            "text": "Logs: CloudWatch → /aws/lambda/ih-client-log",
+            "isSubtle": true,
+            "size": "Small",
+            "wrap": true
+          }
+        ],
+        "actions": [
+          {
+            "type": "Action.OpenUrl",
+            "title": "Open site",
+            "url": "https://www.ivyhilltech.com"
+          },
+          {
+            "type": "Action.OpenUrl",
+            "title": "Create Jira ticket",
+            "url": {
+              "link": "https://jira-link.example/",
+              "d": {
+                "summary": "Site error: Click [here](https://evil.example) or www.evil.example <b>now</b> on /contact",
+                "facts": [
+                  [
+                    "Error",
+                    "Click [here](https://evil.example) or www.evil.example <b>now</b>"
+                  ],
+                  [
+                    "Page",
+                    "www.ivyhilltech.com/contact"
+                  ],
+                  [
+                    "When",
+                    "Nov 27, 2026, 6:58:00 AM"
+                  ],
+                  [
+                    "Errors in 15 min",
+                    2
+                  ],
+                  [
+                    "Pages affected",
+                    "/contact, /about"
+                  ],
+                  [
+                    "Build",
+                    "abc1234"
+                  ],
+                  [
+                    "Browser",
+                    "Firefox/140"
+                  ],
+                  [
+                    "Details",
+                    "{\\"component\\":\\"ContactForm\\"}"
+                  ]
+                ],
+                "link": {
+                  "title": "CloudWatch logs: /aws/lambda/ih-client-log",
+                  "url": "https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#logsV2:log-groups/log-group/$252Faws$252Flambda$252Fih-client-log"
+                },
+                "exp": 1798372800000
+              },
+              "s": "c30a7820c0f9ceb9bf7f8792e6fa39c4f558c2e827a07c7f3c078aad5c68b68a"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
+`;
+
+exports[`client errors firing: latest error details, sanitized on the card 2`] = `
+[
+  [
+    "db",
+    "PutItemCommand",
+    {
+      "TableName": "ih-contact-rate-limit",
+      "Item": {
+        "pk": {
+          "S": "card#client-errors"
+        },
+        "expiresAt": {
+          "N": "1795784400"
+        }
+      },
+      "ConditionExpression": "attribute_not_exists(pk) OR expiresAt < :now",
+      "ExpressionAttributeValues": {
+        ":now": {
+          "N": "1795780800"
+        }
+      }
+    }
+  ]
+]
+`;
+
+exports[`client errors firing: stack goes to the ticket, capped at 1500 chars 1`] = `
+{
+  "type": "message",
+  "attachments": [
+    {
+      "contentType": "application/vnd.microsoft.card.adaptive",
+      "content": {
+        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+        "type": "AdaptiveCard",
+        "version": "1.4",
+        "body": [
+          {
+            "type": "TextBlock",
+            "text": "🚨 ih-site-client-errors is firing",
+            "weight": "Bolder",
+            "size": "Medium",
+            "color": "Attention",
+            "wrap": true
+          },
+          {
+            "type": "FactSet",
+            "facts": [
+              {
+                "title": "What",
+                "value": "Browser errors reported"
+              },
+              {
+                "title": "State",
+                "value": "OK → ALARM"
+              },
+              {
+                "title": "Errors (15 min)",
+                "value": "1"
+              },
+              {
+                "title": "Latest",
+                "value": "TypeError: x is undefined"
+              },
+              {
+                "title": "Page",
+                "value": "www[.]ivyhilltech.com/"
+              },
+              {
+                "title": "Pages affected",
+                "value": "/"
+              },
+              {
+                "title": "Build",
+                "value": "abc1234"
+              },
+              {
+                "title": "Browser",
+                "value": "Firefox/140"
+              }
+            ]
+          },
+          {
+            "type": "TextBlock",
+            "text": "Logs: CloudWatch → /aws/lambda/ih-client-log",
+            "isSubtle": true,
+            "size": "Small",
+            "wrap": true
+          }
+        ],
+        "actions": [
+          {
+            "type": "Action.OpenUrl",
+            "title": "Open site",
+            "url": "https://www.ivyhilltech.com"
+          },
+          {
+            "type": "Action.OpenUrl",
+            "title": "Create Jira ticket",
+            "url": {
+              "link": "https://jira-link.example/",
+              "d": {
+                "summary": "Site error: TypeError: x is undefined on /",
+                "facts": [
+                  [
+                    "Error",
+                    "TypeError: x is undefined"
+                  ],
+                  [
+                    "Page",
+                    "www.ivyhilltech.com/"
+                  ],
+                  [
+                    "When",
+                    "Nov 27, 2026, 6:59:00 AM"
+                  ],
+                  [
+                    "Errors in 15 min",
+                    1
+                  ],
+                  [
+                    "Pages affected",
+                    "/"
+                  ],
+                  [
+                    "Build",
+                    "abc1234"
+                  ],
+                  [
+                    "Browser",
+                    "Firefox/140"
+                  ]
+                ],
+                "stack": "at f\\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "link": {
+                  "title": "CloudWatch logs: /aws/lambda/ih-client-log",
+                  "url": "https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#logsV2:log-groups/log-group/$252Faws$252Flambda$252Fih-client-log"
+                },
+                "exp": 1798372800000
+              },
+              "s": "ba4f31480a79634408f082624a4577321b98820bf7f6ad5f987b8b4ff8cff8b6"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
+`;
+
+exports[`contact alarm firing: card with Why and a Jira button 1`] = `
+{
+  "type": "message",
+  "attachments": [
+    {
+      "contentType": "application/vnd.microsoft.card.adaptive",
+      "content": {
+        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+        "type": "AdaptiveCard",
+        "version": "1.4",
+        "body": [
+          {
+            "type": "TextBlock",
+            "text": "🚨 ih-contact-ses-failures is firing",
+            "weight": "Bolder",
+            "size": "Medium",
+            "color": "Attention",
+            "wrap": true
+          },
+          {
+            "type": "FactSet",
+            "facts": [
+              {
+                "title": "What",
+                "value": "Contact form emails are failing to send"
+              },
+              {
+                "title": "State",
+                "value": "OK → ALARM"
+              },
+              {
+                "title": "Why",
+                "value": "Threshold Crossed: 1 datapoint [2.0] was greater than the threshold (0.0)."
+              }
+            ]
+          },
+          {
+            "type": "TextBlock",
+            "text": "Logs: CloudWatch → /aws/lambda/ih-contact-form",
+            "isSubtle": true,
+            "size": "Small",
+            "wrap": true
+          }
+        ],
+        "actions": [
+          {
+            "type": "Action.OpenUrl",
+            "title": "Open site",
+            "url": "https://www.ivyhilltech.com"
+          },
+          {
+            "type": "Action.OpenUrl",
+            "title": "Create Jira ticket",
+            "url": {
+              "link": "https://jira-link.example/",
+              "d": {
+                "summary": "Site alarm: ih-contact-ses-failures",
+                "facts": [
+                  [
+                    "What",
+                    "Contact form emails are failing to send"
+                  ],
+                  [
+                    "Why",
+                    "Threshold Crossed: 1 datapoint [2.0] was greater than the threshold (0.0)."
+                  ],
+                  [
+                    "When",
+                    "Nov 27, 2026, 6:58:00 AM"
+                  ]
+                ],
+                "link": {
+                  "title": "CloudWatch logs: /aws/lambda/ih-contact-form",
+                  "url": "https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#logsV2:log-groups/log-group/$252Faws$252Flambda$252Fih-contact-form"
+                },
+                "exp": 1798372800000
+              },
+              "s": "6e96f88d911435d0e567d08abd5141f3652477ccc81f126241f294095d77c6da"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
+`;
+
+exports[`contact alarm recovered: green card, no Jira button 1`] = `
+{
+  "type": "message",
+  "attachments": [
+    {
+      "contentType": "application/vnd.microsoft.card.adaptive",
+      "content": {
+        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+        "type": "AdaptiveCard",
+        "version": "1.4",
+        "body": [
+          {
+            "type": "TextBlock",
+            "text": "✅ ih-contact-ses-failures recovered",
+            "weight": "Bolder",
+            "size": "Medium",
+            "color": "Good",
+            "wrap": true
+          },
+          {
+            "type": "FactSet",
+            "facts": [
+              {
+                "title": "What",
+                "value": "Contact form emails are failing to send"
+              },
+              {
+                "title": "State",
+                "value": "ALARM → OK"
+              },
+              {
+                "title": "Why",
+                "value": "Back to normal"
+              }
+            ]
+          },
+          {
+            "type": "TextBlock",
+            "text": "Logs: CloudWatch → /aws/lambda/ih-contact-form",
+            "isSubtle": true,
+            "size": "Small",
+            "wrap": true
+          }
+        ],
+        "actions": [
+          {
+            "type": "Action.OpenUrl",
+            "title": "Open site",
+            "url": "https://www.ivyhilltech.com"
+          }
+        ]
+      }
+    }
+  ]
+}
+`;
+
+exports[`contact alarm without description or reason 1`] = `
+{
+  "type": "message",
+  "attachments": [
+    {
+      "contentType": "application/vnd.microsoft.card.adaptive",
+      "content": {
+        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+        "type": "AdaptiveCard",
+        "version": "1.4",
+        "body": [
+          {
+            "type": "TextBlock",
+            "text": "🚨 ih-contact-ses-failures is firing",
+            "weight": "Bolder",
+            "size": "Medium",
+            "color": "Attention",
+            "wrap": true
+          },
+          {
+            "type": "FactSet",
+            "facts": [
+              {
+                "title": "What",
+                "value": ""
+              },
+              {
+                "title": "State",
+                "value": "OK → ALARM"
+              },
+              {
+                "title": "Why",
+                "value": ""
+              }
+            ]
+          },
+          {
+            "type": "TextBlock",
+            "text": "Logs: CloudWatch → /aws/lambda/ih-contact-form",
+            "isSubtle": true,
+            "size": "Small",
+            "wrap": true
+          }
+        ],
+        "actions": [
+          {
+            "type": "Action.OpenUrl",
+            "title": "Open site",
+            "url": "https://www.ivyhilltech.com"
+          },
+          {
+            "type": "Action.OpenUrl",
+            "title": "Create Jira ticket",
+            "url": {
+              "link": "https://jira-link.example/",
+              "d": {
+                "summary": "Site alarm: ih-contact-ses-failures",
+                "facts": [
+                  [
+                    "What",
+                    null
+                  ],
+                  [
+                    "Why",
+                    null
+                  ],
+                  [
+                    "When",
+                    "Nov 27, 2026, 6:58:00 AM"
+                  ]
+                ],
+                "link": {
+                  "title": "CloudWatch logs: /aws/lambda/ih-contact-form",
+                  "url": "https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#logsV2:log-groups/log-group/$252Faws$252Flambda$252Fih-contact-form"
+                },
+                "exp": 1798372800000
+              },
+              "s": "f2dd6fe2907f04e42cc6c8006174e38738c4da6045499aa9a3ad8995bdc473d7"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
+`;
+
+exports[`daily report: GitHub rate limit is a warning, not a failure 1`] = `
+{
+  "type": "message",
+  "attachments": [
+    {
+      "contentType": "application/vnd.microsoft.card.adaptive",
+      "content": {
+        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+        "type": "AdaptiveCard",
+        "version": "1.4",
+        "body": [
+          {
+            "type": "TextBlock",
+            "text": "✅ ivyhilltech.com is healthy",
+            "weight": "Bolder",
+            "size": "Medium",
+            "color": "Good",
+            "wrap": true
+          },
+          {
+            "type": "FactSet",
+            "facts": [
+              {
+                "title": "✅ Pages load",
+                "value": "7 pages OK, slowest 0 ms"
+              },
+              {
+                "title": "✅ Redirects",
+                "value": "Bare domain and old URLs redirect"
+              },
+              {
+                "title": "✅ Security headers",
+                "value": "CSP, HSTS and others present"
+              },
+              {
+                "title": "✅ SSL certificate",
+                "value": "Expires in 60 days (Amplify auto-renews)"
+              },
+              {
+                "title": "✅ Contact form backend",
+                "value": "Endpoint up and validating"
+              },
+              {
+                "title": "✅ Alarms",
+                "value": "1 alarms, none firing"
+              },
+              {
+                "title": "✅ Last production deploy",
+                "value": "SUCCEED · Nov 26, 2026, 10:30 AM · abc1234"
+              },
+              {
+                "title": "⚠️ Jira token",
+                "value": "Expires 2026-12-07 (9 days) · renewal ticket IW-99"
+              },
+              {
+                "title": "✅ Browser errors (24h)",
+                "value": "None reported"
+              },
+              {
+                "title": "⚠️ Infrastructure drift",
+                "value": "GitHub API rate limit; couldn't check this time"
+              }
+            ]
+          },
+          {
+            "type": "TextBlock",
+            "text": "Daily check · infra/health in the ih-redesign repo",
+            "isSubtle": true,
+            "size": "Small",
+            "wrap": true
+          }
+        ],
+        "actions": [
+          {
+            "type": "Action.OpenUrl",
+            "title": "Open site",
+            "url": "https://www.ivyhilltech.com"
+          }
+        ]
+      }
+    }
+  ]
+}
+`;
+
+exports[`daily report: all checks pass 1`] = `
+{
+  "type": "message",
+  "attachments": [
+    {
+      "contentType": "application/vnd.microsoft.card.adaptive",
+      "content": {
+        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+        "type": "AdaptiveCard",
+        "version": "1.4",
+        "body": [
+          {
+            "type": "TextBlock",
+            "text": "✅ ivyhilltech.com is healthy",
+            "weight": "Bolder",
+            "size": "Medium",
+            "color": "Good",
+            "wrap": true
+          },
+          {
+            "type": "FactSet",
+            "facts": [
+              {
+                "title": "✅ Pages load",
+                "value": "7 pages OK, slowest 0 ms"
+              },
+              {
+                "title": "✅ Redirects",
+                "value": "Bare domain and old URLs redirect"
+              },
+              {
+                "title": "✅ Security headers",
+                "value": "CSP, HSTS and others present"
+              },
+              {
+                "title": "✅ SSL certificate",
+                "value": "Expires in 60 days (Amplify auto-renews)"
+              },
+              {
+                "title": "✅ Contact form backend",
+                "value": "Endpoint up and validating"
+              },
+              {
+                "title": "✅ Alarms",
+                "value": "1 alarms, none firing"
+              },
+              {
+                "title": "✅ Last production deploy",
+                "value": "SUCCEED · Nov 26, 2026, 10:30 AM · abc1234"
+              },
+              {
+                "title": "⚠️ Jira token",
+                "value": "Expires 2026-12-07 (9 days) · renewal ticket IW-99"
+              },
+              {
+                "title": "✅ Browser errors (24h)",
+                "value": "None reported"
+              },
+              {
+                "title": "✅ Infrastructure drift",
+                "value": "AWS matches infra/ (checked 30 min ago)"
+              }
+            ]
+          },
+          {
+            "type": "TextBlock",
+            "text": "Daily check · infra/health in the ih-redesign repo",
+            "isSubtle": true,
+            "size": "Small",
+            "wrap": true
+          }
+        ],
+        "actions": [
+          {
+            "type": "Action.OpenUrl",
+            "title": "Open site",
+            "url": "https://www.ivyhilltech.com"
+          }
+        ]
+      }
+    }
+  ]
+}
+`;
+
+exports[`daily report: failing checks get a Jira button 1`] = `
+{
+  "type": "message",
+  "attachments": [
+    {
+      "contentType": "application/vnd.microsoft.card.adaptive",
+      "content": {
+        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+        "type": "AdaptiveCard",
+        "version": "1.4",
+        "body": [
+          {
+            "type": "TextBlock",
+            "text": "❌ ivyhilltech.com: 6 checks failing",
+            "weight": "Bolder",
+            "size": "Medium",
+            "color": "Attention",
+            "wrap": true
+          },
+          {
+            "type": "FactSet",
+            "facts": [
+              {
+                "title": "❌ Pages load",
+                "value": "/about → 404"
+              },
+              {
+                "title": "✅ Redirects",
+                "value": "Bare domain and old URLs redirect"
+              },
+              {
+                "title": "✅ Security headers",
+                "value": "CSP, HSTS and others present"
+              },
+              {
+                "title": "❌ SSL certificate",
+                "value": "Expires in 10 days (Amplify auto-renews)"
+              },
+              {
+                "title": "❌ Contact form backend",
+                "value": "Expected 400 for an empty form, got 200"
+              },
+              {
+                "title": "❌ Alarms",
+                "value": "In alarm: ih-contact-errors"
+              },
+              {
+                "title": "❌ Last production deploy",
+                "value": "FAILED · Nov 26, 2026, 10:30 AM · abc1234"
+              },
+              {
+                "title": "⚠️ Jira token",
+                "value": "Expires 2026-12-07 (9 days) · renewal ticket IW-99"
+              },
+              {
+                "title": "⚠️ Browser errors (24h)",
+                "value": "2: / (1), /about (1)"
+              },
+              {
+                "title": "❌ Infrastructure drift",
+                "value": "Drift detected (GitHub issue #42)"
+              }
+            ]
+          },
+          {
+            "type": "TextBlock",
+            "text": "Daily check · infra/health in the ih-redesign repo",
+            "isSubtle": true,
+            "size": "Small",
+            "wrap": true
+          }
+        ],
+        "actions": [
+          {
+            "type": "Action.OpenUrl",
+            "title": "Open site",
+            "url": "https://www.ivyhilltech.com"
+          },
+          {
+            "type": "Action.OpenUrl",
+            "title": "Create Jira ticket",
+            "url": {
+              "link": "https://jira-link.example/",
+              "d": {
+                "summary": "Daily health check: Pages load, SSL certificate, Contact form backend, Alarms, Last production deploy, Infrastructure drift failing",
+                "facts": [
+                  [
+                    "Pages load",
+                    "/about → 404"
+                  ],
+                  [
+                    "SSL certificate",
+                    "Expires in 10 days (Amplify auto-renews)"
+                  ],
+                  [
+                    "Contact form backend",
+                    "Expected 400 for an empty form, got 200"
+                  ],
+                  [
+                    "Alarms",
+                    "In alarm: ih-contact-errors"
+                  ],
+                  [
+                    "Last production deploy",
+                    "FAILED · Nov 26, 2026, 10:30 AM · abc1234"
+                  ],
+                  [
+                    "Infrastructure drift",
+                    "Drift detected (GitHub issue #42)"
+                  ]
+                ],
+                "exp": 1798372800000
+              },
+              "s": "0afed23435a98bcf31bd93822060e826118f79df9aee71606598a53bf09181ee"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
+`;
