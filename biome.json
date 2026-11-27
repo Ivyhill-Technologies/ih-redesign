@@ -6,7 +6,7 @@
         "useIgnoreFile": true
     },
     "files": {
-        "includes": ["src/**"]
+        "includes": ["src/**", "infra/**/*.mjs", "test/**"]
     },
     "formatter": {
         "enabled": true,
