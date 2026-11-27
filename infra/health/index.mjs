@@ -89,7 +89,9 @@ const checkHeaders = () =>
         const r = await get(`${SITE}/`);
         const want = ["content-security-policy", "strict-transport-security", "x-frame-options", "x-content-type-options"];
         const missing = want.filter((h) => !r.headers.get(h));
-        return missing.length ? { ok: false, detail: `Missing: ${missing.join(", ")}` } : { ok: true, detail: "CSP, HSTS and others present" };
+        return missing.length
+            ? { ok: false, detail: `Missing: ${missing.join(", ")}` }
+            : { ok: true, detail: "CSP, HSTS and others present" };
     });
 
 const certDaysLeft = (host) =>
@@ -120,7 +122,9 @@ const checkContact = () =>
 
 const checkAlarms = () =>
     check("Alarms", async () => {
-        const { MetricAlarms } = await new CloudWatchClient({}).send(new DescribeAlarmsCommand({ AlarmNamePrefix: ALARM_PREFIX }));
+        const { MetricAlarms } = await new CloudWatchClient({}).send(
+            new DescribeAlarmsCommand({ AlarmNamePrefix: ALARM_PREFIX }),
+        );
         const firing = MetricAlarms.filter((a) => a.StateValue === "ALARM").map((a) => a.AlarmName);
         return firing.length
             ? { ok: false, detail: `In alarm: ${firing.join(", ")}` }
@@ -134,7 +138,11 @@ const checkDeploy = () =>
         );
         const j = jobSummaries?.[0];
         if (!j) return { ok: false, detail: "No deploys found" };
-        const when = new Date(j.endTime ?? j.startTime).toLocaleString("en-US", { timeZone: "America/New_York", dateStyle: "medium", timeStyle: "short" });
+        const when = new Date(j.endTime ?? j.startTime).toLocaleString("en-US", {
+            timeZone: "America/New_York",
+            dateStyle: "medium",
+            timeStyle: "short",
+        });
         const ok = ["SUCCEED", "RUNNING", "PENDING"].includes(j.status);
         return { ok, detail: `${j.status} · ${when} · ${j.commitId.slice(0, 7)}` };
     });
@@ -146,7 +154,8 @@ const checkJiraToken = () =>
     check("Jira token", async () => {
         const days = Math.floor((Date.parse(`${JIRA_TOKEN_EXPIRES}T00:00:00-05:00`) - Date.now()) / 86400000);
         if (Number.isNaN(days)) return { ok: false, detail: `Bad JIRA_TOKEN_EXPIRES: ${JIRA_TOKEN_EXPIRES}` };
-        let detail = days >= 0 ? `Expires ${JIRA_TOKEN_EXPIRES} (${days} days)` : `EXPIRED ${JIRA_TOKEN_EXPIRES}: Jira buttons are broken`;
+        let detail =
+            days >= 0 ? `Expires ${JIRA_TOKEN_EXPIRES} (${days} days)` : `EXPIRED ${JIRA_TOKEN_EXPIRES}: Jira buttons are broken`;
         if (days <= 14) {
             const r = await new LambdaClient({}).send(
                 new InvokeCommand({
@@ -159,9 +168,18 @@ const checkJiraToken = () =>
                             facts: [
                                 ["Expires", JIRA_TOKEN_EXPIRES],
                                 ["Breaks", "Create Jira ticket buttons on the Teams cards, and this reminder"],
-                                ["1", "id.atlassian.com → Security → API tokens → Create API token with scopes: Jira, write:jira-work"],
-                                ["2", "Store it: see the header of infra/jira-ticket.tf (SSM /ih-redesign/jira-token, email:token)"],
-                                ["3", "Set local.jira.token_expires in infra/jira-ticket.tf to the new date; PR, then terraform apply"],
+                                [
+                                    "1",
+                                    "id.atlassian.com → Security → API tokens → Create API token with scopes: Jira, write:jira-work",
+                                ],
+                                [
+                                    "2",
+                                    "Store it: see the header of infra/jira-ticket.tf (SSM /ih-redesign/jira-token, email:token)",
+                                ],
+                                [
+                                    "3",
+                                    "Set local.jira.token_expires in infra/jira-ticket.tf to the new date; PR, then terraform apply",
+                                ],
                                 ["4", "Revoke the old token"],
                             ],
                         },
@@ -169,7 +187,9 @@ const checkJiraToken = () =>
                 }),
             );
             const out = JSON.parse(Buffer.from(r.Payload ?? []).toString() || "{}");
-            detail += r.FunctionError ? ` · renewal ticket FAILED: ${out.errorMessage ?? "unknown"}` : ` · renewal ticket ${out.key}`;
+            detail += r.FunctionError
+                ? ` · renewal ticket FAILED: ${out.errorMessage ?? "unknown"}`
+                : ` · renewal ticket ${out.key}`;
         }
         return { ok: days > 7, warn: days <= 14, detail };
     });
@@ -200,7 +220,10 @@ const checkDrift = () =>
         if (!run) return { ok: false, detail: "The drift check has never run" };
         const hours = (Date.now() - Date.parse(run.created_at)) / 3600000;
         if (hours > 3) {
-            return { ok: false, detail: `Last ran ${Math.round(hours)} h ago. Schedule may be disabled: GitHub → Actions → Drift check → Enable` };
+            return {
+                ok: false,
+                detail: `Last ran ${Math.round(hours)} h ago. Schedule may be disabled: GitHub → Actions → Drift check → Enable`,
+            };
         }
         if (run.status === "completed" && run.conclusion !== "success") {
             return { ok: false, detail: `Last run ${run.conclusion}; drift can't be ruled out` };
@@ -246,8 +269,7 @@ const card = (title, color, facts, footer, actions = []) => ({
 });
 
 const ssm = new SSMClient({});
-const ssmParam = async (name) =>
-    (await ssm.send(new GetParameterCommand({ Name: name, WithDecryption: true }))).Parameter.Value;
+const ssmParam = async (name) => (await ssm.send(new GetParameterCommand({ Name: name, WithDecryption: true }))).Parameter.Value;
 
 // A "Create Jira ticket" button. The payload rides in the link, signed so the
 // Jira Lambda only acts on links made here. p: { summary, facts, stack?, link?, priority? }
@@ -286,7 +308,9 @@ const dailyReport = async () => {
         checkDrift(),
     ]);
     const failed = results.filter((c) => !c.ok).length;
-    const title = failed ? `❌ ivyhilltech.com: ${failed} check${failed > 1 ? "s" : ""} failing` : "✅ ivyhilltech.com is healthy";
+    const title = failed
+        ? `❌ ivyhilltech.com: ${failed} check${failed > 1 ? "s" : ""} failing`
+        : "✅ ivyhilltech.com is healthy";
     const facts = results.map((c) => ({ title: `${icon(c)} ${c.name}`, value: c.detail }));
     const actions = failed
         ? [
@@ -299,7 +323,9 @@ const dailyReport = async () => {
               }),
           ]
         : [];
-    await sendToTeams(card(title, failed ? "Attention" : "Good", facts, "Daily check · infra/health in the ih-redesign repo", actions));
+    await sendToTeams(
+        card(title, failed ? "Attention" : "Good", facts, "Daily check · infra/health in the ih-redesign repo", actions),
+    );
     return { failed, results };
 };
 
@@ -355,7 +381,8 @@ const untrusted = (v, max = 300) =>
         .replace(/\bwww\./gi, "www[.]")
         .slice(0, max);
 
-const when = (ms) => new Date(ms).toLocaleString("en-US", { timeZone: "America/New_York", dateStyle: "medium", timeStyle: "medium" });
+const when = (ms) =>
+    new Date(ms).toLocaleString("en-US", { timeZone: "America/New_York", dateStyle: "medium", timeStyle: "medium" });
 
 // CloudWatch alarm → SNS → here.
 const alarmPost = async (record) => {

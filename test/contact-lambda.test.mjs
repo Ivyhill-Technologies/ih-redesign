@@ -52,12 +52,7 @@ test("honeypot: pretends success but sends nothing", async () => {
 });
 
 test("rejects missing, oversized and invalid fields", async () => {
-    for (const bad of [
-        { firstName: "" },
-        { subject: "x".repeat(201) },
-        { email: "not-an-email" },
-        { message: "too short" },
-    ]) {
+    for (const bad of [{ firstName: "" }, { subject: "x".repeat(201) }, { email: "not-an-email" }, { message: "too short" }]) {
         const res = parse(await post({ ...VALID, ...bad }));
         assert.equal(res.status, 400, JSON.stringify(bad));
     }

@@ -124,7 +124,7 @@ beforeEach(() => {
 // Jira button links carry a base64 payload and a signature. Decode them so
 // the snapshot shows what the ticket would contain.
 const readable = (payload) =>
-    JSON.parse(JSON.stringify(payload), (key, value) => {
+    JSON.parse(JSON.stringify(payload), (_key, value) => {
         if (typeof value !== "string" || !value.startsWith(`${JIRA_LINK}?`)) return value;
         const q = new URL(value).searchParams;
         return { link: JIRA_LINK, d: JSON.parse(Buffer.from(q.get("d"), "base64url").toString()), s: q.get("s") };
@@ -150,7 +150,14 @@ const CLIENT_ALARM = {
 };
 const report = (minutesAgo, fields) => ({
     timestamp: NOW - minutesAgo * 60000,
-    message: JSON.stringify({ source: "client", level: "error", host: "www.ivyhilltech.com", commit: "abc1234", userAgent: "Firefox/140", ...fields }),
+    message: JSON.stringify({
+        source: "client",
+        level: "error",
+        host: "www.ivyhilltech.com",
+        commit: "abc1234",
+        userAgent: "Firefox/140",
+        ...fields,
+    }),
 });
 
 // ---- Daily report ----
@@ -184,7 +191,8 @@ test("daily report: Jira token near expiry opens a renewal ticket", async () => 
 
 test("daily report: GitHub rate limit is a warning, not a failure", async (t) => {
     const realFetch = globalThis.fetch;
-    globalThis.fetch = (url, init) => (url.includes("api.github.com") ? new Response(null, { status: 403 }) : realFetch(url, init));
+    globalThis.fetch = (url, init) =>
+        url.includes("api.github.com") ? new Response(null, { status: 403 }) : realFetch(url, init);
     const result = await handler({});
     assert.equal(result.failed, 0);
     t.assert.snapshot(readable(posted[0]));
@@ -226,7 +234,9 @@ test("client errors firing: latest error details, sanitized on the card", async 
 });
 
 test("client errors firing: stack goes to the ticket, capped at 1500 chars", async (t) => {
-    world.logEvents = [report(1, { page: "/", message: "TypeError: x is undefined", data: { stack: `at f\n${"x".repeat(2000)}` } })];
+    world.logEvents = [
+        report(1, { page: "/", message: "TypeError: x is undefined", data: { stack: `at f\n${"x".repeat(2000)}` } }),
+    ];
     await alarm(CLIENT_ALARM);
     const ticket = readable(posted[0]).attachments[0].content.actions[1].url.d;
     assert.equal(ticket.stack.length, 1500);
@@ -284,7 +294,9 @@ test("client errors when DynamoDB fails: posts anyway (fail open)", async () => 
 });
 
 test("several SNS records: one card each", async () => {
-    const records = [CONTACT_ALARM, { ...CONTACT_ALARM, NewStateValue: "OK" }].map((m) => ({ Sns: { Message: JSON.stringify(m) } }));
+    const records = [CONTACT_ALARM, { ...CONTACT_ALARM, NewStateValue: "OK" }].map((m) => ({
+        Sns: { Message: JSON.stringify(m) },
+    }));
     assert.deepEqual(await handler({ Records: records }), { posted: 2 });
     assert.equal(posted.length, 2);
 });
