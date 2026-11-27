@@ -15,6 +15,8 @@ Releases to production, newest first. Numbers are GitHub pull requests.
 - Health Lambda split into files by job (`daily.mjs`, `alarms.mjs`,
   `teams.mjs`, ...) for readability; no change to what it posts. Snapshot
   tests pin every Teams message
+- info@ivyhilltech.com temporarily removed from alert emails (unconfirmed
+  subscription kept tripping the drift check)
 
 ## 2026-11-25: Monitoring, Jira integration, security hardening
 

@@ -7,6 +7,7 @@
 | Redirects are applied to Amplify by hand | A change to `infra/amplify-redirects.json` does nothing until applied | Command in the [runbook](04-operations-runbook.md#routine-tasks) |
 | Some settings live only in consoles | Risk of drift or loss | Listed in [Architecture](02-architecture.md#configuration-that-lives-outside-the-repo) |
 | `'unsafe-inline'` in the script CSP | Weaker XSS protection than ideal | Required by the prerenderer today; see [Security](05-security.md#residual-risks-and-open-items) |
+| info@ivyhilltech.com doesn't get alert emails yet | Contact form alarms email only Evan (Teams still gets them) | Removed until someone can confirm the SNS subscription; how to add it back is in `infra/main.tf` (`alert_emails`) |
 | Error alerts take ~2–5 minutes | Not instant | CloudWatch metric and alarm evaluation; acceptable for this site |
 | Scheduled workflows pause after 60 days of repo inactivity | Drift check stops | GitHub rule for public repos; the daily health report flags it |
 | `react-router-dom` held at v6 | Can't take v7 yet | `vite-react-ssg` requires v6 |
